@@ -1,1 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Văn A - Developer Profile</title>
+    <meta name="description" content="Portfolio cá nhân của Nguyễn Văn A - Full Stack Developer">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading / Intro Screen -->
+    <div class="loader-wrapper" id="loader">
+        <div class="loader-content">
+            <div class="loader-ring"></div>
+            <div class="loader-text">Đang tải...</div>
+        </div>
+    </div>
 
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header / Hero -->
+        <header class="hero">
+            <div class="avatar-wrapper">
+                <div class="avatar-ring"></div>
+                <img src="assets/avatar.jpg" alt="Avatar" class="avatar" 
+                     onerror="this.src='https://api.dicebear.com/7.0/avataaars.svg?size=200'">
+            </div>
+            <h1 class="name">Nguyễn Văn A</h1>
+            <p class="title">
+                <span class="typing" id="typing"></span>
+                <span class="cursor">|</span>
+            </p>
+            <p class="bio">
+                Xin chào! Mình là một lập trình viên đam mê tạo ra những sản phẩm web đẹp và hữu ích.
+                Mình thích học hỏi công nghệ mới và chia sẻ kiến thức với cộng đồng.
+            </p>
+            
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:your.email@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://facebook.com/yourusername" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            </div>
+
+            <a href="#projects" class="btn-primary">
+                Xem dự án <i class="fas fa-arrow-down"></i>
+            </a>
+        </header>
+
+        <!-- Skills Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-code"></i> Kỹ năng</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-html5"></i><h3>HTML/CSS</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 95%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js"></i><h3>JavaScript</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-react"></i><h3>React</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-node-js"></i><h3>Node.js</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 75%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python"></i><h3>Python</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i><h3>Database</h3>
+                    <div class="progress-bar"><div class="progress" style="width: 78%"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section" id="projects">
+            <h2 class="section-title"><i class="fas fa-rocket"></i> Dự án</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🛒</div>
+                    <h3>E-commerce Platform</h3>
+                    <p>Website bán hàng trực tuyến với đầy đủ tính năng giỏ hàng, thanh toán và quản lý đơn hàng.</p>
+                    <div class="tech-stack"><span>React</span><span>Node.js</span><span>MongoDB</span></div>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📝</div>
+                    <h3>Task Management App</h3>
+                    <p>Ứng dụng quản lý công việc với tính năng kéo thả, nhắc nhở và thống kê hiệu suất.</p>
+                    <div class="tech-stack"><span>Vue.js</span><span>Firebase</span><span>Tailwind</span></div>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🎮</div>
+                    <h3>Mini Game Collection</h3>
+                    <p>Bộ sưu tập game mini chạy trên trình duyệt với đồ họa đẹp và lối chơi thú vị.</p>
+                    <div class="tech-stack"><span>JavaScript</span><span>Canvas</span><span>WebGL</span></div>
+                    <div class="project-links">
+                        <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact">
+            <h2 class="section-title"><i class="fas fa-paper-plane"></i> Liên hệ</h2>
+            <p class="contact-text">Bạn có dự án thú vị? Hãy liên hệ với mình nhé!</p>
+            <a href="mailto:your.email@example.com" class="btn-primary">
+                Gửi Email <i class="fas fa-envelope"></i>
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 Nguyễn Văn A. Made with <i class="fas fa-heart" style="color: #ff4757;"></i> in Vietnam</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
