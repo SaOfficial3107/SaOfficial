@@ -7,15 +7,31 @@
     <meta name="description" content="Personal portfolio of Nguyen Van A - Full Stack Developer">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Loading / Intro Screen -->
-    <div class="loader-wrapper" id="loader">
-        <div class="loader-content">
-            <div class="loader-ring"></div>
-            <div class="loader-text">Loading...</div>
+    <!-- ============================================
+         NEW CINEMATIC LOADING SCREEN
+         ============================================ -->
+    <div class="loader-cinematic" id="loader">
+        <!-- Radial lines background -->
+        <div class="loader-radial"></div>
+        <!-- Vignette overlay -->
+        <div class="loader-vignette"></div>
+        
+        <!-- Center content -->
+        <div class="loader-center">
+            <h1 class="loader-title">
+                <span class="loader-title-main">PORTFOLIO</span><span class="loader-title-sub">/DEV</span>
+            </h1>
+            <div class="loader-divider"></div>
+            <p class="loader-subtitle">Full Stack Developer & Designer</p>
+        </div>
+        
+        <!-- Counter bottom-right -->
+        <div class="loader-counter">
+            <span id="counter">0</span><span class="counter-percent">%</span>
         </div>
     </div>
 
@@ -45,7 +61,6 @@
                 I love learning new technologies and sharing knowledge with the community.
             </p>
             
-            <!-- Social Links -->
             <div class="social-links">
                 <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -117,7 +132,7 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-icon">🎮</div>
+                    <div class="project-icon"></div>
                     <h3>Mini Game Collection</h3>
                     <p>A collection of browser-based mini-games with beautiful graphics and engaging gameplay.</p>
                     <div class="tech-stack"><span>JavaScript</span><span>Canvas</span><span>WebGL</span></div>
