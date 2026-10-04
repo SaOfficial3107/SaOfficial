@@ -1,71 +1,57 @@
 // =========================================
-// CINEMATIC LOADING COUNTER
+// CUSTOM CURSOR
 // =========================================
-(function() {
-    const counterEl = document.getElementById('counter');
-    const loader = document.getElementById('loader');
-    let count = 0;
-    const duration = 2500; // 2.5 giây total
-    const intervalTime = duration / 100;
+const cursor = document.getElementById('cursor');
+const cursorDot = cursor.querySelector('.cursor-dot');
+const cursorRing = cursor.querySelector('.cursor-ring');
+
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
     
-    const interval = setInterval(() => {
-        count++;
-        counterEl.textContent = count;
-        
-        if (count >= 100) {
-            clearInterval(interval);
-            // Đợi 300ms sau khi đạt 100% rồi mới fade out
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 800);
-            }, 300);
-        }
-    }, intervalTime);
-})();
+    // Dot follows immediately
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+});
 
-// =========================================
-// TYPING EFFECT
-// =========================================
-const texts = [
-    "Full Stack Developer ",
-    "UI/UX Enthusiast 🎨",
-    "Problem Solver 🧩",
-    "Coffee Lover ☕"
-];
-
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typingElement = document.getElementById('typing');
-
-function type() {
-    const currentText = texts[textIndex];
+// Ring follows with delay (smooth)
+function animateCursor() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
     
-    if (isDeleting) {
-        typingElement.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typingElement.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-    }
-
-    let typeSpeed = isDeleting ? 50 : 100;
-
-    if (!isDeleting && charIndex === currentText.length) {
-        typeSpeed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typeSpeed = 500;
-    }
-
-    setTimeout(type, typeSpeed);
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    
+    requestAnimationFrame(animateCursor);
 }
+animateCursor();
 
-type();
+// Hover effect on interactive elements
+const hoverElements = document.querySelectorAll('a, button, .project-item, .skill-item');
+hoverElements.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+// =========================================
+// MOBILE MENU TOGGLE
+// =========================================
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+});
+
+// Close menu when clicking a link
+mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+    });
+});
 
 // =========================================
 // SMOOTH SCROLL
@@ -83,19 +69,48 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // =========================================
 // SCROLL REVEAL ANIMATION
 // =========================================
-const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observerOptions = { 
+    threshold: 0.1, 
+    rootMargin: '0px 0px -50px 0px' 
+};
+
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
         }
     });
 }, observerOptions);
 
-document.querySelectorAll('.skill-card, .project-card').forEach(el => {
+// Apply to sections
+document.querySelectorAll('.section, .project-item, .skill-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
     observer.observe(el);
 });
 
-// Console Easter Egg
-console.log('%c Hey there, curious developer!', 'font-size: 20px; color: #6366f1; font-weight: bold;');
-console.log('%cInterested in my code? Let\'s connect!', 'font-size: 14px; color: #ec4899;');
+// =========================================
+// NAVBAR SCROLL EFFECT
+// =========================================
+const navbar = document.querySelector('.navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+    } else {
+        navbar.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.9), transparent)';
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// =========================================
+// CONSOLE EASTER EGG
+// =========================================
+console.log('%c Hey there, curious developer!', 'font-size: 20px; color: #fff; font-weight: bold;');
+console.log('%cInterested in my code? Let\'s connect!', 'font-size: 14px; color: #888;');
