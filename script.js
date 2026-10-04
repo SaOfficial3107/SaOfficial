@@ -12,12 +12,10 @@ document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
     
-    // Dot follows immediately
     cursorDot.style.left = mouseX + 'px';
     cursorDot.style.top = mouseY + 'px';
 });
 
-// Ring follows with delay (smooth)
 function animateCursor() {
     ringX += (mouseX - ringX) * 0.15;
     ringY += (mouseY - ringY) * 0.15;
@@ -29,15 +27,14 @@ function animateCursor() {
 }
 animateCursor();
 
-// Hover effect on interactive elements
-const hoverElements = document.querySelectorAll('a, button, .project-item, .skill-item');
+const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-item, .contact-card');
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
 // =========================================
-// MOBILE MENU TOGGLE
+// MOBILE MENU
 // =========================================
 const menuToggle = document.getElementById('menuToggle');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -46,7 +43,6 @@ menuToggle.addEventListener('click', () => {
     mobileMenu.classList.toggle('active');
 });
 
-// Close menu when clicking a link
 mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
         mobileMenu.classList.remove('active');
@@ -67,7 +63,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // =========================================
-// SCROLL REVEAL ANIMATION
+// SCROLL REVEAL
 // =========================================
 const observerOptions = { 
     threshold: 0.1, 
@@ -83,8 +79,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Apply to sections
-document.querySelectorAll('.section, .project-item, .skill-item').forEach(el => {
+document.querySelectorAll('.section, .project-card, .skill-item, .highlight-item, .contact-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
@@ -95,22 +90,17 @@ document.querySelectorAll('.section, .project-item, .skill-item').forEach(el => 
 // NAVBAR SCROLL EFFECT
 // =========================================
 const navbar = document.querySelector('.navbar');
-let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+    if (window.pageYOffset > 100) {
+        navbar.style.background = 'rgba(10, 10, 15, 0.95)';
     } else {
-        navbar.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.9), transparent)';
+        navbar.style.background = 'rgba(10, 10, 15, 0.8)';
     }
-    
-    lastScroll = currentScroll;
 });
 
 // =========================================
 // CONSOLE EASTER EGG
 // =========================================
-console.log('%c Hey there, curious developer!', 'font-size: 20px; color: #fff; font-weight: bold;');
-console.log('%cInterested in my code? Let\'s connect!', 'font-size: 14px; color: #888;');
+console.log('%c Hey there, curious developer!', 'font-size: 20px; color: #6366f1; font-weight: bold;');
+console.log('%cInterested in my code? Let\'s connect!', 'font-size: 14px; color: #a0a0b0;');
