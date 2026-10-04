@@ -3,7 +3,7 @@
 // =========================================
 const texts = [
     "Full Stack Developer 💻",
-    "UI/UX Enthusiast 🎨",
+    "UI/UX Enthusiast ",
     "Problem Solver 🧩",
     "Coffee Lover ☕"
 ];
@@ -75,15 +75,13 @@ document.querySelectorAll('.skill-card, .project-card').forEach(el => {
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
     
-    // Delay 1.5 giây để người dùng kịp thấy hiệu ứng loading
+    // Đã rút xuống còn 600ms (0.6 giây) cho nhanh hơn
     setTimeout(() => {
         loader.classList.add('hidden');
-        
-        // Xóa hẳn khỏi DOM sau khi hiệu ứng mờ dần (0.8s) kết thúc
         setTimeout(() => {
             loader.style.display = 'none';
         }, 800);
-    }, 1500); 
+    }, 600); 
 });
 
 // Console Easter Egg
