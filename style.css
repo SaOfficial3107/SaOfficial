@@ -237,28 +237,132 @@ a, button { cursor: none; }
 .work-meta { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); letter-spacing: 0.1em; }
 
 /* ============================================
-   SERVICES
+   SERVICES - WHAT I DO (CÓ NÚT CTA)
    ============================================ */
 .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
-.service-card { background: var(--bg); padding: 50px 40px; transition: background 0.4s; }
+.service-card { background: var(--bg); padding: 50px 40px 40px; transition: background 0.4s; display: flex; flex-direction: column; }
 .service-card:hover { background: var(--bg-hover); }
 .service-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--fg-dim); margin-bottom: 30px; }
 .service-icon { width: 60px; height: 60px; border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 30px; transition: all 0.4s; }
-.service-card:hover .service-icon { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.service-card:hover .service-icon { background: var(--fg); color: var(--bg); border-color: var(--fg); transform: translateY(-3px); }
 .service-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: 15px; }
-.service-desc { color: var(--fg-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 25px; }
-.service-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.service-desc { color: var(--fg-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 25px; flex-grow: 1; }
+.service-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
 .service-list li { font-size: 0.85rem; color: var(--fg-muted); padding-left: 20px; position: relative; }
 .service-list li::before { content: '—'; position: absolute; left: 0; color: var(--fg-dim); }
 
+/* Nút CTA trong service card */
+.service-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.4s var(--ease-out-expo);
+    align-self: flex-start;
+}
+.service-cta:hover {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+    transform: translateX(5px);
+}
+.service-cta i {
+    transition: transform 0.3s;
+}
+.service-cta:hover i {
+    transform: translateX(3px);
+}
+
 /* ============================================
-   ABOUT
+   ABOUT + LANGUAGES
    ============================================ */
 .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; }
 .about-text { display: flex; flex-direction: column; gap: 25px; margin: 40px 0; }
 .about-paragraph { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 400; line-height: 1.4; color: var(--fg-muted); }
 .about-paragraph strong { color: var(--fg); font-weight: 400; font-style: italic; }
 .highlight-text { color: var(--fg) !important; font-style: italic; border-left: 2px solid var(--fg); padding-left: 20px; }
+
+/* Languages Section */
+.languages-section {
+    margin-top: 50px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+}
+.languages-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--fg-muted);
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+.languages-title i {
+    color: var(--fg);
+    font-size: 1rem;
+}
+.languages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.language-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.4s var(--ease-out-expo);
+}
+.language-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    background: var(--bg-hover);
+}
+.language-flag {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+.language-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.language-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--fg);
+}
+.language-level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--fg-muted);
+    text-transform: uppercase;
+}
+.language-bar {
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+.language-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--fg) 0%, var(--fg-muted) 100%);
+    border-radius: 2px;
+    transition: width 1.5s var(--ease-out-expo);
+}
+
 .about-visual { display: flex; justify-content: center; }
 .visual-box { position: relative; width: 100%; max-width: 400px; transform-style: preserve-3d; will-change: transform; }
 .box-info { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px 30px; text-align: center; backdrop-filter: blur(20px); }
@@ -310,6 +414,7 @@ a, button { cursor: none; }
     .contact-grid { grid-template-columns: 1fr; }
     .section-header { grid-template-columns: 1fr; gap: 30px; }
     .work-card { width: 340px; }
+    .languages-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
     body { cursor: auto; } a, button { cursor: pointer; } .cursor, .spotlight { display: none; }
@@ -320,4 +425,5 @@ a, button { cursor: none; }
     .loader-corner { font-size: 0.6rem; } .top-left, .top-right { top: 25px; } .bottom-left, .bottom-right { bottom: 25px; } .top-left, .bottom-left { left: 25px; } .top-right, .bottom-right { right: 25px; }
     .work-card { width: 300px; }
     .visual-avatar, .box-image { width: 180px; height: 180px; }
+    .service-card { padding: 35px 25px 30px; }
 }
