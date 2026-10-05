@@ -1,87 +1,48 @@
 // =========================================
-// CINEMATIC LOADING COUNTER
+// LOADING COUNTER
 // =========================================
 (function() {
     const counterEl = document.getElementById('counter');
     const loader = document.getElementById('loader');
     let count = 0;
-    const duration = 2500;
+    const duration = 2000;
     const intervalTime = duration / 100;
     
     const interval = setInterval(() => {
         count++;
-        counterEl.textContent = count;
+        counterEl.textContent = count.toString().padStart(3, '0');
         
         if (count >= 100) {
             clearInterval(interval);
             setTimeout(() => {
                 loader.classList.add('hidden');
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 800);
-            }, 300);
+            }, 400);
         }
     }, intervalTime);
 })();
 
 // =========================================
-// CUSTOM CURSOR
+// LIVE CLOCK
 // =========================================
-const cursor = document.getElementById('cursor');
-const cursorDot = cursor.querySelector('.cursor-dot');
-const cursorRing = cursor.querySelector('.cursor-ring');
-
-let mouseX = 0, mouseY = 0;
-let ringX = 0, ringY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    cursorDot.style.left = mouseX + 'px';
-    cursorDot.style.top = mouseY + 'px';
-});
-
-function animateCursor() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    
-    cursorRing.style.left = ringX + 'px';
-    cursorRing.style.top = ringY + 'px';
-    
-    requestAnimationFrame(animateCursor);
+function updateClock() {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2, '0');
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const clockEl = document.getElementById('clock');
+    if (clockEl) clockEl.textContent = `${h}:${m}`;
 }
-animateCursor();
-
-const hoverElements = document.querySelectorAll('a, button, .project-item, .service-card, .contact-item');
-hoverElements.forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
-
-// =========================================
-// MOBILE MENU
-// =========================================
-const menuToggle = document.getElementById('menuToggle');
-const mobileMenu = document.getElementById('mobileMenu');
-
-menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-});
-
-mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
-    });
-});
+updateClock();
+setInterval(updateClock, 1000);
 
 // =========================================
 // SMOOTH SCROLL
 // =========================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -91,11 +52,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // =========================================
 // SCROLL REVEAL
 // =========================================
-const observerOptions = { 
-    threshold: 0.1, 
-    rootMargin: '0px 0px -50px 0px' 
-};
-
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -103,28 +59,15 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.style.transform = 'translateY(0)';
         }
     });
-}, observerOptions);
+}, { threshold: 0.1 });
 
-document.querySelectorAll('.section, .project-item, .service-card, .contact-item').forEach(el => {
+document.querySelectorAll('.game-row, .contact-card, .bento-card').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
 
-// =========================================
-// NAVBAR SCROLL EFFECT
-// =========================================
-const navbar = document.querySelector('.navbar');
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 100) {
-        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-    } else {
-        navbar.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.9), transparent)';
-    }
-});
-
-// Console Easter Egg
-console.log('%c🎮 DORIS / CCM', 'font-size: 24px; color: #fff; font-weight: bold;');
-console.log('%cRoblox Content Creator Manager', 'font-size: 14px; color: #888;');
+// Console
+console.log('%c DORIS/CCM ', 'background: #000; color: #fff; font-size: 20px; padding: 10px;');
+console.log('%cRoblox Content Creator Manager', 'color: #666;');
