@@ -1,4 +1,30 @@
 // =========================================
+// CINEMATIC LOADING COUNTER
+// =========================================
+(function() {
+    const counterEl = document.getElementById('counter');
+    const loader = document.getElementById('loader');
+    let count = 0;
+    const duration = 2500;
+    const intervalTime = duration / 100;
+    
+    const interval = setInterval(() => {
+        count++;
+        counterEl.textContent = count;
+        
+        if (count >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 300);
+        }
+    }, intervalTime);
+})();
+
+// =========================================
 // CUSTOM CURSOR
 // =========================================
 const cursor = document.getElementById('cursor');
@@ -27,7 +53,7 @@ function animateCursor() {
 }
 animateCursor();
 
-const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-item, .contact-card');
+const hoverElements = document.querySelectorAll('a, button, .project-item, .service-card, .contact-item');
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
@@ -79,7 +105,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.querySelectorAll('.section, .project-card, .skill-item, .highlight-item, .contact-card').forEach(el => {
+document.querySelectorAll('.section, .project-item, .service-card, .contact-item').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
@@ -93,14 +119,12 @@ const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
     if (window.pageYOffset > 100) {
-        navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
     } else {
-        navbar.style.background = 'rgba(10, 10, 15, 0.8)';
+        navbar.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.9), transparent)';
     }
 });
 
-// =========================================
-// CONSOLE EASTER EGG
-// =========================================
-console.log('%c Hey there, curious developer!', 'font-size: 20px; color: #6366f1; font-weight: bold;');
-console.log('%cInterested in my code? Let\'s connect!', 'font-size: 14px; color: #a0a0b0;');
+// Console Easter Egg
+console.log('%c🎮 DORIS / CCM', 'font-size: 24px; color: #fff; font-weight: bold;');
+console.log('%cRoblox Content Creator Manager', 'font-size: 14px; color: #888;');
