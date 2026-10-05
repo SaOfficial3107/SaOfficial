@@ -19,10 +19,8 @@
         mouseX = e.clientX;
         mouseY = e.clientY;
         isMoving = true;
-        
         dot.style.left = mouseX + 'px';
         dot.style.top = mouseY + 'px';
-        
         clearTimeout(trailTimeout);
         trailTimeout = setTimeout(() => { isMoving = false; }, 100);
     });
@@ -38,18 +36,14 @@
         trail.style.left = trailX + 'px';
         trail.style.top = trailY + 'px';
         trail.style.opacity = isMoving ? '0.6' : '0';
-        
         requestAnimationFrame(animateCursor);
     }
     animateCursor();
     
-    // Hover effects
     document.querySelectorAll('[data-hover]').forEach(el => {
         el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
-    
-    // Click effect
     document.addEventListener('mousedown', () => cursor.classList.add('click'));
     document.addEventListener('mouseup', () => cursor.classList.remove('click'));
 })();
@@ -60,7 +54,6 @@
 (function() {
     const spotlight = document.getElementById('spotlight');
     if (!spotlight || window.matchMedia('(max-width: 768px)').matches) return;
-    
     document.addEventListener('mousemove', (e) => {
         spotlight.style.left = e.clientX + 'px';
         spotlight.style.top = e.clientY + 'px';
@@ -72,7 +65,6 @@
 // ============================================
 (function() {
     if (window.matchMedia('(max-width: 768px)').matches) return;
-    
     document.querySelectorAll('.magnetic').forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
             const rect = btn.getBoundingClientRect();
@@ -80,7 +72,6 @@
             const y = e.clientY - rect.top - rect.height / 2;
             btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
         });
-        
         btn.addEventListener('mouseleave', () => {
             btn.style.transform = 'translate(0, 0)';
         });
@@ -92,7 +83,6 @@
 // ============================================
 (function() {
     if (window.matchMedia('(max-width: 768px)').matches) return;
-    
     document.querySelectorAll('.tilt').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -102,10 +92,8 @@
             const centerY = rect.height / 2;
             const rotateX = ((y - centerY) / centerY) * -8;
             const rotateY = ((x - centerX) / centerX) * 8;
-            
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
-        
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
         });
@@ -113,16 +101,17 @@
 })();
 
 // ============================================
-// 5. PREMIUM LOADING SEQUENCE (Slot Machine Style)
+// 5. PREMIUM LOADING SEQUENCE (SLOT MACHINE STYLE)
 // ============================================
 (function() {
+    // Lưu ý: Đây là phần đã được sửa để khớp với HTML mới (digit1, digit2, digit3)
     const digit1 = document.getElementById('digit1');
     const digit2 = document.getElementById('digit2');
     const digit3 = document.getElementById('digit3');
     const barEl = document.getElementById('loaderBar');
     const loader = document.getElementById('loader');
     
-    if (!digit1) return; // Fallback nếu không tìm thấy
+    if (!digit1) return; 
     
     let count = 0;
     const duration = 2800;
@@ -161,7 +150,6 @@
 (function() {
     const navbar = document.getElementById('nav');
     if (!navbar) return;
-    
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 80) {
             navbar.classList.add('scrolled');
@@ -183,10 +171,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (target) {
             const offset = 80;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
         }
     });
 });
@@ -195,7 +180,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // 8. SCROLL REVEAL + COUNTER ANIMATION
 // ============================================
 function initAnimations() {
-    // Reveal on scroll
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -207,7 +191,6 @@ function initAnimations() {
     
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     
-    // Counter animation for stats
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -224,14 +207,9 @@ function initAnimations() {
                     const easedProgress = easeOutQuart(progress);
                     const current = Math.floor(easedProgress * target);
                     el.textContent = current + suffix;
-                    
-                    if (progress < 1) {
-                        requestAnimationFrame(animate);
-                    } else {
-                        el.textContent = target + suffix;
-                    }
+                    if (progress < 1) requestAnimationFrame(animate);
+                    else el.textContent = target + suffix;
                 };
-                
                 requestAnimationFrame(animate);
                 counterObserver.unobserve(el);
             }
@@ -247,11 +225,9 @@ function initAnimations() {
 (function() {
     const heroVisual = document.querySelector('.hero-visual');
     if (!heroVisual || window.matchMedia('(max-width: 1024px)').matches) return;
-    
     document.addEventListener('mousemove', (e) => {
         const x = (e.clientX / window.innerWidth - 0.5) * 30;
         const y = (e.clientY / window.innerHeight - 0.5) * 30;
-        
         const rings = heroVisual.querySelectorAll('.visual-ring');
         rings.forEach((ring, index) => {
             const factor = (index + 1) * 0.4;
@@ -261,15 +237,12 @@ function initAnimations() {
 })();
 
 // ============================================
-// 10. HORIZONTAL SCROLL DRAG (Work Section)
+// 10. HORIZONTAL SCROLL DRAG
 // ============================================
 (function() {
     const slider = document.querySelector('.work-horizontal');
     if (!slider) return;
-    
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    let isDown = false, startX, scrollLeft;
     
     slider.addEventListener('mousedown', (e) => {
         isDown = true;
@@ -277,25 +250,14 @@ function initAnimations() {
         scrollLeft = slider.scrollLeft;
         slider.style.cursor = 'grabbing';
     });
-    
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.style.cursor = 'grab';
-    });
-    
+    slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
+    slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
     slider.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2;
-        slider.scrollLeft = scrollLeft - walk;
+        slider.scrollLeft = scrollLeft - (x - startX) * 2;
     });
-    
     slider.style.cursor = 'grab';
 })();
 
