@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ============================================
-    // 4. SCROLL REVEAL & COUNTERS
+    // 4. SCROLL REVEAL
     // ============================================
     function initAnimations() {
         const revealObserver = new IntersectionObserver((entries) => {
@@ -120,31 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const target = parseInt(el.dataset.value);
-                    const suffix = el.dataset.suffix || '';
-                    const duration = 2000;
-                    const startTime = performance.now();
-                    const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
-
-                    const animate = (currentTime) => {
-                        const progress = Math.min((currentTime - startTime) / duration, 1);
-                        const current = Math.floor(easeOutQuart(progress) * target);
-                        el.textContent = current + suffix;
-                        if (progress < 1) requestAnimationFrame(animate);
-                        else el.textContent = target + suffix;
-                    };
-                    requestAnimationFrame(animate);
-                    counterObserver.unobserve(el);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('[data-value]').forEach(el => counterObserver.observe(el));
     }
 
     // ============================================
