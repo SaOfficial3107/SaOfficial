@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             scrambleMain.setText('SA').then(() => {
                 setTimeout(() => {
-                    scrambleSub.setText('ROBLOX CONTENT CREATOR');
+                    scrambleSub.setText('CREATOR · DEVELOPER · PRODUCER');
                 }, 300);
             });
         }, 500);
@@ -205,5 +205,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
-    console.log('%cRoblox Content Creator', 'color: #888; font-size: 12px; letter-spacing: 2px;');
+    console.log('%cCreator · Developer · Producer', 'color: #888; font-size: 12px; letter-spacing: 2px;');
 });
