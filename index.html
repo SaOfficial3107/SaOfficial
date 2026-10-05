@@ -3,285 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DORIS / CCM - Roblox Content Creator Manager</title>
+    <title>DORIS / CCM — Roblox Content Creator Manager</title>
     <meta name="description" content="Roblox Content Creator Manager - Growing games through creator partnerships">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loader-cinematic" id="loader">
-        <div class="loader-radial"></div>
-        <div class="loader-vignette"></div>
+    <div class="loader" id="loader">
+        <div class="loader-top">
+            <span>DORIS/CCM</span>
+            <span class="loader-status">INITIALIZING</span>
+        </div>
         <div class="loader-center">
-            <h1 class="loader-title">
-                <span class="loader-title-main">DORIS</span><span class="loader-title-sub">/CCM</span>
+            <div class="loader-number"><span id="counter">0</span></div>
+            <div class="loader-label">LOADING EXPERIENCE</div>
+        </div>
+        <div class="loader-bottom">
+            <span>ROBLOX CCM</span>
+            <span>© 2026</span>
+        </div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <span class="logo">DORIS<span class="logo-slash">/</span>CCM</span>
+            <span class="status-dot"></span>
+            <span class="status-text">Available for Q1 2026</span>
+        </div>
+        <div class="topbar-center">
+            <span>ROBLOX CONTENT CREATOR MANAGER</span>
+        </div>
+        <div class="topbar-right">
+            <span id="clock">00:00</span>
+            <span>VN</span>
+        </div>
+    </div>
+
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <span>GROWTH ISN'T LUCK ★</span>
+            <span>IT'S MANAGED ★</span>
+            <span>26+ GAMES ★</span>
+            <span>50M+ VIEWS ★</span>
+            <span>CREATOR STRATEGY ★</span>
+            <span>LAUNCH CAMPAIGNS ★</span>
+            <span>GROWTH ISN'T LUCK ★</span>
+            <span>IT'S MANAGED ★</span>
+            <span>26+ GAMES ★</span>
+            <span>50M+ VIEWS ★</span>
+        </div>
+    </div>
+
+    <!-- Bento Hero -->
+    <section class="bento">
+        <div class="bento-main">
+            <div class="bento-label">[ 01 — INTRO ]</div>
+            <h1 class="bento-title">
+                I turn Roblox launches
+                <em>into viral moments.</em>
             </h1>
-            <div class="loader-divider"></div>
-            <p class="loader-subtitle">Roblox Content Creator Manager</p>
+            <p class="bento-sub">
+                Content Creator Manager connecting game developers with the right YouTubers and TikTokers. Behind 26 Roblox titles and counting.
+            </p>
         </div>
-        <div class="loader-counter">
-            <span id="counter">0</span><span class="counter-percent">%</span>
+
+        <div class="bento-card bento-stats">
+            <div class="bento-label">[ METRICS ]</div>
+            <div class="stat-row">
+                <div class="stat">
+                    <div class="stat-num">26+</div>
+                    <div class="stat-lbl">Games</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">500+</div>
+                    <div class="stat-lbl">Creators</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">50M</div>
+                    <div class="stat-lbl">Views</div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- Radial Background -->
-    <div class="radial-bg"></div>
-    <div class="vignette"></div>
-
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-ring"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">
-            <span class="logo-text">DORIS</span><span class="logo-sub">/CCM</span>
+        <div class="bento-card bento-avatar">
+            <div class="avatar-frame">
+                <img src="assets/avatar.jpg" alt="Doris" 
+                     onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=1a1a1a'">
+            </div>
+            <div class="avatar-tag">DORIS</div>
         </div>
-        <div class="nav-links">
-            <a href="#work">WORK</a>
-            <a href="#agencies">AGENCIES</a>
-            <a href="#about">ABOUT</a>
-            <a href="#contact">CONTACT</a>
-            <a href="https://discord.com" target="_blank" class="nav-btn">
-                <i class="fab fa-discord"></i> DM DORIS
+
+        <div class="bento-card bento-cta">
+            <div class="bento-label">[ CONTACT ]</div>
+            <a href="#contact" class="big-link">
+                Let's work
+                <i class="fas fa-arrow-right"></i>
             </a>
         </div>
-        <button class="menu-toggle" id="menuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#work">WORK</a>
-        <a href="#agencies">AGENCIES</a>
-        <a href="#about">ABOUT</a>
-        <a href="#contact">CONTACT</a>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="badges">
-                <span class="badge badge-open">
-                    <span class="dot"></span> OPEN FOR PARTNERSHIPS
-                </span>
-                <span class="badge">CONTENT CREATOR MANAGER · ROBLOX</span>
-            </div>
-
-            <h1 class="hero-title">
-                <span class="line">GROWTH</span>
-                <span class="line">ISN'T LUCK.</span>
-                <span class="line">IT'S</span>
-                <span class="line outline">MANAGED.</span>
-            </h1>
-
-            <p class="hero-desc">
-                I'm <strong>Doris</strong>, the content creator manager behind <strong>26 Roblox titles</strong>. 
-                I connect games with the right creators, run the paid pushes and campaigns, 
-                and turn launch days into six-figure communities.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">WORK WITH ME <i class="fas fa-arrow-right"></i></a>
-                <a href="#work" class="btn btn-outline">SEE THE GAMES</a>
-            </div>
-        </div>
-
-        <div class="hero-visual">
-            <div class="visual-circle">
-                <div class="circle-bg"></div>
-                <div class="circle-content">
-                    <div class="avatar-large">
-                        <img src="assets/avatar.jpg" alt="Avatar" 
-                             onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=1a1a1a'">
-                    </div>
-                    <div class="visual-logo">
-                        <span class="vl-main">DORIS</span>
-                        <span class="vl-sub">CCM</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="vertical-text">
-            <span>プ</span><span>レ</span><span>イ</span><span>ヤ</span><span>ー</span><span>を</span><span>動</span><span>か</span><span>す</span>
+        <div class="bento-card bento-services">
+            <div class="bento-label">[ SERVICES ]</div>
+            <ul class="service-list">
+                <li><span>01</span> Creator Matching</li>
+                <li><span>02</span> Campaign Management</li>
+                <li><span>03</span> Launch Strategy</li>
+                <li><span>04</span> Growth Analytics</li>
+            </ul>
         </div>
     </section>
 
-    <!-- Work / Games Section -->
-    <section class="section" id="work">
-        <div class="section-header">
-            <span class="section-label">01 / WORK</span>
-            <h2 class="section-title">Games I've Managed</h2>
-        </div>
-        <div class="projects-list">
-            <div class="project-item">
-                <div class="project-number">01</div>
-                <div class="project-info">
-                    <h3>Blox Fruits</h3>
-                    <p>Managed creator campaigns that drove 500K+ concurrent players during updates.</p>
-                    <div class="project-tags">
-                        <span>Creator Push</span><span>Launch Campaign</span><span>500K CCU</span>
-                    </div>
-                </div>
-                <div class="project-link">
-                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-number">02</div>
-                <div class="project-info">
-                    <h3>King Legacy</h3>
-                    <p>Coordinated 30+ YouTubers for a synchronized launch week push.</p>
-                    <div class="project-tags">
-                        <span>YouTube Campaign</span><span>30+ Creators</span><span>Launch Week</span>
-                    </div>
-                </div>
-                <div class="project-link">
-                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-number">03</div>
-                <div class="project-info">
-                    <h3>Grand Piece Online</h3>
-                    <p>Built a sustainable creator pipeline generating 2M+ views monthly.</p>
-                    <div class="project-tags">
-                        <span>Ongoing Partnership</span><span>2M Views/mo</span><span>Pipeline</span>
-                    </div>
-                </div>
-                <div class="project-link">
-                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-number">04</div>
-                <div class="project-info">
-                    <h3>Anime Defenders</h3>
-                    <p>Strategic creator seeding that helped the game reach #3 trending on Roblox.</p>
-                    <div class="project-tags">
-                        <span>Trending Push</span><span>#3 Roblox</span><span>Strategy</span>
-                    </div>
-                </div>
-                <div class="project-link">
-                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                </div>
+    <!-- About / Editorial -->
+    <section class="editorial" id="about">
+        <div class="editorial-grid">
+            <div class="editorial-label">[ 02 — ABOUT ]</div>
+            <div class="editorial-content">
+                <p class="editorial-text">
+                    I'm <strong>Doris</strong> — a Roblox Content Creator Manager specializing in connecting game developers with the right content creators.
+                </p>
+                <p class="editorial-text">
+                    I've worked with <strong>26+ Roblox titles</strong>, helping them grow from launch to millions of players. My approach is simple: find the right creators, craft the right message, and execute with precision.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Agencies / Services Section -->
-    <section class="section" id="agencies">
-        <div class="section-header">
-            <span class="section-label">02 / SERVICES</span>
-            <h2 class="section-title">What I Do</h2>
+    <!-- Games List -->
+    <section class="games" id="work">
+        <div class="section-head">
+            <div class="section-label">[ 03 — SELECTED WORK ]</div>
+            <h2 class="section-title">Games I've managed</h2>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Creator Matching</h3>
-                <p>I find the right YouTubers and TikTokers for your game's niche and audience.</p>
+        <div class="games-list">
+            <div class="game-row">
+                <div class="game-num">01</div>
+                <div class="game-name">Blox Fruits</div>
+                <div class="game-desc">500K+ CCU during update pushes</div>
+                <div class="game-tag">Creator Push</div>
+                <a href="#" class="game-link"><i class="fas fa-arrow-up-right-from-square"></i></a>
             </div>
-
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-bullhorn"></i>
-                </div>
-                <h3>Campaign Management</h3>
-                <p>Full campaign execution from brief creation to performance tracking.</p>
+            <div class="game-row">
+                <div class="game-num">02</div>
+                <div class="game-name">King Legacy</div>
+                <div class="game-desc">30+ YouTubers launch week</div>
+                <div class="game-tag">YouTube Campaign</div>
+                <a href="#" class="game-link"><i class="fas fa-arrow-up-right-from-square"></i></a>
             </div>
-
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <h3>Launch Strategy</h3>
-                <p>Turn your game launch into a viral moment with synchronized creator pushes.</p>
+            <div class="game-row">
+                <div class="game-num">03</div>
+                <div class="game-name">Grand Piece Online</div>
+                <div class="game-desc">2M+ views monthly pipeline</div>
+                <div class="game-tag">Ongoing</div>
+                <a href="#" class="game-link"><i class="fas fa-arrow-up-right-from-square"></i></a>
             </div>
-
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Growth Analytics</h3>
-                <p>Data-driven insights to optimize your creator marketing ROI.</p>
+            <div class="game-row">
+                <div class="game-num">04</div>
+                <div class="game-name">Anime Defenders</div>
+                <div class="game-desc">#3 trending on Roblox</div>
+                <div class="game-tag">Trending Push</div>
+                <a href="#" class="game-link"><i class="fas fa-arrow-up-right-from-square"></i></a>
             </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="section-header">
-            <span class="section-label">03 / ABOUT</span>
-            <h2 class="section-title">Who I Am</h2>
-        </div>
-        <div class="about-content">
-            <p class="about-text">
-                I'm Doris, a Roblox Content Creator Manager specializing in connecting game developers 
-                with the right content creators. I've worked with 26+ Roblox titles, helping them grow 
-                from launch to millions of players.
-            </p>
-            <p class="about-text">
-                My approach is simple: find the right creators, craft the right message, and execute 
-                with precision. Growth isn't luck—it's managed.
-            </p>
-            <div class="about-stats">
-                <div class="about-stat">
-                    <span class="stat-number">26+</span>
-                    <span class="stat-label">Games Managed</span>
-                </div>
-                <div class="about-stat">
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">Creator Partnerships</span>
-                </div>
-                <div class="about-stat">
-                    <span class="stat-number">50M+</span>
-                    <span class="stat-label">Total Views Generated</span>
-                </div>
+            <div class="game-row">
+                <div class="game-num">05</div>
+                <div class="game-name">Project X</div>
+                <div class="game-desc">Your game could be here</div>
+                <div class="game-tag">Open Slot</div>
+                <a href="#contact" class="game-link"><i class="fas fa-arrow-up-right-from-square"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="section contact-section" id="contact">
-        <div class="section-header">
-            <span class="section-label">04 / CONTACT</span>
-        </div>
-        <h2 class="contact-title">Let's grow your <span class="outline">Roblox game</span> together.</h2>
-        <div class="contact-links">
-            <a href="https://discord.com" target="_blank" class="contact-item">
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="section-label">[ 04 — CONTACT ]</div>
+        <h2 class="contact-title">
+            Got a Roblox game?
+            <em>Let's make it blow up.</em>
+        </h2>
+        <div class="contact-grid">
+            <a href="https://discord.com" target="_blank" class="contact-card">
+                <div class="contact-num">01</div>
+                <div class="contact-info">
+                    <div class="contact-name">Discord</div>
+                    <div class="contact-value">DM Doris</div>
+                </div>
                 <i class="fab fa-discord"></i>
-                <span>DM me on Discord</span>
             </a>
-            <a href="https://twitter.com" target="_blank" class="contact-item">
-                <i class="fab fa-twitter"></i>
-                <span>@DorisCCM</span>
+            <a href="https://twitter.com" target="_blank" class="contact-card">
+                <div class="contact-num">02</div>
+                <div class="contact-info">
+                    <div class="contact-name">Twitter / X</div>
+                    <div class="contact-value">@DorisCCM</div>
+                </div>
+                <i class="fab fa-x-twitter"></i>
             </a>
-            <a href="mailto:contact@dorisccm.com" class="contact-item">
+            <a href="mailto:contact@dorisccm.com" class="contact-card">
+                <div class="contact-num">03</div>
+                <div class="contact-info">
+                    <div class="contact-name">Email</div>
+                    <div class="contact-value">contact@dorisccm.com</div>
+                </div>
                 <i class="fas fa-envelope"></i>
-                <span>contact@dorisccm.com</span>
             </a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <span>© 2026 DORIS / CCM</span>
-            <span>ROBLOX CONTENT CREATOR MANAGER</span>
+        <div class="footer-grid">
+            <div class="footer-brand">DORIS/CCM</div>
+            <div class="footer-copy">© 2026 — All rights reserved</div>
+            <div class="footer-tag">ROBLOX CONTENT CREATOR MANAGER</div>
+            <div class="footer-loc">Based in Vietnam 🇳</div>
         </div>
     </footer>
 
