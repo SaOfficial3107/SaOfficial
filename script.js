@@ -1,13 +1,13 @@
 // ============================================
-// CUSTOM CURSOR WITH TRAIL
+// 1. CUSTOM CURSOR WITH TRAIL
 // ============================================
 (function() {
     const cursor = document.getElementById('cursor');
+    if (!cursor || window.matchMedia('(max-width: 768px)').matches) return;
+    
     const dot = cursor.querySelector('.cursor-dot');
     const ring = cursor.querySelector('.cursor-ring');
     const trail = document.getElementById('cursorTrail');
-    
-    if (!cursor || window.matchMedia('(max-width: 768px)').matches) return;
     
     let mouseX = 0, mouseY = 0;
     let ringX = 0, ringY = 0;
@@ -27,7 +27,7 @@
         trailTimeout = setTimeout(() => { isMoving = false; }, 100);
     });
     
-    function animate() {
+    function animateCursor() {
         ringX += (mouseX - ringX) * 0.15;
         ringY += (mouseY - ringY) * 0.15;
         ring.style.left = ringX + 'px';
@@ -39,9 +39,9 @@
         trail.style.top = trailY + 'px';
         trail.style.opacity = isMoving ? '0.6' : '0';
         
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animateCursor);
     }
-    animate();
+    animateCursor();
     
     // Hover effects
     document.querySelectorAll('[data-hover]').forEach(el => {
@@ -55,7 +55,7 @@
 })();
 
 // ============================================
-// SPOTLIGHT EFFECT
+// 2. SPOTLIGHT EFFECT
 // ============================================
 (function() {
     const spotlight = document.getElementById('spotlight');
@@ -68,7 +68,7 @@
 })();
 
 // ============================================
-// MAGNETIC BUTTONS
+// 3. MAGNETIC BUTTONS
 // ============================================
 (function() {
     if (window.matchMedia('(max-width: 768px)').matches) return;
@@ -88,7 +88,7 @@
 })();
 
 // ============================================
-// 3D TILT CARDS
+// 4. 3D TILT CARDS
 // ============================================
 (function() {
     if (window.matchMedia('(max-width: 768px)').matches) return;
@@ -113,7 +113,7 @@
 })();
 
 // ============================================
-// PREMIUM LOADING SEQUENCE
+// 5. PREMIUM LOADING SEQUENCE (Slot Machine Style)
 // ============================================
 (function() {
     const digit1 = document.getElementById('digit1');
@@ -122,13 +122,12 @@
     const barEl = document.getElementById('loaderBar');
     const loader = document.getElementById('loader');
     
-    if (!digit1) return;
+    if (!digit1) return; // Fallback nếu không tìm thấy
     
     let count = 0;
     const duration = 2800;
     const steps = 100;
     const intervalTime = duration / steps;
-    
     const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
     
     const interval = setInterval(() => {
@@ -138,15 +137,15 @@
         const displayCount = Math.floor(easedProgress * 100);
         const padded = displayCount.toString().padStart(3, '0');
         
-        digit1.textContent = padded[0];
-        digit2.textContent = padded[1];
-        digit3.textContent = padded[2];
-        barEl.style.width = `${displayCount}%`;
+        if (digit1) digit1.textContent = padded[0];
+        if (digit2) digit2.textContent = padded[1];
+        if (digit3) digit3.textContent = padded[2];
+        if (barEl) barEl.style.width = `${displayCount}%`;
         
         if (count >= steps) {
             clearInterval(interval);
             setTimeout(() => {
-                loader.classList.add('hidden');
+                if (loader) loader.classList.add('hidden');
                 document.body.style.overflow = 'auto';
                 initAnimations();
             }, 600);
@@ -157,7 +156,7 @@
 })();
 
 // ============================================
-// NAVBAR SCROLL EFFECT
+// 6. NAVBAR SCROLL EFFECT
 // ============================================
 (function() {
     const navbar = document.getElementById('nav');
@@ -173,7 +172,7 @@
 })();
 
 // ============================================
-// SMOOTH SCROLL
+// 7. SMOOTH SCROLL
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -193,7 +192,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// SCROLL REVEAL + COUNTER ANIMATION
+// 8. SCROLL REVEAL + COUNTER ANIMATION
 // ============================================
 function initAnimations() {
     // Reveal on scroll
@@ -208,7 +207,7 @@ function initAnimations() {
     
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     
-    // Counter animation
+    // Counter animation for stats
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -243,7 +242,7 @@ function initAnimations() {
 }
 
 // ============================================
-// PARALLAX ON HERO VISUAL
+// 9. PARALLAX ON HERO VISUAL
 // ============================================
 (function() {
     const heroVisual = document.querySelector('.hero-visual');
@@ -262,7 +261,7 @@ function initAnimations() {
 })();
 
 // ============================================
-// HORIZONTAL SCROLL DRAG
+// 10. HORIZONTAL SCROLL DRAG (Work Section)
 // ============================================
 (function() {
     const slider = document.querySelector('.work-horizontal');
@@ -301,7 +300,7 @@ function initAnimations() {
 })();
 
 // ============================================
-// CONSOLE BRANDING
+// 11. CONSOLE BRANDING
 // ============================================
 console.log('%c DORIS/CCM ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
 console.log('%cRoblox Content Creator Manager', 'color: #888; font-size: 12px; letter-spacing: 2px;');
