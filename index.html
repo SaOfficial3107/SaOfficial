@@ -1,485 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DORIS / CCM — Roblox Content Creator Manager</title>
-    <meta name="description" content="Roblox Content Creator Manager - Growing games through creator partnerships">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <!-- Premium Loading Screen -->
-    <div class="loader-premium" id="loader">
-        <div class="loader-overlay"></div>
-        <div class="loader-grid">
-            <div class="loader-line line-1"></div>
-            <div class="loader-line line-2"></div>
-            <div class="loader-line line-3"></div>
-        </div>
-        <div class="loader-content">
-            <div class="loader-logo">
-                <span class="loader-logo-main">DORIS</span>
-                <span class="loader-logo-sub">CCM</span>
-            </div>
-            <div class="loader-progress">
-                <div class="loader-bar">
-                    <div class="loader-bar-fill" id="loaderBar"></div>
-                </div>
-                <div class="loader-counter">
-                    <span id="counter">0</span><span class="counter-symbol">%</span>
-                </div>
-            </div>
-            <div class="loader-text">
-                <span class="loader-text-line">INITIALIZING EXPERIENCE</span>
-                <span class="loader-text-dots">...</span>
-            </div>
-        </div>
-        <div class="loader-corner top-left">2026</div>
-        <div class="loader-corner top-right">VN</div>
-        <div class="loader-corner bottom-left">ROBLOX</div>
-        <div class="loader-corner bottom-right">CCM</div>
-    </div>
-
-    <!-- Noise Texture -->
-    <div class="noise"></div>
-
-    <!-- Grain Overlay -->
-    <div class="grain"></div>
-
-    <!-- Top Navigation -->
-    <nav class="nav-premium">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="#" class="brand-link">
-                    <span class="brand-main">DORIS</span>
-                    <span class="brand-divider">/</span>
-                    <span class="brand-sub">CCM</span>
-                </a>
-            </div>
-            <div class="nav-menu">
-                <a href="#work" class="nav-item">
-                    <span class="nav-num">01</span>
-                    <span class="nav-label">Work</span>
-                </a>
-                <a href="#services" class="nav-item">
-                    <span class="nav-num">02</span>
-                    <span class="nav-label">Services</span>
-                </a>
-                <a href="#about" class="nav-item">
-                    <span class="nav-num">03</span>
-                    <span class="nav-label">About</span>
-                </a>
-                <a href="#contact" class="nav-item nav-cta">
-                    <span class="nav-label">Contact</span>
-                    <span class="nav-arrow">→</span>
-                </a>
-            </div>
-            <button class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-premium">
-        <div class="hero-bg">
-            <div class="hero-gradient hero-g1"></div>
-            <div class="hero-gradient hero-g2"></div>
-            <div class="hero-gradient hero-g3"></div>
-        </div>
+// ============================================
+// PREMIUM LOADING SEQUENCE
+// ============================================
+(function() {
+    const counterEl = document.getElementById('counter');
+    const barEl = document.getElementById('loaderBar');
+    const loader = document.getElementById('loader');
+    
+    let count = 0;
+    const duration = 2500;
+    const steps = 100;
+    const intervalTime = duration / steps;
+    
+    // Easing function for smooth counting
+    const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+    
+    const interval = setInterval(() => {
+        count++;
+        const progress = count / steps;
+        const easedProgress = easeOutQuart(progress);
+        const displayCount = Math.floor(easedProgress * 100);
         
-        <div class="hero-container">
-            <div class="hero-label">
-                <span class="label-line"></span>
-                <span class="label-text">AVAILABLE FOR PARTNERSHIPS</span>
-                <span class="label-line"></span>
-            </div>
+        counterEl.textContent = displayCount.toString().padStart(3, '0');
+        barEl.style.width = `${displayCount}%`;
+        
+        if (count >= steps) {
+            clearInterval(interval);
+            counterEl.textContent = '100';
+            barEl.style.width = '100%';
+            
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                initAnimations();
+            }, 500);
+        }
+    }, intervalTime);
+    
+    // Prevent scroll during loading
+    document.body.style.overflow = 'hidden';
+})();
 
-            <h1 class="hero-title">
-                <span class="title-line">
-                    <span class="title-word">GROWTH</span>
-                </span>
-                <span class="title-line">
-                    <span class="title-word">ISN'T LUCK.</span>
-                </span>
-                <span class="title-line">
-                    <span class="title-word">IT'S</span>
-                    <span class="title-word title-accent">MANAGED.</span>
-                </span>
-            </h1>
+// ============================================
+// NAVBAR SCROLL EFFECT
+// ============================================
+const navbar = document.querySelector('.nav-premium');
+let lastScroll = 0;
 
-            <p class="hero-description">
-                I'm <strong>Doris</strong>, the content creator manager behind 
-                <strong>26 Roblox titles</strong>. I connect games with the right creators, 
-                run paid pushes and campaigns, and turn launch days into 
-                <span class="highlight">six-figure communities</span>.
-            </p>
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 80) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+});
 
-            <div class="hero-cta">
-                <a href="#contact" class="btn-primary">
-                    <span class="btn-text">Start a Project</span>
-                    <span class="btn-icon">
-                        <i class="fas fa-arrow-right"></i>
-                    </span>
-                </a>
-                <a href="#work" class="btn-secondary">
-                    <span class="btn-text">View My Work</span>
-                </a>
-            </div>
+// ============================================
+// SMOOTH SCROLL
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href.length < 2) return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+            const offset = 80;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
 
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="stat-value" data-value="26">0</div>
-                    <div class="stat-label">Games Managed</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="stat-value" data-value="500">0</div>
-                    <div class="stat-label">Creator Partners</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="stat-value" data-value="50">0</div>
-                    <div class="stat-label">Million Views</div>
-                </div>
-            </div>
-        </div>
+// ============================================
+// SCROLL REVEAL ANIMATIONS
+// ============================================
+function initAnimations() {
+    const revealElements = document.querySelectorAll(
+        '.work-card, .service-card, .contact-card, .hero-stat, .achievement'
+    );
+    
+    revealElements.forEach((el, index) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = `${index * 0.05}s`;
+    });
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    revealElements.forEach(el => observer.observe(el));
+    
+    // Animate stat counters
+    animateCounters();
+}
 
-        <div class="hero-visual">
-            <div class="visual-ring ring-1"></div>
-            <div class="visual-ring ring-2"></div>
-            <div class="visual-ring ring-3"></div>
-            <div class="visual-content">
-                <div class="visual-avatar">
-                    <img src="assets/avatar.jpg" alt="Doris" 
-                         onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=0a0a0a'">
-                </div>
-                <div class="visual-badge">
-                    <span class="badge-icon">◆</span>
-                    <span class="badge-text">CCM</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="scroll-indicator">
-            <span class="scroll-text">Scroll</span>
-            <div class="scroll-line">
-                <div class="scroll-dot"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Work Section -->
-    <section class="section-premium" id="work">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-meta">
-                    <span class="meta-num">01</span>
-                    <span class="meta-line"></span>
-                </div>
-                <div class="section-title-wrap">
-                    <h2 class="section-title">Selected Work</h2>
-                    <p class="section-subtitle">Games I've helped scale through strategic creator partnerships</p>
-                </div>
-            </div>
-
-            <div class="work-grid">
-                <article class="work-card">
-                    <div class="work-image">
-                        <div class="work-placeholder gradient-1">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="work-overlay">
-                            <a href="#" class="work-link">View Project →</a>
-                        </div>
-                    </div>
-                    <div class="work-content">
-                        <div class="work-tags">
-                            <span class="tag">Creator Push</span>
-                            <span class="tag">500K CCU</span>
-                        </div>
-                        <h3 class="work-title">Blox Fruits</h3>
-                        <p class="work-desc">Managed creator campaigns that drove 500K+ concurrent players during major updates.</p>
-                        <div class="work-meta">
-                            <span class="work-year">2025</span>
-                            <span class="work-category">Ongoing</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="work-card">
-                    <div class="work-image">
-                        <div class="work-placeholder gradient-2">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="work-overlay">
-                            <a href="#" class="work-link">View Project →</a>
-                        </div>
-                    </div>
-                    <div class="work-content">
-                        <div class="work-tags">
-                            <span class="tag">YouTube Campaign</span>
-                            <span class="tag">30+ Creators</span>
-                        </div>
-                        <h3 class="work-title">King Legacy</h3>
-                        <p class="work-desc">Coordinated 30+ YouTubers for a synchronized launch week push.</p>
-                        <div class="work-meta">
-                            <span class="work-year">2025</span>
-                            <span class="work-category">Launch</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="work-card">
-                    <div class="work-image">
-                        <div class="work-placeholder gradient-3">
-                            <i class="fas fa-ship"></i>
-                        </div>
-                        <div class="work-overlay">
-                            <a href="#" class="work-link">View Project →</a>
-                        </div>
-                    </div>
-                    <div class="work-content">
-                        <div class="work-tags">
-                            <span class="tag">Pipeline</span>
-                            <span class="tag">2M Views/mo</span>
-                        </div>
-                        <h3 class="work-title">Grand Piece Online</h3>
-                        <p class="work-desc">Built a sustainable creator pipeline generating 2M+ views monthly.</p>
-                        <div class="work-meta">
-                            <span class="work-year">2024</span>
-                            <span class="work-category">Ongoing</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="work-card">
-                    <div class="work-image">
-                        <div class="work-placeholder gradient-4">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="work-overlay">
-                            <a href="#" class="work-link">View Project →</a>
-                        </div>
-                    </div>
-                    <div class="work-content">
-                        <div class="work-tags">
-                            <span class="tag">Trending Push</span>
-                            <span class="tag">#3 Roblox</span>
-                        </div>
-                        <h3 class="work-title">Anime Defenders</h3>
-                        <p class="work-desc">Strategic creator seeding that helped the game reach #3 trending on Roblox.</p>
-                        <div class="work-meta">
-                            <span class="work-year">2025</span>
-                            <span class="work-category">Launch</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="section-premium services" id="services">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-meta">
-                    <span class="meta-num">02</span>
-                    <span class="meta-line"></span>
-                </div>
-                <div class="section-title-wrap">
-                    <h2 class="section-title">What I Do</h2>
-                    <p class="section-subtitle">End-to-end creator management for Roblox game developers</p>
-                </div>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-num">01</div>
-                    <div class="service-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="service-title">Creator Matching</h3>
-                    <p class="service-desc">I find the right YouTubers and TikTokers for your game's niche and target audience.</p>
-                    <ul class="service-list">
-                        <li>Creator research & vetting</li>
-                        <li>Audience alignment</li>
-                        <li>Negotiation & contracts</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-num">02</div>
-                    <div class="service-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3 class="service-title">Campaign Management</h3>
-                    <p class="service-desc">Full campaign execution from brief creation to performance tracking.</p>
-                    <ul class="service-list">
-                        <li>Creative brief development</li>
-                        <li>Content coordination</li>
-                        <li>Performance analytics</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-num">03</div>
-                    <div class="service-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3 class="service-title">Launch Strategy</h3>
-                    <p class="service-desc">Turn your game launch into a viral moment with synchronized creator pushes.</p>
-                    <ul class="service-list">
-                        <li>Launch timeline planning</li>
-                        <li>Synchronized releases</li>
-                        <li>Viral moment creation</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-num">04</div>
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="service-title">Growth Analytics</h3>
-                    <p class="service-desc">Data-driven insights to optimize your creator marketing ROI.</p>
-                    <ul class="service-list">
-                        <li>ROI tracking</li>
-                        <li>Performance reports</li>
-                        <li>Optimization strategies</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section-premium about" id="about">
-        <div class="section-container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <div class="section-meta">
-                        <span class="meta-num">03</span>
-                        <span class="meta-line"></span>
-                    </div>
-                    <h2 class="section-title">About Me</h2>
-                    <div class="about-text">
-                        <p class="about-paragraph">
-                            I'm <strong>Doris</strong>, a Roblox Content Creator Manager specializing in 
-                            connecting game developers with the right content creators.
-                        </p>
-                        <p class="about-paragraph">
-                            I've worked with <strong>26+ Roblox titles</strong>, helping them grow from 
-                            launch to millions of players. My approach is simple: find the right creators, 
-                            craft the right message, and execute with precision.
-                        </p>
-                        <p class="about-paragraph highlight-text">
-                            Growth isn't luck—it's managed.
-                        </p>
-                    </div>
+// ============================================
+// STAT COUNTER ANIMATION
+// ============================================
+function animateCounters() {
+    const statValues = document.querySelectorAll('.stat-value[data-value]');
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.value);
+                const duration = 2000;
+                const startTime = performance.now();
+                
+                const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+                
+                const animate = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easedProgress = easeOutQuart(progress);
+                    const current = Math.floor(easedProgress * target);
                     
-                    <div class="about-achievements">
-                        <div class="achievement">
-                            <div class="achievement-num">26+</div>
-                            <div class="achievement-label">Games Managed</div>
-                        </div>
-                        <div class="achievement">
-                            <div class="achievement-num">500+</div>
-                            <div class="achievement-label">Creator Partnerships</div>
-                        </div>
-                        <div class="achievement">
-                            <div class="achievement-num">50M+</div>
-                            <div class="achievement-label">Total Views Generated</div>
-                        </div>
-                    </div>
-                </div>
+                    el.textContent = current;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        el.textContent = target;
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    statValues.forEach(el => counterObserver.observe(el));
+}
 
-                <div class="about-visual">
-                    <div class="visual-box">
-                        <div class="box-image">
-                            <img src="assets/avatar.jpg" alt="Doris" 
-                                 onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=0a0a0a'">
-                        </div>
-                        <div class="box-info">
-                            <div class="info-label">Experience</div>
-                            <div class="info-value">3+ Years</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+// ============================================
+// PARALLAX EFFECT ON HERO VISUAL
+// ============================================
+const heroVisual = document.querySelector('.hero-visual');
+if (heroVisual && window.innerWidth > 1024) {
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        
+        const rings = heroVisual.querySelectorAll('.visual-ring');
+        rings.forEach((ring, index) => {
+            const factor = (index + 1) * 0.5;
+            ring.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+        });
+    });
+}
 
-    <!-- Contact Section -->
-    <section class="section-premium contact" id="contact">
-        <div class="section-container">
-            <div class="contact-wrapper">
-                <div class="contact-header">
-                    <div class="section-meta">
-                        <span class="meta-num">04</span>
-                        <span class="meta-line"></span>
-                    </div>
-                    <h2 class="contact-title">
-                        Let's grow your
-                        <span class="title-accent">Roblox game</span>
-                        together.
-                    </h2>
-                </div>
+// ============================================
+// MOBILE MENU TOGGLE
+// ============================================
+const navToggle = document.getElementById('navToggle');
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        // Simple toggle - you can expand this with a full mobile menu
+    });
+}
 
-                <div class="contact-grid">
-                    <a href="https://discord.com" target="_blank" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-discord"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Discord</span>
-                            <span class="contact-value">DM Doris</span>
-                        </div>
-                        <div class="contact-arrow">→</div>
-                    </a>
-
-                    <a href="https://twitter.com" target="_blank" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-x-twitter"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Twitter / X</span>
-                            <span class="contact-value">@DorisCCM</span>
-                        </div>
-                        <div class="contact-arrow">→</div>
-                    </a>
-
-                    <a href="mailto:contact@dorisccm.com" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Email</span>
-                            <span class="contact-value">contact@dorisccm.com</span>
-                        </div>
-                        <div class="contact-arrow">→</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer-premium">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <span class="brand-text">DORIS/CCM</span>
-                <span class="brand-tag">Roblox Content Creator Manager</span>
-            </div>
-            <div class="footer-meta">
-                <span>© 2026 All rights reserved</span>
-                <span class="footer-loc">Based in Vietnam 🇻🇳</span>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+// ============================================
+// CONSOLE BRANDING
+// ============================================
+console.log('%c DORIS/CCM ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif;');
+console.log('%cRoblox Content Creator Manager', 'color: #888; font-size: 12px; letter-spacing: 2px;');
+console.log('%c— Built with precision —', 'color: #555; font-size: 11px; font-style: italic;');
