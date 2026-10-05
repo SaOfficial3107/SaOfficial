@@ -1,65 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ============================================
-    // 1. FLIP CLOCK LOADING
+    // 1. LOADING SCREEN (ĐƠN GIẢN - KHÔNG COUNTER)
     // ============================================
     const loader = document.getElementById('loader');
-    const barEl = document.getElementById('loaderBar');
-    const digits = [
-        document.getElementById('digit1'),
-        document.getElementById('digit2'),
-        document.getElementById('digit3')
-    ];
-
-    if (loader && barEl && digits.every(d => d)) {
-        let currentValue = 0;
-        const duration = 2800;
-        const steps = 100;
-        const intervalTime = duration / steps;
-        const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
-
-        function updateFlipDigit(digitEl, newValue) {
-            const top = digitEl.querySelector('.flip-top');
-            const bottom = digitEl.querySelector('.flip-bottom');
-            const flap = digitEl.querySelector('.flip-flap');
-            const oldValue = top.textContent;
-
-            if (oldValue === newValue) return;
-
-            flap.textContent = oldValue;
-            bottom.textContent = newValue;
-            
-            digitEl.classList.remove('flipping');
-            void digitEl.offsetWidth; // Force reflow
-            digitEl.classList.add('flipping');
-
-            setTimeout(() => {
-                top.textContent = newValue;
-                flap.textContent = newValue;
-                digitEl.classList.remove('flipping');
-            }, 500);
-        }
-
-        const interval = setInterval(() => {
-            currentValue++;
-            const displayCount = Math.floor(easeOutQuart(currentValue / steps) * 100);
-            const padded = displayCount.toString().padStart(3, '0');
-
-            digits.forEach((digit, index) => {
-                updateFlipDigit(digit, padded[index]);
-            });
-
-            barEl.style.width = `${displayCount}%`;
-
-            if (currentValue >= steps) {
-                clearInterval(interval);
-                setTimeout(() => {
-                    loader.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                    initAnimations();
-                }, 600);
-            }
-        }, intervalTime);
-
+    if (loader) {
+        // Chờ 2 giây rồi fade out
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            initAnimations();
+        }, 2000);
+        
         document.body.style.overflow = 'hidden';
     }
 
