@@ -62,9 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const scrambleSub = new TextScramble(document.getElementById('scrambleSub'));
         
         setTimeout(() => {
-            scrambleMain.setText('DORIS').then(() => {
+            scrambleMain.setText('SA').then(() => {
                 setTimeout(() => {
-                    scrambleSub.setText('ROBLOX CONTENT CREATOR MANAGER');
+                    scrambleSub.setText('ROBLOX CONTENT CREATOR');
                 }, 300);
             });
         }, 500);
@@ -229,5 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.style.cursor = 'grab';
     }
 
-    console.log('%c DORIS/CCM ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
+    console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
+    console.log('%cRoblox Content Creator', 'color: #888; font-size: 12px; letter-spacing: 2px;');
 });
