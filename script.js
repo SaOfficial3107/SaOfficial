@@ -1,117 +1,15 @@
 // ============================================
-// 1. CUSTOM CURSOR WITH TRAIL
+// 1. PREMIUM LOADING SEQUENCE (Đã sửa để khớp HTML mới)
 // ============================================
 (function() {
-    const cursor = document.getElementById('cursor');
-    if (!cursor || window.matchMedia('(max-width: 768px)').matches) return;
-    
-    const dot = cursor.querySelector('.cursor-dot');
-    const ring = cursor.querySelector('.cursor-ring');
-    const trail = document.getElementById('cursorTrail');
-    
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-    let trailX = 0, trailY = 0;
-    let isMoving = false;
-    let trailTimeout;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        isMoving = true;
-        dot.style.left = mouseX + 'px';
-        dot.style.top = mouseY + 'px';
-        clearTimeout(trailTimeout);
-        trailTimeout = setTimeout(() => { isMoving = false; }, 100);
-    });
-    
-    function animateCursor() {
-        ringX += (mouseX - ringX) * 0.15;
-        ringY += (mouseY - ringY) * 0.15;
-        ring.style.left = ringX + 'px';
-        ring.style.top = ringY + 'px';
-        
-        trailX += (mouseX - trailX) * 0.08;
-        trailY += (mouseY - trailY) * 0.08;
-        trail.style.left = trailX + 'px';
-        trail.style.top = trailY + 'px';
-        trail.style.opacity = isMoving ? '0.6' : '0';
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-    
-    document.querySelectorAll('[data-hover]').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-    document.addEventListener('mousedown', () => cursor.classList.add('click'));
-    document.addEventListener('mouseup', () => cursor.classList.remove('click'));
-})();
-
-// ============================================
-// 2. SPOTLIGHT EFFECT
-// ============================================
-(function() {
-    const spotlight = document.getElementById('spotlight');
-    if (!spotlight || window.matchMedia('(max-width: 768px)').matches) return;
-    document.addEventListener('mousemove', (e) => {
-        spotlight.style.left = e.clientX + 'px';
-        spotlight.style.top = e.clientY + 'px';
-    });
-})();
-
-// ============================================
-// 3. MAGNETIC BUTTONS
-// ============================================
-(function() {
-    if (window.matchMedia('(max-width: 768px)').matches) return;
-    document.querySelectorAll('.magnetic').forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-        });
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0, 0)';
-        });
-    });
-})();
-
-// ============================================
-// 4. 3D TILT CARDS
-// ============================================
-(function() {
-    if (window.matchMedia('(max-width: 768px)').matches) return;
-    document.querySelectorAll('.tilt').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -8;
-            const rotateY = ((x - centerX) / centerX) * 8;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
-    });
-})();
-
-// ============================================
-// 5. PREMIUM LOADING SEQUENCE (SLOT MACHINE STYLE)
-// ============================================
-(function() {
-    // Lưu ý: Đây là phần đã được sửa để khớp với HTML mới (digit1, digit2, digit3)
+    // Dùng digit1, digit2, digit3 thay vì 'counter' cũ
     const digit1 = document.getElementById('digit1');
     const digit2 = document.getElementById('digit2');
     const digit3 = document.getElementById('digit3');
     const barEl = document.getElementById('loaderBar');
     const loader = document.getElementById('loader');
     
-    if (!digit1) return; 
+    if (!digit1) return; // Phòng ngừa lỗi
     
     let count = 0;
     const duration = 2800;
@@ -145,7 +43,7 @@
 })();
 
 // ============================================
-// 6. NAVBAR SCROLL EFFECT
+// 2. NAVBAR SCROLL EFFECT
 // ============================================
 (function() {
     const navbar = document.getElementById('nav');
@@ -160,7 +58,7 @@
 })();
 
 // ============================================
-// 7. SMOOTH SCROLL
+// 3. SMOOTH SCROLL
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -177,7 +75,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// 8. SCROLL REVEAL + COUNTER ANIMATION
+// 4. SCROLL REVEAL + COUNTER ANIMATION
 // ============================================
 function initAnimations() {
     const revealObserver = new IntersectionObserver((entries) => {
@@ -220,6 +118,93 @@ function initAnimations() {
 }
 
 // ============================================
+// 5. CUSTOM CURSOR WITH TRAIL
+// ============================================
+(function() {
+    const cursor = document.getElementById('cursor');
+    if (!cursor || window.matchMedia('(max-width: 768px)').matches) return;
+    
+    const dot = cursor.querySelector('.cursor-dot');
+    const ring = cursor.querySelector('.cursor-ring');
+    const trail = document.getElementById('cursorTrail');
+    
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0, trailX = 0, trailY = 0;
+    let isMoving = false, trailTimeout;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY; isMoving = true;
+        dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+        clearTimeout(trailTimeout);
+        trailTimeout = setTimeout(() => { isMoving = false; }, 100);
+    });
+    
+    function animateCursor() {
+        ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
+        ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+        trailX += (mouseX - trailX) * 0.08; trailY += (mouseY - trailY) * 0.08;
+        trail.style.left = trailX + 'px'; trail.style.top = trailY + 'px';
+        trail.style.opacity = isMoving ? '0.6' : '0';
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    
+    document.querySelectorAll('[data-hover]').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+    document.addEventListener('mousedown', () => cursor.classList.add('click'));
+    document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+})();
+
+// ============================================
+// 6. SPOTLIGHT EFFECT
+// ============================================
+(function() {
+    const spotlight = document.getElementById('spotlight');
+    if (!spotlight || window.matchMedia('(max-width: 768px)').matches) return;
+    document.addEventListener('mousemove', (e) => {
+        spotlight.style.left = e.clientX + 'px';
+        spotlight.style.top = e.clientY + 'px';
+    });
+})();
+
+// ============================================
+// 7. MAGNETIC BUTTONS
+// ============================================
+(function() {
+    if (window.matchMedia('(max-width: 768px)').matches) return;
+    document.querySelectorAll('.magnetic').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0, 0)'; });
+    });
+})();
+
+// ============================================
+// 8. 3D TILT CARDS
+// ============================================
+(function() {
+    if (window.matchMedia('(max-width: 768px)').matches) return;
+    document.querySelectorAll('.tilt').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -8;
+            const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 8;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+    });
+})();
+
+// ============================================
 // 9. PARALLAX ON HERO VISUAL
 // ============================================
 (function() {
@@ -228,10 +213,8 @@ function initAnimations() {
     document.addEventListener('mousemove', (e) => {
         const x = (e.clientX / window.innerWidth - 0.5) * 30;
         const y = (e.clientY / window.innerHeight - 0.5) * 30;
-        const rings = heroVisual.querySelectorAll('.visual-ring');
-        rings.forEach((ring, index) => {
-            const factor = (index + 1) * 0.4;
-            ring.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+        heroVisual.querySelectorAll('.visual-ring').forEach((ring, index) => {
+            ring.style.transform = `translate(${x * (index + 1) * 0.4}px, ${y * (index + 1) * 0.4}px)`;
         });
     });
 })();
@@ -245,9 +228,7 @@ function initAnimations() {
     let isDown = false, startX, scrollLeft;
     
     slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
+        isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
         slider.style.cursor = 'grabbing';
     });
     slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
@@ -255,8 +236,7 @@ function initAnimations() {
     slider.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        slider.scrollLeft = scrollLeft - (x - startX) * 2;
+        slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 2;
     });
     slider.style.cursor = 'grab';
 })();
