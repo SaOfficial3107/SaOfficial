@@ -226,6 +226,7 @@ a, button { cursor: none; }
 .gradient-2 { background: linear-gradient(135deg, #2d1b2e 0%, #1a1a2e 100%); }
 .gradient-3 { background: linear-gradient(135deg, #1b2d2e 0%, #1a2e1a 100%); }
 .gradient-4 { background: linear-gradient(135deg, #2e2d1b 0%, #2e1a1a 100%); }
+.gradient-5 { background: linear-gradient(135deg, #1e1e2e 0%, #2a1a3e 100%); }
 .work-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s; }
 .work-card:hover .work-overlay { opacity: 1; }
 .work-link { color: var(--fg); font-size: 0.9rem; font-weight: 500; padding: 12px 24px; border: 1px solid var(--fg); border-radius: 50px; }
@@ -237,9 +238,11 @@ a, button { cursor: none; }
 .work-meta { display: flex; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); letter-spacing: 0.1em; }
 
 /* ============================================
-   SERVICES - WHAT I DO (CÓ NÚT CTA)
+   SERVICES - WHAT I DO (5 CARDS + CTA)
    ============================================ */
 .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+.services-grid-5 { grid-template-columns: repeat(3, 1fr); }
+.services-grid-5 .service-card:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; width: 100%; }
 .service-card { background: var(--bg); padding: 50px 40px 40px; transition: background 0.4s; display: flex; flex-direction: column; }
 .service-card:hover { background: var(--bg-hover); }
 .service-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--fg-dim); margin-bottom: 30px; }
@@ -279,6 +282,22 @@ a, button { cursor: none; }
 .service-cta:hover i {
     transform: translateX(3px);
 }
+
+/* ============================================
+   DONATE SECTION
+   ============================================ */
+.donate-section { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%); }
+.donate-wrapper { max-width: 1000px; margin: 0 auto; }
+.donate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-top: 60px; }
+.donate-card { background: var(--bg); padding: 40px 35px; display: flex; align-items: center; gap: 20px; text-decoration: none; color: var(--fg); transition: all 0.4s var(--ease-out-expo); }
+.donate-card:hover { background: var(--bg-hover); transform: translateY(-3px); }
+.donate-icon { width: 50px; height: 50px; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; transition: all 0.4s; }
+.donate-card:hover .donate-icon { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.donate-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.donate-label { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; }
+.donate-desc { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-muted); letter-spacing: 0.1em; }
+.donate-arrow { font-size: 1.5rem; color: var(--fg-dim); transition: all 0.3s; }
+.donate-card:hover .donate-arrow { color: var(--fg); transform: translateX(5px); }
 
 /* ============================================
    ABOUT + LANGUAGES
@@ -376,8 +395,9 @@ a, button { cursor: none; }
 .contact-wrapper { max-width: 1200px; margin: 0 auto; }
 .contact-header { margin-bottom: 80px; }
 .contact-header .section-meta { align-items: center; margin-bottom: 30px; }
-.contact-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 6rem); font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
+.contact-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 6rem); font-weight: 400; line-height: 1; letter-spacing: -0.02em; margin-bottom: 20px; }
 .contact-title .title-accent { font-style: italic; color: var(--fg-muted); }
+.contact-subtitle { font-size: 1.05rem; color: var(--fg-muted); max-width: 600px; margin: 0 auto; line-height: 1.7; }
 .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
 .contact-card { background: var(--bg); padding: 50px 40px; display: flex; flex-direction: column; gap: 30px; text-decoration: none; color: var(--fg); text-align: left; transition: background 0.4s; }
 .contact-card:hover { background: var(--bg-hover); }
@@ -410,8 +430,11 @@ a, button { cursor: none; }
     .hero-container { grid-template-columns: 1fr; gap: 60px; }
     .hero-visual { height: 400px; }
     .services-grid { grid-template-columns: 1fr; }
+    .services-grid-5 { grid-template-columns: 1fr; }
+    .services-grid-5 .service-card:last-child { max-width: 100%; }
     .about-grid { grid-template-columns: 1fr; gap: 60px; }
     .contact-grid { grid-template-columns: 1fr; }
+    .donate-grid { grid-template-columns: 1fr; }
     .section-header { grid-template-columns: 1fr; gap: 30px; }
     .work-card { width: 340px; }
     .languages-grid { grid-template-columns: 1fr; }
@@ -426,4 +449,6 @@ a, button { cursor: none; }
     .work-card { width: 300px; }
     .visual-avatar, .box-image { width: 180px; height: 180px; }
     .service-card { padding: 35px 25px 30px; }
+    .donate-card { padding: 25px 20px; }
+    .contact-card { padding: 35px 25px; }
 }
