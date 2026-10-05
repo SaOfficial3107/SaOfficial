@@ -6,10 +6,11 @@
     <title>DORIS / CCM — Roblox Content Creator Manager</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Cursor -->
     <div class="cursor" id="cursor">
         <div class="cursor-dot"></div>
         <div class="cursor-ring"></div>
@@ -17,52 +18,91 @@
     </div>
     <div class="spotlight" id="spotlight"></div>
 
+    <!-- ========== LOADING SCREEN (FLIP CLOCK) ========== -->
     <div class="loader" id="loader">
-        <div class="loader-grid"><div class="loader-line"></div><div class="loader-line"></div><div class="loader-line"></div><div class="loader-line"></div></div>
+        <div class="loader-grid">
+            <div class="loader-line"></div>
+            <div class="loader-line"></div>
+            <div class="loader-line"></div>
+            <div class="loader-line"></div>
+        </div>
         <div class="loader-vignette"></div>
+        
         <div class="loader-content">
             <div class="loader-logo">
                 <span class="loader-logo-main">DORIS</span>
                 <span class="loader-logo-sub">/CCM</span>
             </div>
-            <div class="loader-progress-wrap">
-                <div class="loader-bar"><div class="loader-bar-fill" id="loaderBar"></div></div>
-                <div class="loader-counter">
-                    <div class="counter-display">
-                        <span class="counter-digit" id="digit1">0</span>
-                        <span class="counter-digit" id="digit2">0</span>
-                        <span class="counter-digit" id="digit3">0</span>
-                    </div>
-                    <span class="counter-symbol">%</span>
+
+            <!-- Flip Clock Counter -->
+            <div class="flip-clock">
+                <div class="flip-digit" id="digit1">
+                    <div class="flip-top">0</div>
+                    <div class="flip-bottom">0</div>
+                    <div class="flip-flap">0</div>
                 </div>
+                <div class="flip-digit" id="digit2">
+                    <div class="flip-top">0</div>
+                    <div class="flip-bottom">0</div>
+                    <div class="flip-flap">0</div>
+                </div>
+                <div class="flip-digit" id="digit3">
+                    <div class="flip-top">0</div>
+                    <div class="flip-bottom">0</div>
+                    <div class="flip-flap">0</div>
+                </div>
+                <span class="flip-percent">%</span>
             </div>
-            <div class="loader-text"><span class="loader-text-line">INITIALIZING EXPERIENCE</span><span class="loader-text-dots">...</span></div>
+
+            <!-- Progress Bar -->
+            <div class="loader-progress">
+                <div class="loader-bar"><div class="loader-bar-fill" id="loaderBar"></div></div>
+            </div>
+
+            <div class="loader-text">
+                <span class="loader-text-line">INITIALIZING EXPERIENCE</span>
+            </div>
         </div>
+
         <div class="loader-corner top-left">EST. 2024</div>
         <div class="loader-corner top-right">VN — HCMC</div>
         <div class="loader-corner bottom-left">ROBLOX ECOSYSTEM</div>
         <div class="loader-corner bottom-right">CCM DIVISION</div>
     </div>
+    <!-- ========== END LOADING ========== -->
 
     <div class="noise"></div>
 
+    <!-- Navigation -->
     <nav class="nav" id="nav">
         <div class="nav-container">
-            <a href="#" class="brand"><span class="brand-main">DORIS</span><span class="brand-divider">/</span><span class="brand-sub">CCM</span></a>
+            <a href="#" class="brand">
+                <span class="brand-main">DORIS</span>
+                <span class="brand-divider">/</span>
+                <span class="brand-sub">CCM</span>
+            </a>
             <div class="nav-menu">
                 <a href="#work" class="nav-item" data-hover><span class="nav-num">01</span><span class="nav-label">Work</span></a>
                 <a href="#services" class="nav-item" data-hover><span class="nav-num">02</span><span class="nav-label">Services</span></a>
                 <a href="#about" class="nav-item" data-hover><span class="nav-num">03</span><span class="nav-label">About</span></a>
                 <a href="#contact" class="nav-item nav-cta" data-hover><span class="nav-label">Contact</span><span class="nav-arrow">→</span></a>
             </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+            <button class="nav-toggle" id="navToggle"><span></span><span></span></button>
         </div>
     </nav>
 
+    <!-- Hero -->
     <section class="hero" id="hero">
-        <div class="hero-bg"><div class="hero-orb orb-1"></div><div class="hero-orb orb-2"></div><div class="hero-orb orb-3"></div></div>
+        <div class="hero-bg">
+            <div class="hero-orb orb-1"></div>
+            <div class="hero-orb orb-2"></div>
+            <div class="hero-orb orb-3"></div>
+        </div>
         <div class="hero-container">
-            <div class="hero-label reveal"><span class="label-line"></span><span class="label-text">AVAILABLE FOR PARTNERSHIPS — Q1 2026</span></div>
+            <div class="hero-label reveal">
+                <span class="label-line"></span>
+                <span class="label-text">AVAILABLE FOR PARTNERSHIPS — Q1 2026</span>
+            </div>
             <h1 class="hero-title">
                 <span class="title-line"><span class="title-word">GROWTH</span></span>
                 <span class="title-line"><span class="title-word">ISN'T LUCK.</span></span>
@@ -80,7 +120,9 @@
             </div>
         </div>
         <div class="hero-visual">
-            <div class="visual-ring ring-1"></div><div class="visual-ring ring-2"></div><div class="visual-ring ring-3"></div>
+            <div class="visual-ring ring-1"></div>
+            <div class="visual-ring ring-2"></div>
+            <div class="visual-ring ring-3"></div>
             <div class="visual-content">
                 <div class="visual-avatar"><img src="assets/avatar.jpg" alt="Doris" onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=0a0a0a'"></div>
                 <div class="visual-badge"><span class="badge-dot"></span><span class="badge-text">CCM</span></div>
@@ -89,11 +131,13 @@
         <div class="scroll-indicator"><span class="scroll-text">SCROLL</span><div class="scroll-line"><div class="scroll-dot"></div></div></div>
     </section>
 
+    <!-- Marquee -->
     <div class="marquee">
         <div class="marquee-track"><span>GROWTH ISN'T LUCK</span><span class="marquee-star">★</span><span>IT'S MANAGED</span><span class="marquee-star">★</span><span>26+ GAMES</span><span class="marquee-star">★</span><span>50M+ VIEWS</span><span class="marquee-star">★</span></div>
         <div class="marquee-track" aria-hidden="true"><span>GROWTH ISN'T LUCK</span><span class="marquee-star">★</span><span>IT'S MANAGED</span><span class="marquee-star">★</span><span>26+ GAMES</span><span class="marquee-star">★</span><span>50M+ VIEWS</span><span class="marquee-star">★</span></div>
     </div>
 
+    <!-- Work Section -->
     <section class="work-section" id="work">
         <div class="section-container">
             <div class="section-header reveal">
@@ -114,7 +158,7 @@
                         <div class="work-image"><div class="work-placeholder gradient-3"><i class="fas fa-ship"></i></div><div class="work-overlay"><span class="work-link">View Project →</span></div></div>
                         <div class="work-content"><div class="work-tags"><span class="tag">Pipeline</span><span class="tag">2M Views/mo</span></div><h3 class="work-title">Grand Piece Online</h3><p class="work-desc">Built a sustainable creator pipeline generating 2M+ views monthly.</p><div class="work-meta"><span class="work-year">2024</span><span class="work-category">Ongoing</span></div></div>
                     </article>
-                    <article class="work-card tilt work-card-empty" data-hover>
+                    <article class="work-card tilt" data-hover>
                         <div class="work-image"><div class="work-placeholder gradient-4"><i class="fas fa-plus"></i></div></div>
                         <div class="work-content"><div class="work-tags"><span class="tag">Open Slot</span></div><h3 class="work-title">Your Game</h3><p class="work-desc">Ready to be the next success story? Let's talk about your launch strategy.</p><div class="work-meta"><span class="work-year">2026</span><span class="work-category">Available</span></div></div>
                     </article>
@@ -123,6 +167,7 @@
         </div>
     </section>
 
+    <!-- Services -->
     <section class="section" id="services">
         <div class="section-container">
             <div class="section-header reveal">
@@ -138,6 +183,7 @@
         </div>
     </section>
 
+    <!-- About -->
     <section class="section about-section" id="about">
         <div class="section-container">
             <div class="about-grid">
@@ -165,6 +211,7 @@
         </div>
     </section>
 
+    <!-- Contact -->
     <section class="section contact-section" id="contact">
         <div class="section-container">
             <div class="contact-wrapper">
@@ -181,6 +228,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand"><span class="brand-text">DORIS/CCM</span><span class="brand-tag">Roblox Content Creator Manager</span></div>
