@@ -323,7 +323,6 @@ a, button { cursor: none; }
     transform: scale(1.05);
 }
 
-/* Responsive cho mobile */
 @media (max-width: 768px) {
     .visual-avatar,
     .box-image {
