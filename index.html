@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyen Van A - Full Stack Developer</title>
-    <meta name="description" content="Personal portfolio of Nguyen Van A - Full Stack Developer">
+    <title>DORIS / CCM - Roblox Content Creator Manager</title>
+    <meta name="description" content="Roblox Content Creator Manager - Growing games through creator partnerships">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Gradient Orbs Background -->
-    <div class="bg-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+    <!-- Loading Screen -->
+    <div class="loader-cinematic" id="loader">
+        <div class="loader-radial"></div>
+        <div class="loader-vignette"></div>
+        <div class="loader-center">
+            <h1 class="loader-title">
+                <span class="loader-title-main">DORIS</span><span class="loader-title-sub">/CCM</span>
+            </h1>
+            <div class="loader-divider"></div>
+            <p class="loader-subtitle">Roblox Content Creator Manager</p>
+        </div>
+        <div class="loader-counter">
+            <span id="counter">0</span><span class="counter-percent">%</span>
+        </div>
     </div>
-    <div class="noise-overlay"></div>
+
+    <!-- Radial Background -->
+    <div class="radial-bg"></div>
+    <div class="vignette"></div>
 
     <!-- Custom Cursor -->
     <div class="custom-cursor" id="cursor">
@@ -28,15 +40,16 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">
-            <span class="logo-bracket">&lt;</span>
-            <span class="logo-text">NVA</span>
-            <span class="logo-bracket">/&gt;</span>
+            <span class="logo-text">DORIS</span><span class="logo-sub">/CCM</span>
         </div>
         <div class="nav-links">
-            <a href="#work" class="nav-link">Work</a>
-            <a href="#skills" class="nav-link">Skills</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#work">WORK</a>
+            <a href="#agencies">AGENCIES</a>
+            <a href="#about">ABOUT</a>
+            <a href="#contact">CONTACT</a>
+            <a href="https://discord.com" target="_blank" class="nav-btn">
+                <i class="fab fa-discord"></i> DM DORIS
+            </a>
         </div>
         <button class="menu-toggle" id="menuToggle">
             <span></span>
@@ -47,246 +60,164 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#work">Work</a>
-        <a href="#skills">Skills</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#work">WORK</a>
+        <a href="#agencies">AGENCIES</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
     </div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-label">
-                <span class="label-line"></span>
-                <span>AVAILABLE FOR FREELANCE</span>
-                <span class="label-line"></span>
+            <div class="badges">
+                <span class="badge badge-open">
+                    <span class="dot"></span> OPEN FOR PARTNERSHIPS
+                </span>
+                <span class="badge">CONTENT CREATOR MANAGER · ROBLOX</span>
             </div>
 
             <h1 class="hero-title">
-                <span class="title-line">Creative</span>
-                <span class="title-line accent">Developer</span>
-                <span class="title-line">& Designer</span>
+                <span class="line">GROWTH</span>
+                <span class="line">ISN'T LUCK.</span>
+                <span class="line">IT'S</span>
+                <span class="line outline">MANAGED.</span>
             </h1>
 
             <p class="hero-desc">
-                I craft digital experiences that blend clean code with thoughtful design. 
-                Specializing in full-stack web development and modern UI/UX.
+                I'm <strong>Doris</strong>, the content creator manager behind <strong>26 Roblox titles</strong>. 
+                I connect games with the right creators, run the paid pushes and campaigns, 
+                and turn launch days into six-figure communities.
             </p>
 
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">3+</span>
-                    <span class="stat-label">Years Experience</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">15+</span>
-                    <span class="stat-label">Projects Completed</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">10+</span>
-                    <span class="stat-label">Happy Clients</span>
-                </div>
-            </div>
-
             <div class="hero-buttons">
-                <a href="#work" class="btn btn-primary">
-                    <span>View My Work</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-                <a href="#contact" class="btn btn-ghost">
-                    <span>Get In Touch</span>
-                </a>
+                <a href="#contact" class="btn btn-primary">WORK WITH ME <i class="fas fa-arrow-right"></i></a>
+                <a href="#work" class="btn btn-outline">SEE THE GAMES</a>
             </div>
         </div>
 
         <div class="hero-visual">
-            <div class="avatar-container">
-                <div class="avatar-glow"></div>
-                <div class="avatar-frame">
-                    <img src="assets/avatar.jpg" alt="Avatar" 
-                         onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=b6e3f4'">
-                </div>
-                <div class="floating-badge badge-1">
-                    <i class="fab fa-react"></i>
-                </div>
-                <div class="floating-badge badge-2">
-                    <i class="fab fa-node-js"></i>
-                </div>
-                <div class="floating-badge badge-3">
-                    <i class="fab fa-js"></i>
+            <div class="visual-circle">
+                <div class="circle-bg"></div>
+                <div class="circle-content">
+                    <div class="avatar-large">
+                        <img src="assets/avatar.jpg" alt="Avatar" 
+                             onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=1a1a1a'">
+                    </div>
+                    <div class="visual-logo">
+                        <span class="vl-main">DORIS</span>
+                        <span class="vl-sub">CCM</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="scroll-indicator">
-            <span>Scroll</span>
-            <div class="scroll-line"></div>
+        <div class="vertical-text">
+            <span>プ</span><span>レ</span><span>イ</span><span>ヤ</span><span>ー</span><span>を</span><span>動</span><span>か</span><span>す</span>
         </div>
     </section>
 
-    <!-- Work / Projects Section -->
+    <!-- Work / Games Section -->
     <section class="section" id="work">
         <div class="section-header">
-            <span class="section-number">01</span>
-            <div class="section-info">
-                <span class="section-label">Selected Work</span>
-                <h2 class="section-title">Featured Projects</h2>
-            </div>
+            <span class="section-label">01 / WORK</span>
+            <h2 class="section-title">Games I've Managed</h2>
         </div>
-        
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                        <i class="fas fa-shopping-cart"></i>
+        <div class="projects-list">
+            <div class="project-item">
+                <div class="project-number">01</div>
+                <div class="project-info">
+                    <h3>Blox Fruits</h3>
+                    <p>Managed creator campaigns that drove 500K+ concurrent players during updates.</p>
+                    <div class="project-tags">
+                        <span>Creator Push</span><span>Launch Campaign</span><span>500K CCU</span>
                     </div>
                 </div>
-                <div class="project-content">
-                    <div class="project-tags">
-                        <span>React</span>
-                        <span>Node.js</span>
-                        <span>MongoDB</span>
-                    </div>
-                    <h3>E-commerce Platform</h3>
-                    <p>Full-stack online shopping platform with cart, payment, and order management system.</p>
-                    <div class="project-links">
-                        <a href="#" target="_blank" class="link-demo">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                        <a href="#" target="_blank" class="link-code">
-                            <i class="fab fa-github"></i> Source Code
-                        </a>
-                    </div>
+                <div class="project-link">
+                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                        <i class="fas fa-tasks"></i>
+            <div class="project-item">
+                <div class="project-number">02</div>
+                <div class="project-info">
+                    <h3>King Legacy</h3>
+                    <p>Coordinated 30+ YouTubers for a synchronized launch week push.</p>
+                    <div class="project-tags">
+                        <span>YouTube Campaign</span><span>30+ Creators</span><span>Launch Week</span>
                     </div>
                 </div>
-                <div class="project-content">
-                    <div class="project-tags">
-                        <span>Vue.js</span>
-                        <span>Firebase</span>
-                        <span>Tailwind</span>
-                    </div>
-                    <h3>Task Management App</h3>
-                    <p>Drag-and-drop task manager with real-time updates, reminders, and performance analytics.</p>
-                    <div class="project-links">
-                        <a href="#" target="_blank" class="link-demo">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                        <a href="#" target="_blank" class="link-code">
-                            <i class="fab fa-github"></i> Source Code
-                        </a>
-                    </div>
+                <div class="project-link">
+                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                        <i class="fas fa-gamepad"></i>
+            <div class="project-item">
+                <div class="project-number">03</div>
+                <div class="project-info">
+                    <h3>Grand Piece Online</h3>
+                    <p>Built a sustainable creator pipeline generating 2M+ views monthly.</p>
+                    <div class="project-tags">
+                        <span>Ongoing Partnership</span><span>2M Views/mo</span><span>Pipeline</span>
                     </div>
                 </div>
-                <div class="project-content">
+                <div class="project-link">
+                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-number">04</div>
+                <div class="project-info">
+                    <h3>Anime Defenders</h3>
+                    <p>Strategic creator seeding that helped the game reach #3 trending on Roblox.</p>
                     <div class="project-tags">
-                        <span>JavaScript</span>
-                        <span>Canvas</span>
-                        <span>WebGL</span>
+                        <span>Trending Push</span><span>#3 Roblox</span><span>Strategy</span>
                     </div>
-                    <h3>Mini Game Collection</h3>
-                    <p>Browser-based mini-games with beautiful graphics, smooth animations, and engaging gameplay.</p>
-                    <div class="project-links">
-                        <a href="#" target="_blank" class="link-demo">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                        <a href="#" target="_blank" class="link-code">
-                            <i class="fab fa-github"></i> Source Code
-                        </a>
-                    </div>
+                </div>
+                <div class="project-link">
+                    <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="section" id="skills">
+    <!-- Agencies / Services Section -->
+    <section class="section" id="agencies">
         <div class="section-header">
-            <span class="section-number">02</span>
-            <div class="section-info">
-                <span class="section-label">Expertise</span>
-                <h2 class="section-title">Tech Stack</h2>
-            </div>
+            <span class="section-label">02 / SERVICES</span>
+            <h2 class="section-title">What I Do</h2>
         </div>
-        
-        <div class="skills-container">
-            <div class="skills-category">
-                <h3 class="category-title">Frontend</h3>
-                <div class="skills-list">
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">HTML / CSS</span>
-                            <span class="skill-percent">95%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 95%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">JavaScript</span>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">React</span>
-                            <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-users"></i>
                 </div>
+                <h3>Creator Matching</h3>
+                <p>I find the right YouTubers and TikTokers for your game's niche and audience.</p>
             </div>
 
-            <div class="skills-category">
-                <h3 class="category-title">Backend</h3>
-                <div class="skills-list">
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Node.js</span>
-                            <span class="skill-percent">75%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Python</span>
-                            <span class="skill-percent">70%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 70%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Database</span>
-                            <span class="skill-percent">78%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 78%"></div>
-                        </div>
-                    </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bullhorn"></i>
                 </div>
+                <h3>Campaign Management</h3>
+                <p>Full campaign execution from brief creation to performance tracking.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Launch Strategy</h3>
+                <p>Turn your game launch into a viral moment with synchronized creator pushes.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Growth Analytics</h3>
+                <p>Data-driven insights to optimize your creator marketing ROI.</p>
             </div>
         </div>
     </section>
@@ -294,42 +225,31 @@
     <!-- About Section -->
     <section class="section" id="about">
         <div class="section-header">
-            <span class="section-number">03</span>
-            <div class="section-info">
-                <span class="section-label">About Me</span>
-                <h2 class="section-title">Who I Am</h2>
-            </div>
+            <span class="section-label">03 / ABOUT</span>
+            <h2 class="section-title">Who I Am</h2>
         </div>
-        
         <div class="about-content">
-            <div class="about-text-block">
-                <p class="about-text">
-                    I'm a developer who believes that great software is built at the intersection of 
-                    clean code and thoughtful design. I specialize in building full-stack web applications 
-                    that are fast, accessible, and beautiful.
-                </p>
-                <p class="about-text">
-                    When I'm not coding, you'll find me exploring new technologies, contributing to 
-                    open-source projects, or sharing knowledge with the developer community.
-                </p>
-            </div>
-            
-            <div class="about-highlights">
-                <div class="highlight-item">
-                    <i class="fas fa-code"></i>
-                    <span>Clean Code</span>
+            <p class="about-text">
+                I'm Doris, a Roblox Content Creator Manager specializing in connecting game developers 
+                with the right content creators. I've worked with 26+ Roblox titles, helping them grow 
+                from launch to millions of players.
+            </p>
+            <p class="about-text">
+                My approach is simple: find the right creators, craft the right message, and execute 
+                with precision. Growth isn't luck—it's managed.
+            </p>
+            <div class="about-stats">
+                <div class="about-stat">
+                    <span class="stat-number">26+</span>
+                    <span class="stat-label">Games Managed</span>
                 </div>
-                <div class="highlight-item">
-                    <i class="fas fa-paint-brush"></i>
-                    <span>Modern Design</span>
+                <div class="about-stat">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Creator Partnerships</span>
                 </div>
-                <div class="highlight-item">
-                    <i class="fas fa-rocket"></i>
-                    <span>Performance</span>
-                </div>
-                <div class="highlight-item">
-                    <i class="fas fa-users"></i>
-                    <span>Collaboration</span>
+                <div class="about-stat">
+                    <span class="stat-number">50M+</span>
+                    <span class="stat-label">Total Views Generated</span>
                 </div>
             </div>
         </div>
@@ -338,50 +258,21 @@
     <!-- Contact Section -->
     <section class="section contact-section" id="contact">
         <div class="section-header">
-            <span class="section-number">04</span>
-            <div class="section-info">
-                <span class="section-label">Get In Touch</span>
-            </div>
+            <span class="section-label">04 / CONTACT</span>
         </div>
-        
-        <h2 class="contact-title">
-            Let's create something
-            <span class="accent-text">amazing</span>
-            together.
-        </h2>
-        
-        <div class="contact-methods">
-            <a href="mailto:your.email@example.com" class="contact-card">
-                <div class="contact-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="contact-info">
-                    <span class="contact-label">Email</span>
-                    <span class="contact-value">your.email@example.com</span>
-                </div>
-                <i class="fas fa-arrow-right contact-arrow"></i>
+        <h2 class="contact-title">Let's grow your <span class="outline">Roblox game</span> together.</h2>
+        <div class="contact-links">
+            <a href="https://discord.com" target="_blank" class="contact-item">
+                <i class="fab fa-discord"></i>
+                <span>DM me on Discord</span>
             </a>
-            
-            <a href="https://github.com/yourusername" target="_blank" class="contact-card">
-                <div class="contact-icon">
-                    <i class="fab fa-github"></i>
-                </div>
-                <div class="contact-info">
-                    <span class="contact-label">GitHub</span>
-                    <span class="contact-value">github.com/yourusername</span>
-                </div>
-                <i class="fas fa-arrow-right contact-arrow"></i>
+            <a href="https://twitter.com" target="_blank" class="contact-item">
+                <i class="fab fa-twitter"></i>
+                <span>@DorisCCM</span>
             </a>
-            
-            <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-card">
-                <div class="contact-icon">
-                    <i class="fab fa-linkedin"></i>
-                </div>
-                <div class="contact-info">
-                    <span class="contact-label">LinkedIn</span>
-                    <span class="contact-value">linkedin.com/in/yourusername</span>
-                </div>
-                <i class="fas fa-arrow-right contact-arrow"></i>
+            <a href="mailto:contact@dorisccm.com" class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>contact@dorisccm.com</span>
             </a>
         </div>
     </section>
@@ -389,13 +280,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-left">
-                <span class="footer-logo">&lt;NVA/&gt;</span>
-                <span class="footer-copy">© 2026 Nguyen Van A. All rights reserved.</span>
-            </div>
-            <div class="footer-right">
-                <span>Built with <i class="fas fa-heart"></i> in Vietnam</span>
-            </div>
+            <span>© 2026 DORIS / CCM</span>
+            <span>ROBLOX CONTENT CREATOR MANAGER</span>
         </div>
     </footer>
 
