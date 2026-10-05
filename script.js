@@ -1,41 +1,71 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Loading Sequence (Đã sửa để khớp với digit1, digit2, digit3)
-    const digit1 = document.getElementById('digit1');
-    const digit2 = document.getElementById('digit2');
-    const digit3 = document.getElementById('digit3');
-    const barEl = document.getElementById('loaderBar');
+    // ============================================
+    // 1. FLIP CLOCK LOADING
+    // ============================================
     const loader = document.getElementById('loader');
+    const barEl = document.getElementById('loaderBar');
+    const digits = [
+        document.getElementById('digit1'),
+        document.getElementById('digit2'),
+        document.getElementById('digit3')
+    ];
 
-    if (digit1 && digit2 && digit3 && barEl && loader) {
-        let count = 0;
-        const duration = 2500;
+    if (loader && barEl && digits.every(d => d)) {
+        let currentValue = 0;
+        const duration = 2800;
         const steps = 100;
         const intervalTime = duration / steps;
         const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
 
-        const interval = setInterval(() => {
-            count++;
-            const displayCount = Math.floor(easeOutQuart(count / steps) * 100);
-            const padded = displayCount.toString().padStart(3, '0');
+        function updateFlipDigit(digitEl, newValue) {
+            const top = digitEl.querySelector('.flip-top');
+            const bottom = digitEl.querySelector('.flip-bottom');
+            const flap = digitEl.querySelector('.flip-flap');
+            const oldValue = top.textContent;
+
+            if (oldValue === newValue) return;
+
+            flap.textContent = oldValue;
+            bottom.textContent = newValue;
             
-            digit1.textContent = padded[0];
-            digit2.textContent = padded[1];
-            digit3.textContent = padded[2];
+            digitEl.classList.remove('flipping');
+            void digitEl.offsetWidth; // Force reflow
+            digitEl.classList.add('flipping');
+
+            setTimeout(() => {
+                top.textContent = newValue;
+                flap.textContent = newValue;
+                digitEl.classList.remove('flipping');
+            }, 500);
+        }
+
+        const interval = setInterval(() => {
+            currentValue++;
+            const displayCount = Math.floor(easeOutQuart(currentValue / steps) * 100);
+            const padded = displayCount.toString().padStart(3, '0');
+
+            digits.forEach((digit, index) => {
+                updateFlipDigit(digit, padded[index]);
+            });
+
             barEl.style.width = `${displayCount}%`;
 
-            if (count >= steps) {
+            if (currentValue >= steps) {
                 clearInterval(interval);
                 setTimeout(() => {
                     loader.classList.add('hidden');
                     document.body.style.overflow = 'auto';
                     initAnimations();
-                }, 500);
+                }, 600);
             }
         }, intervalTime);
+
         document.body.style.overflow = 'hidden';
     }
 
-    // 2. Navbar Scroll
+    // ============================================
+    // 2. NAVBAR SCROLL
+    // ============================================
     const navbar = document.getElementById('nav');
     if (navbar) {
         window.addEventListener('scroll', () => {
@@ -43,7 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. Smooth Scroll
+    // ============================================
+    // 3. SMOOTH SCROLL
+    // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
@@ -59,7 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 4. Scroll Reveal & Counters
+    // ============================================
+    // 4. SCROLL REVEAL & COUNTERS
+    // ============================================
     function initAnimations() {
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -69,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        
+
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
         const counterObserver = new IntersectionObserver((entries) => {
@@ -81,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const duration = 2000;
                     const startTime = performance.now();
                     const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
-                    
+
                     const animate = (currentTime) => {
                         const progress = Math.min((currentTime - startTime) / duration, 1);
                         const current = Math.floor(easeOutQuart(progress) * target);
@@ -94,11 +128,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }, { threshold: 0.5 });
-        
+
         document.querySelectorAll('[data-value]').forEach(el => counterObserver.observe(el));
     }
 
-    // 5. Custom Cursor
+    // ============================================
+    // 5. CUSTOM CURSOR
+    // ============================================
     const cursor = document.getElementById('cursor');
     if (cursor && window.innerWidth > 768) {
         const dot = cursor.querySelector('.cursor-dot');
@@ -130,7 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 6. Spotlight
+    // ============================================
+    // 6. SPOTLIGHT
+    // ============================================
     const spotlight = document.getElementById('spotlight');
     if (spotlight && window.innerWidth > 768) {
         document.addEventListener('mousemove', (e) => {
@@ -139,7 +177,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 7. 3D Tilt
+    // ============================================
+    // 7. 3D TILT
+    // ============================================
     if (window.innerWidth > 768) {
         document.querySelectorAll('.tilt').forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -154,7 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 8. Horizontal Scroll Drag
+    // ============================================
+    // 8. HORIZONTAL SCROLL DRAG
+    // ============================================
     const slider = document.querySelector('.work-horizontal');
     if (slider) {
         let isDown = false, startX, scrollLeft;
@@ -171,4 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         slider.style.cursor = 'grab';
     }
+
+    console.log('%c DORIS/CCM ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
 });
