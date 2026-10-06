@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <!-- Custom Cursor -->
@@ -185,7 +186,7 @@
         </div>
     </div>
 
-    <!-- What I Do Section (LAYOUT MỚI - SPLIT ROWS) -->
+    <!-- What I Do Section -->
     <section class="section" id="services">
         <div class="section-container">
             <div class="section-header reveal">
@@ -333,7 +334,7 @@
         </div>
     </section>
 
-    <!-- Crypto Portfolio Section -->
+    <!-- Portfolio Tracker Section -->
     <section class="section crypto-section" id="crypto">
         <div class="section-container">
             <div class="section-header reveal">
@@ -342,133 +343,99 @@
                     <span class="meta-line"></span>
                 </div>
                 <div class="section-title-wrap">
-                    <h2 class="section-title">Crypto Portfolio</h2>
-                    <p class="section-subtitle">My current digital asset holdings — updated regularly</p>
+                    <h2 class="section-title">Portfolio Tracker</h2>
+                    <p class="section-subtitle">My account balance history — tracked over time</p>
                 </div>
             </div>
 
-            <!-- Total Balance -->
+            <!-- Current Balance Card -->
             <div class="crypto-total reveal">
-                <div class="crypto-total-label">
-                    <i class="fas fa-wallet"></i>
-                    <span>Total Balance</span>
+                <div class="crypto-total-left">
+                    <div class="crypto-total-label">
+                        <i class="fas fa-wallet"></i>
+                        <span>Current Balance</span>
+                    </div>
+                    <div class="crypto-total-value" id="cryptoTotal">$0.00</div>
+                    <div class="crypto-total-change" id="cryptoChange">
+                        <i class="fas fa-arrow-up"></i>
+                        <span id="changeValue">+$0.00</span>
+                        <span id="changePercent">(0%)</span>
+                    </div>
                 </div>
-                <div class="crypto-total-value" id="cryptoTotal">$0.00</div>
-                <div class="crypto-total-edit">
-                    <button class="edit-btn" id="editCryptoBtn" data-hover>
+                <div class="crypto-total-actions">
+                    <button class="edit-btn" id="editBalanceBtn" data-hover>
                         <i class="fas fa-pen"></i>
-                        <span>Edit Balance</span>
+                        <span>Update Balance</span>
+                    </button>
+                    <button class="edit-btn danger" id="resetHistoryBtn" data-hover>
+                        <i class="fas fa-trash"></i>
+                        <span>Reset History</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Crypto List -->
-            <div class="crypto-list reveal" id="cryptoList">
-                <!-- BTC -->
-                <div class="crypto-item" data-coin="BTC">
-                    <div class="crypto-item-left">
-                        <div class="crypto-icon btc"><i class="fab fa-bitcoin"></i></div>
-                        <div class="crypto-info">
-                            <div class="crypto-name">Bitcoin</div>
-                            <div class="crypto-symbol">BTC</div>
-                        </div>
+            <!-- Chart Container -->
+            <div class="chart-container reveal">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Balance History</span>
                     </div>
-                    <div class="crypto-item-right">
-                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
-                        <div class="crypto-value" data-value="0">$0.00</div>
+                    <div class="chart-legend">
+                        <span class="legend-item">
+                            <span class="legend-dot"></span>
+                            <span>Balance (USD)</span>
+                        </span>
                     </div>
                 </div>
-
-                <!-- ETH -->
-                <div class="crypto-item" data-coin="ETH">
-                    <div class="crypto-item-left">
-                        <div class="crypto-icon eth"><i class="fab fa-ethereum"></i></div>
-                        <div class="crypto-info">
-                            <div class="crypto-name">Ethereum</div>
-                            <div class="crypto-symbol">ETH</div>
-                        </div>
-                    </div>
-                    <div class="crypto-item-right">
-                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
-                        <div class="crypto-value" data-value="0">$0.00</div>
-                    </div>
+                <div class="chart-wrapper">
+                    <canvas id="balanceChart"></canvas>
                 </div>
-
-                <!-- SOL -->
-                <div class="crypto-item" data-coin="SOL">
-                    <div class="crypto-item-left">
-                        <div class="crypto-icon sol"><i class="fas fa-sun"></i></div>
-                        <div class="crypto-info">
-                            <div class="crypto-name">Solana</div>
-                            <div class="crypto-symbol">SOL</div>
-                        </div>
+                <div class="chart-stats">
+                    <div class="chart-stat">
+                        <div class="chart-stat-label">All-time High</div>
+                        <div class="chart-stat-value" id="statHigh">$0.00</div>
                     </div>
-                    <div class="crypto-item-right">
-                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
-                        <div class="crypto-value" data-value="0">$0.00</div>
+                    <div class="chart-stat">
+                        <div class="chart-stat-label">All-time Low</div>
+                        <div class="chart-stat-value" id="statLow">$0.00</div>
                     </div>
-                </div>
-
-                <!-- USDT -->
-                <div class="crypto-item" data-coin="USDT">
-                    <div class="crypto-item-left">
-                        <div class="crypto-icon usdt"><i class="fas fa-dollar-sign"></i></div>
-                        <div class="crypto-info">
-                            <div class="crypto-name">Tether</div>
-                            <div class="crypto-symbol">USDT</div>
-                        </div>
+                    <div class="chart-stat">
+                        <div class="chart-stat-label">Total Entries</div>
+                        <div class="chart-stat-value" id="statCount">0</div>
                     </div>
-                    <div class="crypto-item-right">
-                        <div class="crypto-amount" data-amount="0.00">0.00</div>
-                        <div class="crypto-value" data-value="0">$0.00</div>
-                    </div>
-                </div>
-
-                <!-- BNB -->
-                <div class="crypto-item" data-coin="BNB">
-                    <div class="crypto-item-left">
-                        <div class="crypto-icon bnb"><i class="fas fa-coins"></i></div>
-                        <div class="crypto-info">
-                            <div class="crypto-name">BNB</div>
-                            <div class="crypto-symbol">BNB</div>
-                        </div>
-                    </div>
-                    <div class="crypto-item-right">
-                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
-                        <div class="crypto-value" data-value="0">$0.00</div>
-                    </div>
-                </div>
-
-                <!-- XRP -->
-                <div class="crypto-item" data-coin="XRP">
-                    <div class="crypto-item-left">
-                        <div class="crypto-icon xrp"><i class="fas fa-water"></i></div>
-                        <div class="crypto-info">
-                            <div class="crypto-name">Ripple</div>
-                            <div class="crypto-symbol">XRP</div>
-                        </div>
-                    </div>
-                    <div class="crypto-item-right">
-                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
-                        <div class="crypto-value" data-value="0">$0.00</div>
+                    <div class="chart-stat">
+                        <div class="chart-stat-label">First Entry</div>
+                        <div class="chart-stat-value" id="statFirst">—</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Edit Modal -->
-            <div class="crypto-modal" id="cryptoModal">
+            <!-- Edit Balance Modal -->
+            <div class="crypto-modal" id="balanceModal">
                 <div class="crypto-modal-content">
                     <div class="crypto-modal-header">
-                        <h3>Edit Crypto Balance</h3>
-                        <button class="modal-close" id="modalClose" data-hover>✕</button>
+                        <h3>Update Balance</h3>
+                        <button class="modal-close" id="balanceModalClose" data-hover>✕</button>
                     </div>
-                    <div class="crypto-modal-body" id="cryptoModalBody">
-                        <!-- Generated by JS -->
+                    <div class="crypto-modal-body">
+                        <p class="modal-hint">
+                            <i class="fas fa-info-circle"></i>
+                            Enter your current account balance. A new data point will be added with today's date.
+                        </p>
+                        <div class="crypto-edit-row">
+                            <label>Current Balance (USD)</label>
+                            <input type="number" step="0.01" id="newBalanceInput" placeholder="0.00">
+                        </div>
+                        <div class="crypto-edit-row">
+                            <label>Note (optional)</label>
+                            <input type="text" id="balanceNoteInput" placeholder="e.g., After donation, Monthly update...">
+                        </div>
                     </div>
                     <div class="crypto-modal-footer">
-                        <button class="btn btn-secondary" id="modalCancel" data-hover>Cancel</button>
-                        <button class="btn btn-primary" id="modalSave" data-hover>
-                            <span>Save Changes</span>
+                        <button class="btn btn-secondary" id="balanceModalCancel" data-hover>Cancel</button>
+                        <button class="btn btn-primary" id="balanceModalSave" data-hover>
+                            <span>Save & Update Chart</span>
                             <i class="fas fa-check"></i>
                         </button>
                     </div>
@@ -553,7 +520,7 @@
                     <div class="crypto-modal-content">
                         <div class="crypto-modal-header">
                             <h3>Edit Top 10 Donators</h3>
-                            <button class="modal-close" id="donorsModalClose" data-hover>✕</button>
+                            <button class="modal-close" id="donorsModalClose" data-hover></button>
                         </div>
                         <div class="crypto-modal-body" id="donorsModalBody">
                             <!-- Generated by JS -->
@@ -695,7 +662,7 @@
             </div>
             <div class="footer-meta">
                 <span>© 2026 All rights reserved</span>
-                <span class="footer-loc">USA 🇺 · EN/VN</span>
+                <span class="footer-loc">USA 🇺🇸 · EN/VN</span>
             </div>
         </div>
     </footer>
