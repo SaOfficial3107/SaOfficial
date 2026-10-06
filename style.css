@@ -14,7 +14,7 @@
     --border: rgba(255, 255, 255, 0.08);
     --border-hover: rgba(255, 255, 255, 0.2);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --accent: #a78bfa; /* Tím nhạt accent */
+    --accent: #a78bfa;
 }
 
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -28,7 +28,7 @@ a, button { cursor: none; }
 ::-webkit-scrollbar-thumb:hover { background: var(--fg-muted); }
 
 /* ============================================
-   🌌 BACKGROUND - ĐEN TRẮNG CHỦ ĐẠO + CHÚT MÀU
+   BACKGROUND
    ============================================ */
 body::before {
     content: '';
@@ -277,7 +277,7 @@ body::before {
 .section-subtitle { font-size: 1.05rem; color: var(--fg-muted); max-width: 500px; line-height: 1.7; }
 
 /* ============================================
-   🎯 WHAT I DO - SPLIT ROWS LAYOUT (MỚI)
+   WHAT I DO - SPLIT ROWS
    ============================================ */
 .services-list {
     display: flex;
@@ -450,7 +450,7 @@ body::before {
 }
 
 /* ============================================
-   💰 CRYPTO PORTFOLIO
+   PORTFOLIO CHART
    ============================================ */
 .crypto-section {
     background: linear-gradient(180deg, var(--bg) 0%, rgba(167, 139, 250, 0.02) 50%, var(--bg) 100%);
@@ -467,6 +467,12 @@ body::before {
     justify-content: space-between;
     gap: 30px;
     flex-wrap: wrap;
+}
+
+.crypto-total-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .crypto-total-label {
@@ -491,13 +497,37 @@ body::before {
     font-weight: 400;
     color: var(--fg);
     letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.crypto-total-change {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #4ade80;
+}
+
+.crypto-total-change.negative {
+    color: #f87171;
+}
+
+.crypto-total-change i {
+    font-size: 0.75rem;
+}
+
+.crypto-total-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .edit-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 20px;
+    padding: 12px 22px;
     background: transparent;
     border: 1px solid var(--border);
     border-radius: 50px;
@@ -514,96 +544,108 @@ body::before {
     background: rgba(167, 139, 250, 0.05);
 }
 
-.crypto-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+.edit-btn.danger:hover {
+    border-color: #f87171;
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.05);
+}
+
+.chart-container {
+    background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 20px;
-    overflow: hidden;
-    background: var(--bg-card);
+    padding: 40px;
+    margin-bottom: 40px;
 }
 
-.crypto-item {
+.chart-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 25px 30px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.3s;
-}
-
-.crypto-item:last-child {
-    border-bottom: none;
-}
-
-.crypto-item:hover {
-    background: var(--bg-hover);
-}
-
-.crypto-item-left {
-    display: flex;
     align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
-.crypto-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+.chart-title {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--fg-muted);
+    text-transform: uppercase;
+}
+
+.chart-title i {
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.chart-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+}
+
+.chart-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chart-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+}
+
+.chart-stat-value {
+    font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
     color: var(--fg);
 }
 
-.crypto-icon.btc { background: linear-gradient(135deg, #f7931a, #ffb347); }
-.crypto-icon.eth { background: linear-gradient(135deg, #627eea, #8fa4ff); }
-.crypto-icon.sol { background: linear-gradient(135deg, #9945ff, #14f195); }
-.crypto-icon.usdt { background: linear-gradient(135deg, #26a17b, #50d4a8); }
-.crypto-icon.bnb { background: linear-gradient(135deg, #f3ba2f, #ffd700); }
-.crypto-icon.xrp { background: linear-gradient(135deg, #23292f, #5a6a7a); }
-
-.crypto-info {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.crypto-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--fg);
-}
-
-.crypto-symbol {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--fg-dim);
-    letter-spacing: 0.15em;
-}
-
-.crypto-item-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
-}
-
-.crypto-amount {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.95rem;
-    color: var(--fg);
-}
-
-.crypto-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--fg-muted);
-}
-
-/* Edit Modal */
+/* Modal */
 .crypto-modal {
     position: fixed;
     inset: 0;
@@ -624,7 +666,7 @@ body::before {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 20px;
-    max-width: 600px;
+    max-width: 500px;
     width: 100%;
     max-height: 80vh;
     overflow-y: auto;
@@ -664,33 +706,48 @@ body::before {
     gap: 20px;
 }
 
-.crypto-edit-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    align-items: center;
+.modal-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     padding: 15px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background: rgba(167, 139, 250, 0.05);
+    border-left: 2px solid var(--accent);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    line-height: 1.5;
+}
+
+.modal-hint i {
+    color: var(--accent);
+    margin-top: 2px;
+}
+
+.crypto-edit-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .crypto-edit-row label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--fg-muted);
     letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .crypto-edit-row input {
-    background: var(--bg-card);
+    background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 15px;
+    border-radius: 10px;
+    padding: 14px 18px;
     color: var(--fg);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
+    font-size: 1rem;
     width: 100%;
+    transition: border-color 0.3s;
 }
 
 .crypto-edit-row input:focus {
@@ -701,13 +758,13 @@ body::before {
 .crypto-modal-footer {
     display: flex;
     justify-content: flex-end;
-    gap: 15px;
+    gap: 12px;
     padding: 25px 30px;
     border-top: 1px solid var(--border);
 }
 
 /* ============================================
-   💝 DONATE - TOP 10 + METHODS
+   DONATE
    ============================================ */
 .donate-section { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%); }
 .donate-wrapper { max-width: 1000px; margin: 0 auto; }
@@ -883,6 +940,13 @@ body::before {
         gap: 15px;
         padding: 15px 20px;
     }
+    
+    .chart-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .chart-wrapper {
+        height: 300px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -932,5 +996,19 @@ body::before {
     .top-amount {
         grid-column: 2;
         text-align: left;
+    }
+    
+    .chart-container {
+        padding: 25px 20px;
+    }
+    .chart-wrapper {
+        height: 250px;
+    }
+    .chart-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    .crypto-total {
+        padding: 25px 20px;
     }
 }
