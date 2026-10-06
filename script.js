@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ============================================
-    // 🌌 PARTICLE SYSTEM
+    // 🌌 PARTICLE SYSTEM (ĐEN TRẮNG)
     // ============================================
     const canvas = document.createElement('canvas');
     canvas.id = 'particles-canvas';
@@ -24,29 +24,27 @@ document.addEventListener("DOMContentLoaded", () => {
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 1.5 + 0.3;
-            this.speedX = (Math.random() - 0.5) * 0.3;
-            this.speedY = (Math.random() - 0.5) * 0.3;
-            this.opacity = Math.random() * 0.5 + 0.1;
+            this.size = Math.random() * 1.2 + 0.3;
+            this.speedX = (Math.random() - 0.5) * 0.2;
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.opacity = Math.random() * 0.4 + 0.1;
             this.pulse = Math.random() * Math.PI * 2;
-            this.pulseSpeed = Math.random() * 0.02 + 0.01;
+            this.pulseSpeed = Math.random() * 0.015 + 0.008;
         }
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
             this.pulse += this.pulseSpeed;
             
-            // Mouse interaction - particles gently repel
             const dx = this.x - mouseX;
             const dy = this.y - mouseY;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 150) {
                 const force = (150 - dist) / 150;
-                this.x += (dx / dist) * force * 0.5;
-                this.y += (dy / dist) * force * 0.5;
+                this.x += (dx / dist) * force * 0.3;
+                this.y += (dy / dist) * force * 0.3;
             }
             
-            // Wrap around
             if (this.x < 0) this.x = canvas.width;
             if (this.x > canvas.width) this.x = 0;
             if (this.y < 0) this.y = canvas.height;
@@ -59,23 +57,20 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
             ctx.fill();
             
-            // Glow effect for larger particles
-            if (this.size > 1) {
+            if (this.size > 0.8) {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity * 0.1})`;
+                ctx.arc(this.x, this.y, this.size * 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity * 0.08})`;
                 ctx.fill();
             }
         }
     }
     
-    // Create particles - số lượng tùy màn hình
-    const particleCount = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 20000));
+    const particleCount = Math.min(60, Math.floor((window.innerWidth * window.innerHeight) / 25000));
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
     
-    // Draw connections between nearby particles
     function drawConnections() {
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
@@ -83,8 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const dy = particles[i].y - particles[j].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 
-                if (dist < 120) {
-                    const opacity = (1 - dist / 120) * 0.15;
+                if (dist < 100) {
+                    const opacity = (1 - dist / 100) * 0.1;
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -270,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // SPOTLIGHT (mạnh hơn)
+    // SPOTLIGHT
     // ============================================
     const spotlight = document.getElementById('spotlight');
     if (spotlight && window.innerWidth > 768) {
@@ -298,24 +293,208 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // HORIZONTAL SCROLL DRAG
+    // 💰 CRYPTO BALANCE SYSTEM
     // ============================================
-    const slider = document.querySelector('.work-horizontal');
-    if (slider) {
-        let isDown = false, startX, scrollLeft;
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
-            slider.style.cursor = 'grabbing';
-        });
-        slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
-        slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            slider.scrollLeft = scrollLeft - (e.pageX - slider.offsetLeft - startX) * 1.5;
-        });
-        slider.style.cursor = 'grab';
+    const cryptoData = {
+        BTC: { amount: 0.00000000, price: 67000 },
+        ETH: { amount: 0.00000000, price: 3500 },
+        SOL: { amount: 0.00000000, price: 180 },
+        USDT: { amount: 0.00, price: 1 },
+        BNB: { amount: 0.00000000, price: 600 },
+        XRP: { amount: 0.00000000, price: 0.55 }
+    };
+
+    // Load from localStorage or use default
+    const savedCrypto = localStorage.getItem('sa_crypto_data');
+    if (savedCrypto) {
+        try {
+            const parsed = JSON.parse(savedCrypto);
+            Object.keys(parsed).forEach(key => {
+                if (cryptoData[key]) {
+                    cryptoData[key].amount = parsed[key].amount;
+                }
+            });
+        } catch(e) {}
     }
+
+    function updateCryptoDisplay() {
+        let total = 0;
+        Object.keys(cryptoData).forEach(coin => {
+            const item = document.querySelector(`.crypto-item[data-coin="${coin}"]`);
+            if (item) {
+                const amountEl = item.querySelector('.crypto-amount');
+                const valueEl = item.querySelector('.crypto-value');
+                const value = cryptoData[coin].amount * cryptoData[coin].price;
+                total += value;
+                
+                const decimals = coin === 'USDT' ? 2 : 8;
+                amountEl.textContent = cryptoData[coin].amount.toFixed(decimals);
+                valueEl.textContent = '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+        });
+        
+        const totalEl = document.getElementById('cryptoTotal');
+        if (totalEl) {
+            totalEl.textContent = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+    }
+
+    updateCryptoDisplay();
+
+    // Edit Crypto Modal
+    const editCryptoBtn = document.getElementById('editCryptoBtn');
+    const cryptoModal = document.getElementById('cryptoModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalCancel = document.getElementById('modalCancel');
+    const modalSave = document.getElementById('modalSave');
+    const cryptoModalBody = document.getElementById('cryptoModalBody');
+
+    function openCryptoModal() {
+        cryptoModalBody.innerHTML = '';
+        Object.keys(cryptoData).forEach(coin => {
+            const row = document.createElement('div');
+            row.className = 'crypto-edit-row';
+            row.innerHTML = `
+                <label>${coin}</label>
+                <input type="number" step="any" id="edit-${coin}" value="${cryptoData[coin].amount}" placeholder="Amount">
+            `;
+            cryptoModalBody.appendChild(row);
+        });
+        cryptoModal.classList.add('active');
+    }
+
+    function closeCryptoModal() {
+        cryptoModal.classList.remove('active');
+    }
+
+    function saveCryptoData() {
+        Object.keys(cryptoData).forEach(coin => {
+            const input = document.getElementById(`edit-${coin}`);
+            if (input) {
+                cryptoData[coin].amount = parseFloat(input.value) || 0;
+            }
+        });
+        localStorage.setItem('sa_crypto_data', JSON.stringify(cryptoData));
+        updateCryptoDisplay();
+        closeCryptoModal();
+    }
+
+    if (editCryptoBtn) editCryptoBtn.addEventListener('click', openCryptoModal);
+    if (modalClose) modalClose.addEventListener('click', closeCryptoModal);
+    if (modalCancel) modalCancel.addEventListener('click', closeCryptoModal);
+    if (modalSave) modalSave.addEventListener('click', saveCryptoData);
+
+    // ============================================
+    // 💝 TOP DONATORS SYSTEM
+    // ============================================
+    const defaultDonators = [
+        { name: 'Anonymous #1', amount: 100 },
+        { name: 'Anonymous #2', amount: 75 },
+        { name: 'Anonymous #3', amount: 50 },
+        { name: 'Anonymous #4', amount: 40 },
+        { name: 'Anonymous #5', amount: 30 },
+        { name: 'Anonymous #6', amount: 25 },
+        { name: 'Anonymous #7', amount: 20 },
+        { name: 'Anonymous #8', amount: 15 },
+        { name: 'Anonymous #9', amount: 10 },
+        { name: 'Anonymous #10', amount: 5 }
+    ];
+
+    let donators = [];
+    const savedDonators = localStorage.getItem('sa_donators');
+    if (savedDonators) {
+        try {
+            donators = JSON.parse(savedDonators);
+        } catch(e) {
+            donators = [...defaultDonators];
+        }
+    } else {
+        donators = [...defaultDonators];
+    }
+
+    // Sort by amount descending
+    donators.sort((a, b) => b.amount - a.amount);
+
+    function renderTopList() {
+        const topList = document.getElementById('topList');
+        if (!topList) return;
+        
+        topList.innerHTML = '';
+        donators.forEach((donor, index) => {
+            const item = document.createElement('div');
+            item.className = `top-item top-${index + 1}`;
+            item.innerHTML = `
+                <div class="top-rank">#${index + 1}</div>
+                <div class="top-name">${donor.name}</div>
+                <div class="top-amount">$${donor.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            `;
+            topList.appendChild(item);
+        });
+    }
+
+    renderTopList();
+
+    // Edit Donators Modal
+    const editDonorsBtn = document.getElementById('editDonorsBtn');
+    const donorsModal = document.getElementById('donorsModal');
+    const donorsModalClose = document.getElementById('donorsModalClose');
+    const donorsModalCancel = document.getElementById('donorsModalCancel');
+    const donorsModalSave = document.getElementById('donorsModalSave');
+    const donorsModalBody = document.getElementById('donorsModalBody');
+
+    function openDonorsModal() {
+        donorsModalBody.innerHTML = '';
+        donators.forEach((donor, index) => {
+            const row = document.createElement('div');
+            row.className = 'crypto-edit-row';
+            row.innerHTML = `
+                <label>#${index + 1} Name</label>
+                <input type="text" id="donor-name-${index}" value="${donor.name}" placeholder="Name">
+                <label>#${index + 1} Amount ($)</label>
+                <input type="number" step="0.01" id="donor-amount-${index}" value="${donor.amount}" placeholder="Amount">
+            `;
+            donorsModalBody.appendChild(row);
+        });
+        donorsModal.classList.add('active');
+    }
+
+    function closeDonorsModal() {
+        donorsModal.classList.remove('active');
+    }
+
+    function saveDonorsData() {
+        donators = [];
+        for (let i = 0; i < 10; i++) {
+            const nameInput = document.getElementById(`donor-name-${i}`);
+            const amountInput = document.getElementById(`donor-amount-${i}`);
+            if (nameInput && amountInput) {
+                donators.push({
+                    name: nameInput.value || `Anonymous #${i + 1}`,
+                    amount: parseFloat(amountInput.value) || 0
+                });
+            }
+        }
+        donators.sort((a, b) => b.amount - a.amount);
+        localStorage.setItem('sa_donators', JSON.stringify(donators));
+        renderTopList();
+        closeDonorsModal();
+    }
+
+    if (editDonorsBtn) editDonorsBtn.addEventListener('click', openDonorsModal);
+    if (donorsModalClose) donorsModalClose.addEventListener('click', closeDonorsModal);
+    if (donorsModalCancel) donorsModalCancel.addEventListener('click', closeDonorsModal);
+    if (donorsModalSave) donorsModalSave.addEventListener('click', saveDonorsData);
+
+    // Close modals on outside click
+    [cryptoModal, donorsModal].forEach(modal => {
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+    });
 
     console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
     console.log('%cCreator · Developer · Artist · Producer', 'color: #888; font-size: 12px; letter-spacing: 2px;');
