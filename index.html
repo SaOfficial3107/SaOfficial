@@ -65,13 +65,17 @@
                     <span class="nav-num">01</span>
                     <span class="nav-label">What I Do</span>
                 </a>
-                <a href="#about" class="nav-item" data-hover>
+                <a href="#crypto" class="nav-item" data-hover>
                     <span class="nav-num">02</span>
-                    <span class="nav-label">About</span>
+                    <span class="nav-label">Portfolio</span>
                 </a>
                 <a href="#donate" class="nav-item" data-hover>
                     <span class="nav-num">03</span>
                     <span class="nav-label">Support</span>
+                </a>
+                <a href="#about" class="nav-item" data-hover>
+                    <span class="nav-num">04</span>
+                    <span class="nav-label">About</span>
                 </a>
                 <a href="#contact" class="nav-item nav-cta" data-hover>
                     <span class="nav-label">Contact</span>
@@ -113,10 +117,10 @@
             </h1>
             
             <p class="hero-desc reveal">
-                I'm <strong>Sa</strong> — a multi-discipline creator from Vietnam. I make 
+                I'm <strong>Sa</strong> — a multi-discipline creator. I make 
                 <strong>TikTok content</strong>, build <strong>Roblox games</strong>, paint 
                 <strong>digital art on Blue Sky</strong>, and produce <strong>AI music</strong>. 
-                Fluent in <em>Vietnamese & English</em>.
+                Native in <em>Vietnamese</em>, learning English.
             </p>
             
             <div class="hero-cta reveal">
@@ -181,7 +185,7 @@
         </div>
     </div>
 
-    <!-- What I Do Section (ĐÃ SẮP XẾP LẠI) -->
+    <!-- What I Do Section (LAYOUT MỚI - SPLIT ROWS) -->
     <section class="section" id="services">
         <div class="section-container">
             <div class="section-header reveal">
@@ -195,100 +199,279 @@
                 </div>
             </div>
             
-            <div class="services-grid services-grid-5">
-                <!-- TikTok Creator -->
-                <div class="service-card reveal" data-hover>
-                    <div class="service-num">01</div>
-                    <div class="service-icon">
+            <div class="services-list">
+                <!-- TikTok -->
+                <div class="service-row reveal" data-hover>
+                    <div class="service-row-index">
+                        <span class="service-row-num">01</span>
+                        <div class="service-row-line"></div>
+                    </div>
+                    <div class="service-row-icon">
                         <i class="fab fa-tiktok"></i>
                     </div>
-                    <h3 class="service-title">TikTok Creator</h3>
-                    <p class="service-desc">Creating short-form Roblox content, storytelling, and creative edits that inspire my audience.</p>
-                    <ul class="service-list">
-                        <li>Short-form videos</li>
-                        <li>Creative editing</li>
-                        <li>Community engagement</li>
-                    </ul>
-                    <a href="https://www.tiktok.com/@SaOfficial" target="_blank" class="service-cta" data-hover>
-                        <span>Visit TikTok</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="service-row-content">
+                        <h3 class="service-row-title">TikTok Creator</h3>
+                        <p class="service-row-desc">Creating short-form Roblox content, storytelling, and creative edits that inspire my audience.</p>
+                        <ul class="service-row-tags">
+                            <li>Short-form videos</li>
+                            <li>Creative editing</li>
+                            <li>Community engagement</li>
+                        </ul>
+                    </div>
+                    <div class="service-row-cta">
+                        <a href="https://www.tiktok.com/@SaOfficial" target="_blank" class="service-row-link" data-hover>
+                            <span>Visit</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                
-                <!-- Game Developer -->
-                <div class="service-card reveal" data-hover>
-                    <div class="service-num">02</div>
-                    <div class="service-icon">
+
+                <!-- Roblox -->
+                <div class="service-row reveal" data-hover>
+                    <div class="service-row-index">
+                        <span class="service-row-num">02</span>
+                        <div class="service-row-line"></div>
+                    </div>
+                    <div class="service-row-icon">
                         <i class="fas fa-gamepad"></i>
                     </div>
-                    <h3 class="service-title">Roblox Developer</h3>
-                    <p class="service-desc">Building immersive Roblox games with custom Lua scripting, UI/UX design, and engaging gameplay.</p>
-                    <ul class="service-list">
-                        <li>Lua scripting</li>
-                        <li>Game design</li>
-                        <li>World building</li>
-                    </ul>
-                    <a href="https://www.roblox.com/users/SaOfficial/profile" target="_blank" class="service-cta" data-hover>
-                        <span>View Games</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="service-row-content">
+                        <h3 class="service-row-title">Roblox Developer</h3>
+                        <p class="service-row-desc">Building immersive Roblox games with custom Lua scripting, UI/UX design, and engaging gameplay.</p>
+                        <ul class="service-row-tags">
+                            <li>Lua scripting</li>
+                            <li>Game design</li>
+                            <li>World building</li>
+                        </ul>
+                    </div>
+                    <div class="service-row-cta">
+                        <a href="https://www.roblox.com/users/SaOfficial/profile" target="_blank" class="service-row-link" data-hover>
+                            <span>View</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                
-                <!-- Digital Artist -->
-                <div class="service-card reveal" data-hover>
-                    <div class="service-num">03</div>
-                    <div class="service-icon">
+
+                <!-- Blue Sky -->
+                <div class="service-row reveal" data-hover>
+                    <div class="service-row-index">
+                        <span class="service-row-num">03</span>
+                        <div class="service-row-line"></div>
+                    </div>
+                    <div class="service-row-icon">
                         <i class="fas fa-palette"></i>
                     </div>
-                    <h3 class="service-title">Blue Sky Artist</h3>
-                    <p class="service-desc">Painting and sharing digital art on Blue Sky — character design, illustrations, and visual storytelling.</p>
-                    <ul class="service-list">
-                        <li>Digital painting</li>
-                        <li>Character design</li>
-                        <li>Visual storytelling</li>
-                    </ul>
-                    <a href="https://bsky.app/profile/saofficial.bsky.social" target="_blank" class="service-cta" data-hover>
-                        <span>View Art</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="service-row-content">
+                        <h3 class="service-row-title">Blue Sky Artist</h3>
+                        <p class="service-row-desc">Painting and sharing digital art on Blue Sky — character design, illustrations, and visual storytelling.</p>
+                        <ul class="service-row-tags">
+                            <li>Digital painting</li>
+                            <li>Character design</li>
+                            <li>Visual storytelling</li>
+                        </ul>
+                    </div>
+                    <div class="service-row-cta">
+                        <a href="https://bsky.app/profile/saofficial.bsky.social" target="_blank" class="service-row-link" data-hover>
+                            <span>View</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                
+
                 <!-- AI Music -->
-                <div class="service-card reveal" data-hover>
-                    <div class="service-num">04</div>
-                    <div class="service-icon">
+                <div class="service-row reveal" data-hover>
+                    <div class="service-row-index">
+                        <span class="service-row-num">04</span>
+                        <div class="service-row-line"></div>
+                    </div>
+                    <div class="service-row-icon">
                         <i class="fas fa-music"></i>
                     </div>
-                    <h3 class="service-title">AI Music Producer</h3>
-                    <p class="service-desc">Running a YouTube channel for AI-generated music — lo-fi, ambient, and cinematic soundscapes.</p>
-                    <ul class="service-list">
-                        <li>AI music curation</li>
-                        <li>Channel management</li>
-                        <li>Audio branding</li>
-                    </ul>
-                    <a href="https://youtube.com/@SaMusic" target="_blank" class="service-cta" data-hover>
-                        <span>Listen Now</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="service-row-content">
+                        <h3 class="service-row-title">AI Music Producer</h3>
+                        <p class="service-row-desc">Running a YouTube channel for AI-generated music — lo-fi, ambient, and cinematic soundscapes.</p>
+                        <ul class="service-row-tags">
+                            <li>AI music curation</li>
+                            <li>Channel management</li>
+                            <li>Audio branding</li>
+                        </ul>
+                    </div>
+                    <div class="service-row-cta">
+                        <a href="https://youtube.com/@SaMusic" target="_blank" class="service-row-link" data-hover>
+                            <span>Listen</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                
-                <!-- Community Manager -->
-                <div class="service-card reveal" data-hover>
-                    <div class="service-num">05</div>
-                    <div class="service-icon">
+
+                <!-- Discord -->
+                <div class="service-row reveal" data-hover>
+                    <div class="service-row-index">
+                        <span class="service-row-num">05</span>
+                        <div class="service-row-line"></div>
+                    </div>
+                    <div class="service-row-icon">
                         <i class="fab fa-discord"></i>
                     </div>
-                    <h3 class="service-title">Community Manager</h3>
-                    <p class="service-desc">Growing and nurturing an engaged Discord community of creators, gamers, artists, and music lovers.</p>
-                    <ul class="service-list">
-                        <li>Discord management</li>
-                        <li>Event hosting</li>
-                        <li>Member engagement</li>
-                    </ul>
-                    <a href="https://discord.gg/saofficial" target="_blank" class="service-cta" data-hover>
-                        <span>Join Server</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="service-row-content">
+                        <h3 class="service-row-title">Community Manager</h3>
+                        <p class="service-row-desc">Growing and nurturing an engaged Discord community of creators, gamers, artists, and music lovers.</p>
+                        <ul class="service-row-tags">
+                            <li>Discord management</li>
+                            <li>Event hosting</li>
+                            <li>Member engagement</li>
+                        </ul>
+                    </div>
+                    <div class="service-row-cta">
+                        <a href="https://discord.gg/saofficial" target="_blank" class="service-row-link" data-hover>
+                            <span>Join</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crypto Portfolio Section -->
+    <section class="section crypto-section" id="crypto">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-meta">
+                    <span class="meta-num">02</span>
+                    <span class="meta-line"></span>
+                </div>
+                <div class="section-title-wrap">
+                    <h2 class="section-title">Crypto Portfolio</h2>
+                    <p class="section-subtitle">My current digital asset holdings — updated regularly</p>
+                </div>
+            </div>
+
+            <!-- Total Balance -->
+            <div class="crypto-total reveal">
+                <div class="crypto-total-label">
+                    <i class="fas fa-wallet"></i>
+                    <span>Total Balance</span>
+                </div>
+                <div class="crypto-total-value" id="cryptoTotal">$0.00</div>
+                <div class="crypto-total-edit">
+                    <button class="edit-btn" id="editCryptoBtn" data-hover>
+                        <i class="fas fa-pen"></i>
+                        <span>Edit Balance</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Crypto List -->
+            <div class="crypto-list reveal" id="cryptoList">
+                <!-- BTC -->
+                <div class="crypto-item" data-coin="BTC">
+                    <div class="crypto-item-left">
+                        <div class="crypto-icon btc"><i class="fab fa-bitcoin"></i></div>
+                        <div class="crypto-info">
+                            <div class="crypto-name">Bitcoin</div>
+                            <div class="crypto-symbol">BTC</div>
+                        </div>
+                    </div>
+                    <div class="crypto-item-right">
+                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
+                        <div class="crypto-value" data-value="0">$0.00</div>
+                    </div>
+                </div>
+
+                <!-- ETH -->
+                <div class="crypto-item" data-coin="ETH">
+                    <div class="crypto-item-left">
+                        <div class="crypto-icon eth"><i class="fab fa-ethereum"></i></div>
+                        <div class="crypto-info">
+                            <div class="crypto-name">Ethereum</div>
+                            <div class="crypto-symbol">ETH</div>
+                        </div>
+                    </div>
+                    <div class="crypto-item-right">
+                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
+                        <div class="crypto-value" data-value="0">$0.00</div>
+                    </div>
+                </div>
+
+                <!-- SOL -->
+                <div class="crypto-item" data-coin="SOL">
+                    <div class="crypto-item-left">
+                        <div class="crypto-icon sol"><i class="fas fa-sun"></i></div>
+                        <div class="crypto-info">
+                            <div class="crypto-name">Solana</div>
+                            <div class="crypto-symbol">SOL</div>
+                        </div>
+                    </div>
+                    <div class="crypto-item-right">
+                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
+                        <div class="crypto-value" data-value="0">$0.00</div>
+                    </div>
+                </div>
+
+                <!-- USDT -->
+                <div class="crypto-item" data-coin="USDT">
+                    <div class="crypto-item-left">
+                        <div class="crypto-icon usdt"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="crypto-info">
+                            <div class="crypto-name">Tether</div>
+                            <div class="crypto-symbol">USDT</div>
+                        </div>
+                    </div>
+                    <div class="crypto-item-right">
+                        <div class="crypto-amount" data-amount="0.00">0.00</div>
+                        <div class="crypto-value" data-value="0">$0.00</div>
+                    </div>
+                </div>
+
+                <!-- BNB -->
+                <div class="crypto-item" data-coin="BNB">
+                    <div class="crypto-item-left">
+                        <div class="crypto-icon bnb"><i class="fas fa-coins"></i></div>
+                        <div class="crypto-info">
+                            <div class="crypto-name">BNB</div>
+                            <div class="crypto-symbol">BNB</div>
+                        </div>
+                    </div>
+                    <div class="crypto-item-right">
+                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
+                        <div class="crypto-value" data-value="0">$0.00</div>
+                    </div>
+                </div>
+
+                <!-- XRP -->
+                <div class="crypto-item" data-coin="XRP">
+                    <div class="crypto-item-left">
+                        <div class="crypto-icon xrp"><i class="fas fa-water"></i></div>
+                        <div class="crypto-info">
+                            <div class="crypto-name">Ripple</div>
+                            <div class="crypto-symbol">XRP</div>
+                        </div>
+                    </div>
+                    <div class="crypto-item-right">
+                        <div class="crypto-amount" data-amount="0.00000000">0.00000000</div>
+                        <div class="crypto-value" data-value="0">$0.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Modal -->
+            <div class="crypto-modal" id="cryptoModal">
+                <div class="crypto-modal-content">
+                    <div class="crypto-modal-header">
+                        <h3>Edit Crypto Balance</h3>
+                        <button class="modal-close" id="modalClose" data-hover>✕</button>
+                    </div>
+                    <div class="crypto-modal-body" id="cryptoModalBody">
+                        <!-- Generated by JS -->
+                    </div>
+                    <div class="crypto-modal-footer">
+                        <button class="btn btn-secondary" id="modalCancel" data-hover>Cancel</button>
+                        <button class="btn btn-primary" id="modalSave" data-hover>
+                            <span>Save Changes</span>
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -298,7 +481,28 @@
     <section class="section donate-section" id="donate">
         <div class="section-container">
             <div class="donate-wrapper">
-                <div class="section-header reveal" style="text-align: center; display: block;">
+                <!-- TOP DONATORS -->
+                <div class="top-donators reveal">
+                    <div class="section-meta" style="align-items: center; margin-bottom: 30px;">
+                        <span class="meta-num">TOP 10</span>
+                        <span class="meta-line" style="margin: 0 auto;"></span>
+                    </div>
+                    <h2 class="section-title" style="text-align: center; font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 40px;">Top Supporters</h2>
+                    
+                    <div class="top-list" id="topList">
+                        <!-- Generated by JS -->
+                    </div>
+
+                    <div class="top-edit">
+                        <button class="edit-btn" id="editDonorsBtn" data-hover>
+                            <i class="fas fa-pen"></i>
+                            <span>Edit Top List</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Donate Methods -->
+                <div class="section-header reveal" style="text-align: center; display: block; margin-top: 100px;">
                     <div class="section-meta" style="align-items: center; margin-bottom: 30px;">
                         <span class="meta-num">SUPPORT</span>
                         <span class="meta-line" style="margin: 0 auto;"></span>
@@ -343,6 +547,26 @@
                         <div class="donate-arrow">→</div>
                     </a>
                 </div>
+
+                <!-- Edit Donors Modal -->
+                <div class="crypto-modal" id="donorsModal">
+                    <div class="crypto-modal-content">
+                        <div class="crypto-modal-header">
+                            <h3>Edit Top 10 Donators</h3>
+                            <button class="modal-close" id="donorsModalClose" data-hover>✕</button>
+                        </div>
+                        <div class="crypto-modal-body" id="donorsModalBody">
+                            <!-- Generated by JS -->
+                        </div>
+                        <div class="crypto-modal-footer">
+                            <button class="btn btn-secondary" id="donorsModalCancel" data-hover>Cancel</button>
+                            <button class="btn btn-primary" id="donorsModalSave" data-hover>
+                                <span>Save Changes</span>
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -353,13 +577,13 @@
             <div class="about-grid">
                 <div class="about-content">
                     <div class="section-meta reveal">
-                        <span class="meta-num">02</span>
+                        <span class="meta-num">04</span>
                         <span class="meta-line"></span>
                     </div>
                     <h2 class="section-title reveal">About Me</h2>
                     <div class="about-text">
-                        <p class="about-paragraph reveal">I'm <strong>Sa</strong>, a multi-discipline creator from Vietnam. I blend TikTok content, Roblox game development, digital art on Blue Sky, and AI music production into one creative universe.</p>
-                        <p class="about-paragraph reveal">I communicate fluently in both <strong>Vietnamese</strong> and <strong>English</strong>, allowing me to connect with audiences across cultures and platforms.</p>
+                        <p class="about-paragraph reveal">I'm <strong>Sa</strong>, a multi-discipline creator. I blend TikTok content, Roblox game development, digital art on Blue Sky, and AI music production into one creative universe.</p>
+                        <p class="about-paragraph reveal">I'm native in <strong>Vietnamese</strong> and currently learning <strong>English</strong> to connect with a wider audience across cultures and platforms.</p>
                         <p class="about-paragraph highlight-text reveal">Creating content that inspires. Building communities that grow.</p>
                     </div>
                     
@@ -384,10 +608,10 @@
                                 <div class="language-flag">🇬🇧</div>
                                 <div class="language-info">
                                     <div class="language-name">English</div>
-                                    <div class="language-level">Fluent</div>
+                                    <div class="language-level">Learning</div>
                                 </div>
                                 <div class="language-bar">
-                                    <div class="language-fill" style="width: 85%"></div>
+                                    <div class="language-fill" style="width: 50%"></div>
                                 </div>
                             </div>
                         </div>
@@ -399,8 +623,8 @@
                             <img src="avatar.jpg" alt="Sa Official">
                         </div>
                         <div class="box-info">
-                            <div class="info-label">Based in</div>
-                            <div class="info-value">Vietnam 🇻</div>
+                            <div class="info-label">Location</div>
+                            <div class="info-value">USA 🇺🇸</div>
                         </div>
                     </div>
                 </div>
@@ -414,7 +638,7 @@
             <div class="contact-wrapper">
                 <div class="contact-header">
                     <div class="section-meta reveal">
-                        <span class="meta-num">03</span>
+                        <span class="meta-num">05</span>
                         <span class="meta-line"></span>
                     </div>
                     <h2 class="contact-title reveal">
@@ -471,7 +695,7 @@
             </div>
             <div class="footer-meta">
                 <span>© 2026 All rights reserved</span>
-                <span class="footer-loc">Vietnam 🇳 · EN/VN</span>
+                <span class="footer-loc">USA 🇺 · EN/VN</span>
             </div>
         </div>
     </footer>
