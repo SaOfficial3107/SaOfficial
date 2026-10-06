@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ============================================
-    // 🌌 PARTICLE SYSTEM (ĐEN TRẮNG)
+    //  PARTICLE SYSTEM
     // ============================================
     const canvas = document.createElement('canvas');
     canvas.id = 'particles-canvas';
@@ -293,96 +293,296 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 💰 CRYPTO BALANCE SYSTEM
+    // 💰 PORTFOLIO CHART SYSTEM
     // ============================================
-    const cryptoData = {
-        BTC: { amount: 0.00000000, price: 67000 },
-        ETH: { amount: 0.00000000, price: 3500 },
-        SOL: { amount: 0.00000000, price: 180 },
-        USDT: { amount: 0.00, price: 1 },
-        BNB: { amount: 0.00000000, price: 600 },
-        XRP: { amount: 0.00000000, price: 0.55 }
-    };
+    const STORAGE_KEY = 'sa_portfolio_history';
 
-    // Load from localStorage or use default
-    const savedCrypto = localStorage.getItem('sa_crypto_data');
-    if (savedCrypto) {
-        try {
-            const parsed = JSON.parse(savedCrypto);
-            Object.keys(parsed).forEach(key => {
-                if (cryptoData[key]) {
-                    cryptoData[key].amount = parsed[key].amount;
-                }
-            });
-        } catch(e) {}
+    function getDefaultHistory() {
+        const today = new Date().toISOString().split('T')[0];
+        return [
+            { date: today, value: 0, note: 'Initial entry' }
+        ];
     }
 
-    function updateCryptoDisplay() {
-        let total = 0;
-        Object.keys(cryptoData).forEach(coin => {
-            const item = document.querySelector(`.crypto-item[data-coin="${coin}"]`);
-            if (item) {
-                const amountEl = item.querySelector('.crypto-amount');
-                const valueEl = item.querySelector('.crypto-value');
-                const value = cryptoData[coin].amount * cryptoData[coin].price;
-                total += value;
-                
-                const decimals = coin === 'USDT' ? 2 : 8;
-                amountEl.textContent = cryptoData[coin].amount.toFixed(decimals);
-                valueEl.textContent = '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    function loadHistory() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
             }
+        } catch(e) {}
+        return getDefaultHistory();
+    }
+
+    function saveHistory(history) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    }
+
+    let portfolioHistory = loadHistory();
+
+    function formatCurrency(value) {
+        return '$' + value.toLocaleString('en-US', { 
+            minimumFractionDigits: 2, 
+            maximumFractionDigits: 2 
         });
+    }
+
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            day: 'numeric',
+            year: 'numeric'
+        });
+    }
+
+    function shortDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            day: 'numeric'
+        });
+    }
+
+    function updateBalanceDisplay() {
+        const current = portfolioHistory[portfolioHistory.length - 1];
+        const previous = portfolioHistory.length > 1 ? portfolioHistory[portfolioHistory.length - 2] : null;
         
         const totalEl = document.getElementById('cryptoTotal');
-        if (totalEl) {
-            totalEl.textContent = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const changeEl = document.getElementById('cryptoChange');
+        const changeValueEl = document.getElementById('changeValue');
+        const changePercentEl = document.getElementById('changePercent');
+        
+        if (totalEl) totalEl.textContent = formatCurrency(current.value);
+        
+        if (previous && changeEl) {
+            const change = current.value - previous.value;
+            const percent = previous.value > 0 ? (change / previous.value * 100) : 0;
+            
+            if (changeValueEl) {
+                changeValueEl.textContent = (change >= 0 ? '+' : '') + formatCurrency(change);
+            }
+            if (changePercentEl) {
+                changePercentEl.textContent = `(${change >= 0 ? '+' : ''}${percent.toFixed(2)}%)`;
+            }
+            
+            if (change >= 0) {
+                changeEl.classList.remove('negative');
+                changeEl.querySelector('i').className = 'fas fa-arrow-up';
+            } else {
+                changeEl.classList.add('negative');
+                changeEl.querySelector('i').className = 'fas fa-arrow-down';
+            }
         }
     }
 
-    updateCryptoDisplay();
-
-    // Edit Crypto Modal
-    const editCryptoBtn = document.getElementById('editCryptoBtn');
-    const cryptoModal = document.getElementById('cryptoModal');
-    const modalClose = document.getElementById('modalClose');
-    const modalCancel = document.getElementById('modalCancel');
-    const modalSave = document.getElementById('modalSave');
-    const cryptoModalBody = document.getElementById('cryptoModalBody');
-
-    function openCryptoModal() {
-        cryptoModalBody.innerHTML = '';
-        Object.keys(cryptoData).forEach(coin => {
-            const row = document.createElement('div');
-            row.className = 'crypto-edit-row';
-            row.innerHTML = `
-                <label>${coin}</label>
-                <input type="number" step="any" id="edit-${coin}" value="${cryptoData[coin].amount}" placeholder="Amount">
-            `;
-            cryptoModalBody.appendChild(row);
-        });
-        cryptoModal.classList.add('active');
+    function updateStats() {
+        const values = portfolioHistory.map(h => h.value);
+        const high = Math.max(...values);
+        const low = Math.min(...values);
+        const first = portfolioHistory[0];
+        
+        const highEl = document.getElementById('statHigh');
+        const lowEl = document.getElementById('statLow');
+        const countEl = document.getElementById('statCount');
+        const firstEl = document.getElementById('statFirst');
+        
+        if (highEl) highEl.textContent = formatCurrency(high);
+        if (lowEl) lowEl.textContent = formatCurrency(low);
+        if (countEl) countEl.textContent = portfolioHistory.length;
+        if (firstEl) firstEl.textContent = first ? formatDate(first.date) : '—';
     }
 
-    function closeCryptoModal() {
-        cryptoModal.classList.remove('active');
-    }
+    let balanceChart = null;
 
-    function saveCryptoData() {
-        Object.keys(cryptoData).forEach(coin => {
-            const input = document.getElementById(`edit-${coin}`);
-            if (input) {
-                cryptoData[coin].amount = parseFloat(input.value) || 0;
+    function renderChart() {
+        const ctx = document.getElementById('balanceChart');
+        if (!ctx) return;
+        
+        const labels = portfolioHistory.map(h => shortDate(h.date));
+        const data = portfolioHistory.map(h => h.value);
+        
+        if (balanceChart) {
+            balanceChart.destroy();
+        }
+        
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(167, 139, 250, 0.3)');
+        gradient.addColorStop(1, 'rgba(167, 139, 250, 0)');
+        
+        balanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Balance (USD)',
+                    data: data,
+                    borderColor: '#a78bfa',
+                    backgroundColor: gradient,
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#a78bfa',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#a78bfa',
+                    pointHoverBorderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(10, 10, 10, 0.95)',
+                        titleColor: '#fff',
+                        bodyColor: '#a78bfa',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        padding: 15,
+                        titleFont: { family: 'JetBrains Mono', size: 12 },
+                        bodyFont: { family: 'Playfair Display', size: 16, weight: 'bold' },
+                        displayColors: false,
+                        callbacks: {
+                            title: function(items) {
+                                const idx = items[0].dataIndex;
+                                const note = portfolioHistory[idx].note;
+                                return note ? `${formatDate(portfolioHistory[idx].date)} — ${note}` : formatDate(portfolioHistory[idx].date);
+                            },
+                            label: function(item) {
+                                return formatCurrency(item.raw);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.04)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#888',
+                            font: { family: 'JetBrains Mono', size: 11 },
+                            maxRotation: 45
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.04)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#888',
+                            font: { family: 'JetBrains Mono', size: 11 },
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        },
+                        beginAtZero: true
+                    }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutQuart'
+                }
             }
         });
-        localStorage.setItem('sa_crypto_data', JSON.stringify(cryptoData));
-        updateCryptoDisplay();
-        closeCryptoModal();
     }
 
-    if (editCryptoBtn) editCryptoBtn.addEventListener('click', openCryptoModal);
-    if (modalClose) modalClose.addEventListener('click', closeCryptoModal);
-    if (modalCancel) modalCancel.addEventListener('click', closeCryptoModal);
-    if (modalSave) modalSave.addEventListener('click', saveCryptoData);
+    updateBalanceDisplay();
+    updateStats();
+    renderChart();
+
+    // Edit Balance Modal
+    const editBalanceBtn = document.getElementById('editBalanceBtn');
+    const balanceModal = document.getElementById('balanceModal');
+    const balanceModalClose = document.getElementById('balanceModalClose');
+    const balanceModalCancel = document.getElementById('balanceModalCancel');
+    const balanceModalSave = document.getElementById('balanceModalSave');
+    const newBalanceInput = document.getElementById('newBalanceInput');
+    const balanceNoteInput = document.getElementById('balanceNoteInput');
+
+    function openBalanceModal() {
+        const current = portfolioHistory[portfolioHistory.length - 1];
+        newBalanceInput.value = current.value;
+        balanceNoteInput.value = '';
+        balanceModal.classList.add('active');
+        setTimeout(() => newBalanceInput.focus(), 100);
+    }
+
+    function closeBalanceModal() {
+        balanceModal.classList.remove('active');
+    }
+
+    function saveNewBalance() {
+        const newValue = parseFloat(newBalanceInput.value);
+        if (isNaN(newValue) || newValue < 0) {
+            newBalanceInput.style.borderColor = '#f87171';
+            setTimeout(() => { newBalanceInput.style.borderColor = ''; }, 1500);
+            return;
+        }
+        
+        const today = new Date().toISOString().split('T')[0];
+        const note = balanceNoteInput.value.trim();
+        
+        const lastEntry = portfolioHistory[portfolioHistory.length - 1];
+        if (lastEntry && lastEntry.date === today) {
+            lastEntry.value = newValue;
+            lastEntry.note = note || lastEntry.note;
+        } else {
+            portfolioHistory.push({
+                date: today,
+                value: newValue,
+                note: note
+            });
+        }
+        
+        saveHistory(portfolioHistory);
+        updateBalanceDisplay();
+        updateStats();
+        renderChart();
+        closeBalanceModal();
+    }
+
+    if (editBalanceBtn) editBalanceBtn.addEventListener('click', openBalanceModal);
+    if (balanceModalClose) balanceModalClose.addEventListener('click', closeBalanceModal);
+    if (balanceModalCancel) balanceModalCancel.addEventListener('click', closeBalanceModal);
+    if (balanceModalSave) balanceModalSave.addEventListener('click', saveNewBalance);
+
+    if (newBalanceInput) {
+        newBalanceInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') saveNewBalance();
+        });
+    }
+
+    const resetHistoryBtn = document.getElementById('resetHistoryBtn');
+    if (resetHistoryBtn) {
+        resetHistoryBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset all history? This cannot be undone.')) {
+                portfolioHistory = getDefaultHistory();
+                saveHistory(portfolioHistory);
+                updateBalanceDisplay();
+                updateStats();
+                renderChart();
+            }
+        });
+    }
+
+    if (balanceModal) {
+        balanceModal.addEventListener('click', (e) => {
+            if (e.target === balanceModal) closeBalanceModal();
+        });
+    }
 
     // ============================================
     // 💝 TOP DONATORS SYSTEM
@@ -412,7 +612,6 @@ document.addEventListener("DOMContentLoaded", () => {
         donators = [...defaultDonators];
     }
 
-    // Sort by amount descending
     donators.sort((a, b) => b.amount - a.amount);
 
     function renderTopList() {
@@ -434,7 +633,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderTopList();
 
-    // Edit Donators Modal
     const editDonorsBtn = document.getElementById('editDonorsBtn');
     const donorsModal = document.getElementById('donorsModal');
     const donorsModalClose = document.getElementById('donorsModalClose');
@@ -485,16 +683,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (donorsModalCancel) donorsModalCancel.addEventListener('click', closeDonorsModal);
     if (donorsModalSave) donorsModalSave.addEventListener('click', saveDonorsData);
 
-    // Close modals on outside click
-    [cryptoModal, donorsModal].forEach(modal => {
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        }
-    });
+    if (donorsModal) {
+        donorsModal.addEventListener('click', (e) => {
+            if (e.target === donorsModal) closeDonorsModal();
+        });
+    }
 
     console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
     console.log('%cCreator · Developer · Artist · Producer', 'color: #888; font-size: 12px; letter-spacing: 2px;');
