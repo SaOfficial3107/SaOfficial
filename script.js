@@ -1,6 +1,119 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ============================================
-    // 1. TEXT SCRAMBLE EFFECT FOR LOADING
+    // 🌌 PARTICLE SYSTEM
+    // ============================================
+    const canvas = document.createElement('canvas');
+    canvas.id = 'particles-canvas';
+    document.body.insertBefore(canvas, document.body.firstChild);
+    
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouseX = 0, mouseY = 0;
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 1.5 + 0.3;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.5 + 0.1;
+            this.pulse = Math.random() * Math.PI * 2;
+            this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.pulse += this.pulseSpeed;
+            
+            // Mouse interaction - particles gently repel
+            const dx = this.x - mouseX;
+            const dy = this.y - mouseY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) {
+                const force = (150 - dist) / 150;
+                this.x += (dx / dist) * force * 0.5;
+                this.y += (dy / dist) * force * 0.5;
+            }
+            
+            // Wrap around
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
+        }
+        draw() {
+            const currentOpacity = this.opacity * (0.5 + 0.5 * Math.sin(this.pulse));
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity})`;
+            ctx.fill();
+            
+            // Glow effect for larger particles
+            if (this.size > 1) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity * 0.1})`;
+                ctx.fill();
+            }
+        }
+    }
+    
+    // Create particles - số lượng tùy màn hình
+    const particleCount = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 20000));
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+    
+    // Draw connections between nearby particles
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 120) {
+                    const opacity = (1 - dist / 120) * 0.15;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        drawConnections();
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    // ============================================
+    // TEXT SCRAMBLE EFFECT
     // ============================================
     class TextScramble {
         constructor(el) {
@@ -64,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             scrambleMain.setText('SA').then(() => {
                 setTimeout(() => {
-                    scrambleSub.setText('CREATOR · DEVELOPER · PRODUCER');
+                    scrambleSub.setText('CREATOR · DEVELOPER · ARTIST · PRODUCER');
                 }, 300);
             });
         }, 500);
@@ -79,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 2. NAVBAR SCROLL
+    // NAVBAR SCROLL
     // ============================================
     const navbar = document.getElementById('nav');
     if (navbar) {
@@ -89,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 3. SMOOTH SCROLL
+    // SMOOTH SCROLL
     // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -107,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ============================================
-    // 4. SCROLL REVEAL
+    // SCROLL REVEAL
     // ============================================
     function initAnimations() {
         const revealObserver = new IntersectionObserver((entries) => {
@@ -123,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 5. CUSTOM CURSOR
+    // CUSTOM CURSOR
     // ============================================
     const cursor = document.getElementById('cursor');
     if (cursor && window.innerWidth > 768) {
@@ -157,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 6. SPOTLIGHT
+    // SPOTLIGHT (mạnh hơn)
     // ============================================
     const spotlight = document.getElementById('spotlight');
     if (spotlight && window.innerWidth > 768) {
@@ -168,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 7. 3D TILT
+    // 3D TILT
     // ============================================
     if (window.innerWidth > 768) {
         document.querySelectorAll('.tilt').forEach(card => {
@@ -185,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 8. HORIZONTAL SCROLL DRAG
+    // HORIZONTAL SCROLL DRAG
     // ============================================
     const slider = document.querySelector('.work-horizontal');
     if (slider) {
@@ -205,5 +318,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
-    console.log('%cCreator · Developer · Producer', 'color: #888; font-size: 12px; letter-spacing: 2px;');
+    console.log('%cCreator · Developer · Artist · Producer', 'color: #888; font-size: 12px; letter-spacing: 2px;');
 });
