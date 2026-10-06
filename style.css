@@ -16,6 +16,24 @@
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* 5 cards đều nhau - 3 trên + 2 dưới căn giữa */
+.services-grid-5 {
+    grid-template-columns: repeat(3, 1fr);
+}
+.services-grid-5 .service-card:nth-child(4) {
+    grid-column: 1;
+}
+.services-grid-5 .service-card:nth-child(5) {
+    grid-column: 2;
+}
+
+/* Hoặc dùng layout đều 5 cột trên desktop lớn */
+@media (min-width: 1400px) {
+    .services-grid-5 {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--fg); overflow-x: hidden; line-height: 1.6; cursor: none; }
 ::selection { background: var(--fg); color: var(--bg); }
