@@ -1,6 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ============================================
-    //  PARTICLE SYSTEM
+    // 💰 HARD CODE DỮ LIỆU - SỬA TRỰC TIẾP Ở ĐÂY
+    // ============================================
+    
+    // Lịch sử số dư - Thêm entry mới theo format: { date: 'YYYY-MM-DD', value: số_tiền, note: 'ghi_chú' }
+    // Sắp xếp theo thời gian (cũ → mới)
+    const portfolioHistory = [
+        { date: '2026-01-01', value: 0, note: 'Bắt đầu theo dõi' },
+        { date: '2026-01-15', value: 100, note: 'Nhận donate đầu tiên' },
+        { date: '2026-02-01', value: 250, note: 'Tháng 2' },
+        { date: '2026-03-01', value: 180, note: 'Tháng 3' },
+        { date: '2026-10-10', value: 500, note: 'Hôm nay' }  // ← Thêm entry mới ở đây
+    ];
+
+    // Top 10 người donate - Sắp xếp theo amount giảm dần
+    const donators = [
+        { name: 'Alex Gaming', amount: 500 },
+        { name: 'Maria Art', amount: 350 },
+        { name: 'John Dev', amount: 200 },
+        { name: 'Sarah Music', amount: 150 },
+        { name: 'Mike Roblox', amount: 100 },
+        { name: 'Emma Creator', amount: 80 },
+        { name: 'David Fan', amount: 50 },
+        { name: 'Lisa Supporter', amount: 30 },
+        { name: 'Tom Viewer', amount: 20 },
+        { name: 'Anonymous', amount: 10 }
+    ];
+
+    // ============================================
+    // 🌌 PARTICLE SYSTEM
     // ============================================
     const canvas = document.createElement('canvas');
     canvas.id = 'particles-canvas';
@@ -293,34 +321,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================
-    // 💰 PORTFOLIO CHART SYSTEM
+    // 💰 PORTFOLIO CHART - HARDCODED
     // ============================================
-    const STORAGE_KEY = 'sa_portfolio_history';
-
-    function getDefaultHistory() {
-        const today = new Date().toISOString().split('T')[0];
-        return [
-            { date: today, value: 0, note: 'Initial entry' }
-        ];
-    }
-
-    function loadHistory() {
-        try {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-            }
-        } catch(e) {}
-        return getDefaultHistory();
-    }
-
-    function saveHistory(history) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
-    }
-
-    let portfolioHistory = loadHistory();
-
     function formatCurrency(value) {
         return '$' + value.toLocaleString('en-US', { 
             minimumFractionDigits: 2, 
@@ -345,6 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Update current balance display
     function updateBalanceDisplay() {
         const current = portfolioHistory[portfolioHistory.length - 1];
         const previous = portfolioHistory.length > 1 ? portfolioHistory[portfolioHistory.length - 2] : null;
@@ -377,6 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Update stats
     function updateStats() {
         const values = portfolioHistory.map(h => h.value);
         const high = Math.max(...values);
@@ -394,6 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (firstEl) firstEl.textContent = first ? formatDate(first.date) : '—';
     }
 
+    // Render chart
     let balanceChart = null;
 
     function renderChart() {
@@ -503,123 +508,18 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
     renderChart();
 
-    // Edit Balance Modal
-    const editBalanceBtn = document.getElementById('editBalanceBtn');
-    const balanceModal = document.getElementById('balanceModal');
-    const balanceModalClose = document.getElementById('balanceModalClose');
-    const balanceModalCancel = document.getElementById('balanceModalCancel');
-    const balanceModalSave = document.getElementById('balanceModalSave');
-    const newBalanceInput = document.getElementById('newBalanceInput');
-    const balanceNoteInput = document.getElementById('balanceNoteInput');
-
-    function openBalanceModal() {
-        const current = portfolioHistory[portfolioHistory.length - 1];
-        newBalanceInput.value = current.value;
-        balanceNoteInput.value = '';
-        balanceModal.classList.add('active');
-        setTimeout(() => newBalanceInput.focus(), 100);
-    }
-
-    function closeBalanceModal() {
-        balanceModal.classList.remove('active');
-    }
-
-    function saveNewBalance() {
-        const newValue = parseFloat(newBalanceInput.value);
-        if (isNaN(newValue) || newValue < 0) {
-            newBalanceInput.style.borderColor = '#f87171';
-            setTimeout(() => { newBalanceInput.style.borderColor = ''; }, 1500);
-            return;
-        }
-        
-        const today = new Date().toISOString().split('T')[0];
-        const note = balanceNoteInput.value.trim();
-        
-        const lastEntry = portfolioHistory[portfolioHistory.length - 1];
-        if (lastEntry && lastEntry.date === today) {
-            lastEntry.value = newValue;
-            lastEntry.note = note || lastEntry.note;
-        } else {
-            portfolioHistory.push({
-                date: today,
-                value: newValue,
-                note: note
-            });
-        }
-        
-        saveHistory(portfolioHistory);
-        updateBalanceDisplay();
-        updateStats();
-        renderChart();
-        closeBalanceModal();
-    }
-
-    if (editBalanceBtn) editBalanceBtn.addEventListener('click', openBalanceModal);
-    if (balanceModalClose) balanceModalClose.addEventListener('click', closeBalanceModal);
-    if (balanceModalCancel) balanceModalCancel.addEventListener('click', closeBalanceModal);
-    if (balanceModalSave) balanceModalSave.addEventListener('click', saveNewBalance);
-
-    if (newBalanceInput) {
-        newBalanceInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') saveNewBalance();
-        });
-    }
-
-    const resetHistoryBtn = document.getElementById('resetHistoryBtn');
-    if (resetHistoryBtn) {
-        resetHistoryBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to reset all history? This cannot be undone.')) {
-                portfolioHistory = getDefaultHistory();
-                saveHistory(portfolioHistory);
-                updateBalanceDisplay();
-                updateStats();
-                renderChart();
-            }
-        });
-    }
-
-    if (balanceModal) {
-        balanceModal.addEventListener('click', (e) => {
-            if (e.target === balanceModal) closeBalanceModal();
-        });
-    }
-
     // ============================================
-    // 💝 TOP DONATORS SYSTEM
+    // 💝 TOP DONATORS - HARDCODED
     // ============================================
-    const defaultDonators = [
-        { name: 'Anonymous #1', amount: 100 },
-        { name: 'Anonymous #2', amount: 75 },
-        { name: 'Anonymous #3', amount: 50 },
-        { name: 'Anonymous #4', amount: 40 },
-        { name: 'Anonymous #5', amount: 30 },
-        { name: 'Anonymous #6', amount: 25 },
-        { name: 'Anonymous #7', amount: 20 },
-        { name: 'Anonymous #8', amount: 15 },
-        { name: 'Anonymous #9', amount: 10 },
-        { name: 'Anonymous #10', amount: 5 }
-    ];
-
-    let donators = [];
-    const savedDonators = localStorage.getItem('sa_donators');
-    if (savedDonators) {
-        try {
-            donators = JSON.parse(savedDonators);
-        } catch(e) {
-            donators = [...defaultDonators];
-        }
-    } else {
-        donators = [...defaultDonators];
-    }
-
-    donators.sort((a, b) => b.amount - a.amount);
-
     function renderTopList() {
         const topList = document.getElementById('topList');
         if (!topList) return;
         
+        // Sort by amount descending
+        const sorted = [...donators].sort((a, b) => b.amount - a.amount);
+        
         topList.innerHTML = '';
-        donators.forEach((donor, index) => {
+        sorted.forEach((donor, index) => {
             const item = document.createElement('div');
             item.className = `top-item top-${index + 1}`;
             item.innerHTML = `
@@ -632,62 +532,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     renderTopList();
-
-    const editDonorsBtn = document.getElementById('editDonorsBtn');
-    const donorsModal = document.getElementById('donorsModal');
-    const donorsModalClose = document.getElementById('donorsModalClose');
-    const donorsModalCancel = document.getElementById('donorsModalCancel');
-    const donorsModalSave = document.getElementById('donorsModalSave');
-    const donorsModalBody = document.getElementById('donorsModalBody');
-
-    function openDonorsModal() {
-        donorsModalBody.innerHTML = '';
-        donators.forEach((donor, index) => {
-            const row = document.createElement('div');
-            row.className = 'crypto-edit-row';
-            row.innerHTML = `
-                <label>#${index + 1} Name</label>
-                <input type="text" id="donor-name-${index}" value="${donor.name}" placeholder="Name">
-                <label>#${index + 1} Amount ($)</label>
-                <input type="number" step="0.01" id="donor-amount-${index}" value="${donor.amount}" placeholder="Amount">
-            `;
-            donorsModalBody.appendChild(row);
-        });
-        donorsModal.classList.add('active');
-    }
-
-    function closeDonorsModal() {
-        donorsModal.classList.remove('active');
-    }
-
-    function saveDonorsData() {
-        donators = [];
-        for (let i = 0; i < 10; i++) {
-            const nameInput = document.getElementById(`donor-name-${i}`);
-            const amountInput = document.getElementById(`donor-amount-${i}`);
-            if (nameInput && amountInput) {
-                donators.push({
-                    name: nameInput.value || `Anonymous #${i + 1}`,
-                    amount: parseFloat(amountInput.value) || 0
-                });
-            }
-        }
-        donators.sort((a, b) => b.amount - a.amount);
-        localStorage.setItem('sa_donators', JSON.stringify(donators));
-        renderTopList();
-        closeDonorsModal();
-    }
-
-    if (editDonorsBtn) editDonorsBtn.addEventListener('click', openDonorsModal);
-    if (donorsModalClose) donorsModalClose.addEventListener('click', closeDonorsModal);
-    if (donorsModalCancel) donorsModalCancel.addEventListener('click', closeDonorsModal);
-    if (donorsModalSave) donorsModalSave.addEventListener('click', saveDonorsData);
-
-    if (donorsModal) {
-        donorsModal.addEventListener('click', (e) => {
-            if (e.target === donorsModal) closeDonorsModal();
-        });
-    }
 
     console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
     console.log('%cCreator · Developer · Artist · Producer', 'color: #888; font-size: 12px; letter-spacing: 2px;');
