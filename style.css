@@ -1012,3 +1012,75 @@ body::before {
         padding: 25px 20px;
     }
 }
+/* Fix Languages Icons */
+.language-flag {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(167, 139, 250, 0.1);
+    border-radius: 12px;
+}
+
+.language-flag i {
+    font-size: 1.8rem;
+}
+
+/* Fix Service Row Buttons - Ensure clickable */
+.service-row-cta {
+    display: flex;
+    justify-content: flex-end;
+    z-index: 10;
+    position: relative;
+}
+
+.service-row-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.4s var(--ease-out-expo);
+    pointer-events: auto !important;
+    z-index: 10;
+    position: relative;
+}
+
+.service-row-link:hover {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+    transform: translateX(5px);
+}
+
+.service-row-link i {
+    transition: transform 0.3s;
+}
+
+.service-row-link:hover i {
+    transform: translateX(3px);
+}
+
+/* Ensure service row content doesn't overlap buttons */
+.service-row-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none; /* Allow clicks to pass through to buttons */
+}
+
+.service-row-title,
+.service-row-desc,
+.service-row-tags {
+    pointer-events: none;
+}
