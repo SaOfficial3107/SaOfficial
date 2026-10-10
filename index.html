@@ -12,37 +12,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="cursor" id="cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-ring"></div>
-        <div class="cursor-trail" id="cursorTrail"></div>
-    </div>
-    <div class="spotlight" id="spotlight"></div>
-    <div class="noise"></div>
-
+    <!-- Cinematic Loader -->
     <div class="loader" id="loader">
-        <div class="loader-grid">
-            <div class="loader-line"></div>
-            <div class="loader-line"></div>
-            <div class="loader-line"></div>
-            <div class="loader-line"></div>
-        </div>
-        <div class="loader-vignette"></div>
         <div class="loader-content">
             <div class="loader-logo">
                 <span class="loader-logo-main" id="scrambleText">SA</span>
                 <span class="loader-logo-sub">/ OFFICIAL</span>
             </div>
-            <div class="loader-divider"></div>
-            <div class="loader-text">
-                <span class="loader-text-line" id="scrambleSub">CREATOR · DEVELOPER · ARTIST · PRODUCER</span>
+            <div class="loader-text">INITIALIZING EXPERIENCE</div>
+            <div class="loader-bar-container">
+                <div class="loader-bar">
+                    <div class="loader-progress" id="loaderProgress"></div>
+                </div>
+                <div class="loader-percent" id="loaderPercent">0%</div>
             </div>
         </div>
-        <div class="loader-corner top-left">EST. 2024</div>
-        <div class="loader-corner top-right">VN — HCMC</div>
-        <div class="loader-corner bottom-left">MULTI-DISCIPLINE</div>
-        <div class="loader-corner bottom-right">BILINGUAL · EN/VN</div>
+        <div class="loader-vignette"></div>
     </div>
+
+    <div class="cursor" id="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+    <div class="noise"></div>
+    <div class="ambient-glow"></div>
 
     <nav class="nav" id="nav">
         <div class="nav-container">
@@ -53,8 +46,9 @@
             </a>
             <div class="nav-menu">
                 <a href="#services" class="nav-item" data-hover><span class="nav-num">01</span><span class="nav-label">What I Do</span></a>
-                <a href="#donate" class="nav-item" data-hover><span class="nav-num">02</span><span class="nav-label">Support</span></a>
-                <a href="#about" class="nav-item" data-hover><span class="nav-num">03</span><span class="nav-label">About</span></a>
+                <a href="#giveaway" class="nav-item highlight-link" data-hover><span class="nav-num">02</span><span class="nav-label">Giveaway</span></a>
+                <a href="#donate" class="nav-item" data-hover><span class="nav-num">03</span><span class="nav-label">Support</span></a>
+                <a href="#about" class="nav-item" data-hover><span class="nav-num">04</span><span class="nav-label">About</span></a>
                 <a href="#contact" class="nav-item nav-cta" data-hover><span class="nav-label">Contact</span><span class="nav-arrow">→</span></a>
             </div>
             <button class="nav-toggle" id="navToggle"><span></span><span></span></button>
@@ -62,37 +56,34 @@
     </nav>
 
     <section class="hero" id="hero">
-        <div class="hero-bg">
-            <div class="hero-orb orb-1"></div>
-            <div class="hero-orb orb-2"></div>
-            <div class="hero-orb orb-3"></div>
-        </div>
         <div class="hero-container">
-            <div class="hero-label reveal">
+            <div class="hero-label reveal-up">
                 <span class="label-line"></span>
                 <span class="label-text">MULTI-DISCIPLINE CREATOR — 2026</span>
             </div>
-            <h1 class="hero-title">
+            <h1 class="hero-title reveal-up" style="transition-delay: 0.1s;">
                 <span class="title-line"><span class="title-word">C</span><span class="title-word">R</span><span class="title-word">E</span><span class="title-word">A</span><span class="title-word">T</span><span class="title-word">I</span><span class="title-word">N</span><span class="title-word">G</span></span>
                 <span class="title-line"><span class="title-word">C</span><span class="title-word">O</span><span class="title-word">N</span><span class="title-word">T</span><span class="title-word">E</span><span class="title-word">N</span><span class="title-word">T</span></span>
                 <span class="title-line"><span class="title-word">T</span><span class="title-word">H</span><span class="title-word">A</span><span class="title-word">T</span><span class="title-word title-accent">I</span><span class="title-word title-accent">N</span><span class="title-word title-accent">S</span><span class="title-word title-accent">P</span><span class="title-word title-accent">I</span><span class="title-word title-accent">R</span><span class="title-word title-accent">E</span><span class="title-word title-accent">S</span><span class="title-word title-accent">.</span></span>
             </h1>
-            <p class="hero-desc reveal">I'm <strong>Sa</strong> — a multi-discipline creator. I make <strong>TikTok content</strong>, build <strong>Roblox games</strong>, paint <strong>digital art on Blue Sky</strong>, and produce <strong>AI music</strong>. Native in <em>Vietnamese</em>, learning English.</p>
-            <div class="hero-cta reveal">
-                <a href="#services" class="btn btn-primary magnetic" data-hover><span class="btn-text">What I Do</span><span class="btn-icon"><i class="fas fa-arrow-right"></i></span></a>
+            <p class="hero-desc reveal-up" style="transition-delay: 0.2s;">I'm <strong>Sa</strong> — a multi-discipline creator. I make <strong>TikTok content</strong>, build <strong>Roblox games</strong>, paint <strong>digital art on Blue Sky</strong>, and produce <strong>AI music</strong>. Native in <em>Vietnamese</em>, learning English.</p>
+            <div class="hero-cta reveal-up" style="transition-delay: 0.3s;">
+                <a href="#services" class="btn btn-primary magnetic" data-hover><span class="btn-text">Explore Work</span><span class="btn-icon"><i class="fas fa-arrow-right"></i></span></a>
                 <a href="#contact" class="btn btn-secondary magnetic" data-hover><span class="btn-text">Get In Touch</span></a>
             </div>
         </div>
-        <div class="hero-visual">
+        <div class="hero-visual reveal-up" style="transition-delay: 0.4s;">
             <div class="visual-ring ring-1"></div>
             <div class="visual-ring ring-2"></div>
-            <div class="visual-ring ring-3"></div>
             <div class="visual-content">
-                <div class="visual-avatar"><img src="avatar.jpg" alt="Sa Official"></div>
+                <div class="visual-avatar"><img src="avatar.jpg" alt="Sa Official" onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=0a0a0a'"></div>
                 <div class="visual-badge"><span class="badge-dot"></span><span class="badge-text">MULTI-CREATOR</span></div>
             </div>
         </div>
-        <div class="scroll-indicator"><span class="scroll-text">SCROLL</span><div class="scroll-line"><div class="scroll-dot"></div></div></div>
+        <div class="scroll-indicator">
+            <span class="scroll-text">SCROLL</span>
+            <div class="scroll-line"><div class="scroll-dot"></div></div>
+        </div>
     </section>
 
     <div class="marquee">
@@ -102,7 +93,7 @@
 
     <section class="section" id="services">
         <div class="section-container">
-            <div class="section-header reveal">
+            <div class="section-header reveal-up">
                 <div class="section-meta"><span class="meta-num">01</span><span class="meta-line"></span></div>
                 <div class="section-title-wrap">
                     <h2 class="section-title">What I Do</h2>
@@ -110,109 +101,112 @@
                 </div>
             </div>
             <div class="services-list">
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">01</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fab fa-tiktok"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">TikTok Creator</h3>
-                        <p class="service-row-desc">Creating short-form Roblox content, storytelling, and creative edits that inspire my audience.</p>
-                        <ul class="service-row-tags"><li>Short-form videos</li><li>Creative editing</li><li>Community engagement</li></ul>
+                        <p class="service-row-desc">Creating short-form Roblox content, storytelling, and creative edits.</p>
+                        <ul class="service-row-tags"><li>Short-form videos</li><li>Creative editing</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <a href="https://www.tiktok.com/@sano3107" target="_blank" class="service-row-link" data-hover><span>Visit</span><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <div class="service-row-cta"><a href="https://www.tiktok.com/@sano3107" target="_blank" class="service-row-link" data-hover><span>Visit</span><i class="fas fa-arrow-right"></i></a></div>
                 </div>
-
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">02</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fas fa-code"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">Roblox Developer</h3>
-                        <p class="service-row-desc">Building immersive Roblox games with custom Lua scripting, UI/UX design, and engaging gameplay.</p>
-                        <ul class="service-row-tags"><li>Lua scripting</li><li>Game design</li><li>World building</li></ul>
+                        <p class="service-row-desc">Building immersive Roblox games with custom Lua scripting and UI/UX design.</p>
+                        <ul class="service-row-tags"><li>Lua scripting</li><li>Game design</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <a href="https://www.roblox.com/users/11074036486/profile" target="_blank" class="service-row-link" data-hover><span>View Profile</span><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <div class="service-row-cta"><a href="https://www.roblox.com/users/11074036486/profile" target="_blank" class="service-row-link" data-hover><span>View Profile</span><i class="fas fa-arrow-right"></i></a></div>
                 </div>
-
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">03</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fas fa-user-astronaut"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">Roblox Profile</h3>
-                        <p class="service-row-desc">Visit my main Roblox profile to explore my creations, content highlights, and community features.</p>
-                        <ul class="service-row-tags"><li>Creations</li><li>Content highlights</li><li>Regular updates</li></ul>
+                        <p class="service-row-desc">Visit my main Roblox profile to explore creations and content highlights.</p>
+                        <ul class="service-row-tags"><li>Creations</li><li>Regular updates</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <a href="https://www.roblox.com/users/10063186313/profile" target="_blank" class="service-row-link" data-hover><span>View Profile</span><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <div class="service-row-cta"><a href="https://www.roblox.com/users/10063186313/profile" target="_blank" class="service-row-link" data-hover><span>View Profile</span><i class="fas fa-arrow-right"></i></a></div>
                 </div>
-
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">04</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fab fa-youtube"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">Animated YouTube</h3>
-                        <p class="service-row-desc">Working on animated storytelling and creative video content for YouTube. Stay tuned!</p>
-                        <ul class="service-row-tags"><li>Animation</li><li>Storytelling</li><li>Coming Soon</li></ul>
+                        <p class="service-row-desc">Working on animated storytelling and creative video content.</p>
+                        <ul class="service-row-tags"><li>Animation</li><li>Coming Soon</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <span class="service-row-link coming-soon"><span>Coming Soon</span><i class="fas fa-clock"></i></span>
-                    </div>
+                    <div class="service-row-cta"><span class="service-row-link coming-soon"><span>Coming Soon</span><i class="fas fa-clock"></i></span></div>
                 </div>
-
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">05</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fas fa-palette"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">Blue Sky Artist</h3>
-                        <p class="service-row-desc">Painting and sharing digital art on Blue Sky — character design, illustrations, and visual storytelling.</p>
-                        <ul class="service-row-tags"><li>Digital painting</li><li>Character design</li><li>Visual storytelling</li></ul>
+                        <p class="service-row-desc">Painting and sharing digital art — character design and visual storytelling.</p>
+                        <ul class="service-row-tags"><li>Digital painting</li><li>Character design</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <a href="https://bsky.app/profile/sano3107.bsky.social" target="_blank" class="service-row-link" data-hover><span>View</span><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <div class="service-row-cta"><a href="https://bsky.app/profile/sano3107.bsky.social" target="_blank" class="service-row-link" data-hover><span>View</span><i class="fas fa-arrow-right"></i></a></div>
                 </div>
-
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">06</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fas fa-music"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">AI Music Producer</h3>
-                        <p class="service-row-desc">Running a YouTube channel for AI-generated music — lo-fi, ambient, and cinematic soundscapes.</p>
-                        <ul class="service-row-tags"><li>AI music curation</li><li>Channel management</li><li>Audio branding</li></ul>
+                        <p class="service-row-desc">Running a YouTube channel for AI-generated lo-fi and cinematic soundscapes.</p>
+                        <ul class="service-row-tags"><li>AI music curation</li><li>Audio branding</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <a href="https://youtube.com/@saofficial18?si=Fa1Fmt6RDe7tSxYT" target="_blank" class="service-row-link" data-hover><span>Listen</span><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <div class="service-row-cta"><a href="https://youtube.com/@saofficial18?si=Fa1Fmt6RDe7tSxYT" target="_blank" class="service-row-link" data-hover><span>Listen</span><i class="fas fa-arrow-right"></i></a></div>
                 </div>
-
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">07</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fab fa-discord"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">Community Manager</h3>
-                        <p class="service-row-desc">Growing and nurturing an engaged Discord community of creators, gamers, artists, and music lovers.</p>
-                        <ul class="service-row-tags"><li>Discord management</li><li>Event hosting</li><li>Member engagement</li></ul>
+                        <p class="service-row-desc">Growing an engaged Discord community of creators, gamers, and artists.</p>
+                        <ul class="service-row-tags"><li>Discord management</li><li>Event hosting</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <a href="https://discord.com/invite/7pS8wwSuWu" target="_blank" class="service-row-link" data-hover><span>Join Server</span><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <div class="service-row-cta"><a href="https://discord.com/invite/7pS8wwSuWu" target="_blank" class="service-row-link" data-hover><span>Join Server</span><i class="fas fa-arrow-right"></i></a></div>
                 </div>
-
-                <div class="service-row reveal" data-hover>
+                <div class="service-row reveal-up" data-hover>
                     <div class="service-row-index"><span class="service-row-num">08</span><div class="service-row-line"></div></div>
                     <div class="service-row-icon"><i class="fab fa-facebook"></i></div>
                     <div class="service-row-content">
                         <h3 class="service-row-title">Vietnamese Community</h3>
-                        <p class="service-row-desc">A dedicated Facebook group for Vietnamese Roblox fans to connect, share, and discuss.</p>
-                        <ul class="service-row-tags"><li>Vietnamese community</li><li>Roblox discussions</li><li>Group updates</li></ul>
+                        <p class="service-row-desc">A dedicated Facebook group for Vietnamese Roblox fans to connect.</p>
+                        <ul class="service-row-tags"><li>Vietnamese community</li><li>Group updates</li></ul>
                     </div>
-                    <div class="service-row-cta">
-                        <a href="https://www.facebook.com/groups/996164489996375/" target="_blank" class="service-row-link" data-hover><span>Join Group</span><i class="fas fa-arrow-right"></i></a>
-                    </div>
+                    <div class="service-row-cta"><a href="https://www.facebook.com/groups/996164489996375/" target="_blank" class="service-row-link" data-hover><span>Join Group</span><i class="fas fa-arrow-right"></i></a></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: ROBLOX GIVEAWAY SECTION -->
+    <section class="section giveaway-section" id="giveaway">
+        <div class="section-container">
+            <div class="giveaway-wrapper reveal-up">
+                <div class="giveaway-glow"></div>
+                <div class="giveaway-content">
+                    <div class="giveaway-badge"><i class="fas fa-gift"></i> SPECIAL EVENT</div>
+                    <h2 class="giveaway-title">Roblox Account <span class="title-accent">Giveaway</span></h2>
+                    <p class="giveaway-desc">Want to win an exclusive Roblox account? I'm giving back to the community! Fill out the form below with your details and stay tuned for the results. Good luck!</p>
+                    <div class="giveaway-features">
+                        <div class="giveaway-feature"><i class="fas fa-check-circle"></i> <span>100% Free to Enter</span></div>
+                        <div class="giveaway-feature"><i class="fas fa-check-circle"></i> <span>Exclusive In-Game Items</span></div>
+                        <div class="giveaway-feature"><i class="fas fa-check-circle"></i> <span>Transparent Selection</span></div>
+                    </div>
+                    <a href="https://forms.gle/osUSBhwyF4oT1X9y6" target="_blank" class="btn btn-primary btn-large magnetic" data-hover>
+                        <span class="btn-text">Join the Giveaway</span>
+                        <span class="btn-icon"><i class="fas fa-external-link-alt"></i></span>
+                    </a>
+                </div>
+                <div class="giveaway-visual">
+                    <i class="fas fa-gift giveaway-icon-float"></i>
+                </div
             </div>
         </div>
     </section>
@@ -220,7 +214,7 @@
     <section class="section donate-section" id="donate">
         <div class="section-container">
             <div class="donate-wrapper">
-                <div class="section-header reveal" style="text-align: center; display: block;">
+                <div class="section-header reveal-up" style="text-align: center; display: block;">
                     <div class="section-meta" style="align-items: center; margin-bottom: 30px;">
                         <span class="meta-num">SUPPORT</span>
                         <span class="meta-line" style="margin: 0 auto;"></span>
@@ -228,7 +222,7 @@
                     <h2 class="section-title" style="font-size: clamp(2.5rem, 6vw, 5rem);">Support My Journey</h2>
                     <p class="section-subtitle" style="max-width: 600px; margin: 20px auto 0;">Your support helps me grow and create better content for the community.</p>
                 </div>
-                <div class="donate-grid reveal">
+                <div class="donate-grid reveal-up">
                     <a href="https://buymeacoffee.com/sano3107" target="_blank" class="donate-card" data-hover>
                         <div class="donate-icon"><i class="fas fa-coffee"></i></div>
                         <div class="donate-info"><span class="donate-label">Buy Me a Coffee</span><span class="donate-desc">Support with a small coffee</span></div>
@@ -248,14 +242,14 @@
         <div class="section-container">
             <div class="about-grid">
                 <div class="about-content">
-                    <div class="section-meta reveal"><span class="meta-num">03</span><span class="meta-line"></span></div>
-                    <h2 class="section-title reveal">About Me</h2>
+                    <div class="section-meta reveal-up"><span class="meta-num">04</span><span class="meta-line"></span></div>
+                    <h2 class="section-title reveal-up">About Me</h2>
                     <div class="about-text">
-                        <p class="about-paragraph reveal">I'm <strong>Sa</strong>, a multi-discipline creator. I blend TikTok content, Roblox game development, digital art on Blue Sky, and AI music production into one creative universe.</p>
-                        <p class="about-paragraph reveal">I'm native in <strong>Vietnamese</strong> and currently learning <strong>English</strong> to connect with a wider audience across cultures and platforms.</p>
-                        <p class="about-paragraph highlight-text reveal">Creating content that inspires. Building communities that grow.</p>
+                        <p class="about-paragraph reveal-up">I'm <strong>Sa</strong>, a multi-discipline creator. I blend TikTok content, Roblox game development, digital art on Blue Sky, and AI music production into one creative universe.</p>
+                        <p class="about-paragraph reveal-up">I'm native in <strong>Vietnamese</strong> and currently learning <strong>English</strong> to connect with a wider audience across cultures and platforms.</p>
+                        <p class="about-paragraph highlight-text reveal-up">Creating content that inspires. Building communities that grow.</p>
                     </div>
-                    <div class="proficiency-section reveal">
+                    <div class="proficiency-section reveal-up">
                         <div class="proficiency-title"><i class="fas fa-chart-bar"></i><span>Proficiency</span></div>
                         <div class="languages-grid">
                             <div class="language-card">
@@ -276,9 +270,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-visual reveal">
+                <div class="about-visual reveal-up">
                     <div class="visual-box tilt" data-hover>
-                        <div class="box-image"><img src="avatar.jpg" alt="Sa Official"></div>
+                        <div class="box-image"><img src="avatar.jpg" alt="Sa Official" onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=0a0a0a'"></div>
                         <div class="box-info"><div class="info-label">Location</div><div class="info-value">USA 🇺🇸</div></div>
                     </div>
                 </div>
@@ -290,25 +284,22 @@
         <div class="section-container">
             <div class="contact-wrapper">
                 <div class="contact-header">
-                    <div class="section-meta reveal"><span class="meta-num">04</span><span class="meta-line"></span></div>
-                    <h2 class="contact-title reveal">Let's create <span class="title-accent">something amazing</span> together.</h2>
-                    <p class="contact-subtitle reveal">Reach out for collaborations, partnerships, or just to say hi. I'm always open to connecting with fellow creators.</p>
+                    <div class="section-meta reveal-up"><span class="meta-num">05</span><span class="meta-line"></span></div>
+                    <h2 class="contact-title reveal-up">Let's create <span class="title-accent">something amazing</span> together.</h2>
+                    <p class="contact-subtitle reveal-up">Reach out for collaborations, partnerships, or just to say hi.</p>
                 </div>
-                <div class="contact-grid">
-                    <!-- Instagram -->
-                    <a href="https://www.instagram.com/sanotriu?igsh=NTc4MTIwNjQ2YQ%253D%253D&utm_source=qr" target="_blank" class="contact-card reveal" data-hover>
+                <div class="contact-grid reveal-up">
+                    <a href="https://www.instagram.com/sanotriu?igsh=NTc4MTIwNjQ2YQ%253D%253D&utm_source=qr" target="_blank" class="contact-card" data-hover>
                         <div class="contact-icon"><i class="fab fa-instagram"></i></div>
                         <div class="contact-info"><span class="contact-label">Instagram</span><span class="contact-value">@sanotriu</span></div>
                         <div class="contact-arrow">→</div>
                     </a>
-                    <!-- Discord Profile (Mới) -->
-                    <a href="https://discord.com/users/1111664799579910165" target="_blank" class="contact-card reveal" data-hover>
+                    <a href="https://discord.com/users/1111664799579910165" target="_blank" class="contact-card" data-hover>
                         <div class="contact-icon"><i class="fab fa-discord"></i></div>
                         <div class="contact-info"><span class="contact-label">Discord</span><span class="contact-value">User Profile</span></div>
                         <div class="contact-arrow">→</div>
                     </a>
-                    <!-- Email (Đã cập nhật) -->
-                    <a href="mailto:satran3107@gmail.com" class="contact-card reveal" data-hover>
+                    <a href="mailto:satran3107@gmail.com" class="contact-card" data-hover>
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <div class="contact-info"><span class="contact-label">Email</span><span class="contact-value">satran3107@gmail.com</span></div>
                         <div class="contact-arrow">→</div>
