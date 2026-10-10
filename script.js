@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     // =========================================
-    // 100x UPGRADE: CINEMATIC LOADER
+    // CINEMATIC LOADER
     // =========================================
     const loader = document.getElementById('loader');
     const progress = document.getElementById('loaderProgress');
     const percent = document.getElementById('loaderPercent');
     const scrambleText = document.getElementById('scrambleText');
     
-    // Text Scramble Effect
     class TextScramble {
         constructor(el) { this.el = el; this.chars = '!<>-_\\/[]{}—=+*^?#________'; this.update = this.update.bind(this); }
         setText(newText) {
@@ -27,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let i = 0, n = this.queue.length; i < n; i++) {
                 let { from, to, start, end, char } = this.queue[i];
                 if (this.frame >= end) { complete++; output += to; }
-                else if (this.frame >= start) { if (!char || Math.random() < 0.28) { char = this.randomChar(); this.queue[i].char = char; } output += `<span style="color:var(--accent)">${char}</span>`; }
+                else if (this.frame >= start) { if (!char || Math.random() < 0.28) { char = this.randomChar(); this.queue[i].char = char; } output += `<span style="color:var(--fg)">${char}</span>`; }
                 else output += from;
             }
             this.el.innerHTML = output;
@@ -84,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================
-    // MAGNETIC BUTTONS
+    // MAGNETIC BUTTONS & TILT
     // =========================================
     if (window.innerWidth > 768) {
         document.querySelectorAll('.magnetic').forEach(btn => {
@@ -136,5 +135,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    console.log('%c SA OFFICIAL ', 'background: #000; color: #a78bfa; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
+    console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
 });
