@@ -174,7 +174,7 @@ body::before {
 .section-subtitle { font-size: 1.05rem; color: var(--fg-muted); max-width: 500px; line-height: 1.7; }
 
 .services-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
-.service-row { display: grid; grid-template-columns: 80px 80px 1fr 120px; gap: 30px; align-items: center; padding: 40px 0; border-bottom: 1px solid var(--border); transition: all 0.4s var(--ease-out-expo); position: relative; }
+.service-row { display: grid; grid-template-columns: 80px 80px 1fr 140px; gap: 30px; align-items: center; padding: 40px 0; border-bottom: 1px solid var(--border); transition: all 0.4s var(--ease-out-expo); position: relative; }
 .service-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0.1; transition: width 0.5s var(--ease-out-expo); }
 .service-row:hover { padding-left: 20px; background: rgba(255, 255, 255, 0.01); }
 .service-row:hover::before { width: 100%; }
@@ -197,9 +197,27 @@ body::before {
 .service-row-link i { transition: transform 0.3s; }
 .service-row-link:hover i { transform: translateX(3px); }
 
+.service-row-link.coming-soon {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--border);
+    color: var(--fg-muted);
+    cursor: default;
+    pointer-events: none !important;
+}
+.service-row-link.coming-soon:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--border);
+    color: var(--fg-muted);
+    transform: none;
+}
+.service-row-link.coming-soon i {
+    animation: pulse 2s infinite;
+}
+
 .donate-section { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%); }
 .donate-wrapper { max-width: 1000px; margin: 0 auto; }
-.donate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+/* Đã sửa thành 2 cột cho đẹp */
+.donate-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
 .donate-card { background: var(--bg); padding: 40px 35px; display: flex; align-items: center; gap: 20px; text-decoration: none; color: var(--fg); transition: all 0.4s var(--ease-out-expo); }
 .donate-card:hover { background: var(--bg-hover); transform: translateY(-3px); }
 .donate-icon { width: 50px; height: 50px; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; transition: all 0.4s; }
@@ -219,7 +237,7 @@ body::before {
 .proficiency-section { margin-top: 50px; padding-top: 40px; border-top: 1px solid var(--border); }
 .proficiency-title { display: flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.25em; color: var(--fg-muted); margin-bottom: 25px; text-transform: uppercase; }
 .proficiency-title i { color: var(--accent); font-size: 1rem; }
-.languages-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.languages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .language-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: all 0.4s var(--ease-out-expo); }
 .language-card:hover { border-color: var(--border-hover); transform: translateY(-3px); background: var(--bg-hover); }
 .language-flag { font-size: 1.5rem; margin-bottom: 12px; color: var(--accent); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; background: rgba(167, 139, 250, 0.1); border-radius: 10px; }
