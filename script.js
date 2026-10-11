@@ -323,3 +323,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
 });
+    // =========================================
+    // AD STICKY LOGIC (Hiện khi scroll, có nút đóng)
+    // =========================================
+    const stickyAd = document.getElementById('stickyAd');
+    const closeAdBtn = document.getElementById('closeAdBtn');
+    
+    if (stickyAd && closeAdBtn) {
+        // Hiện quảng cáo khi người dùng cuộn xuống 600px
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                stickyAd.classList.add('visible');
+            }
+        }, { passive: true });
+
+        // Cho phép đóng quảng cáo
+        closeAdBtn.addEventListener('click', () => {
+            stickyAd.style.display = 'none';
+        });
+    }
