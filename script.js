@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // RIPPLE EFFECT ON CLICK
     // =========================================
     const rippleContainer = document.getElementById('rippleContainer');
-    
     document.addEventListener('click', (e) => {
         const ripple = document.createElement('div');
         ripple.className = 'ripple';
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ripple.style.width = '20px';
         ripple.style.height = '20px';
         rippleContainer.appendChild(ripple);
-        
         setTimeout(() => { ripple.remove(); }, 800);
     });
 
@@ -44,24 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // PARTICLE BURST EFFECT ON CLICK
     // =========================================
     const particleBurst = document.getElementById('particleBurst');
-    
     document.addEventListener('click', (e) => {
         for (let i = 0; i < 12; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = e.clientX + 'px';
             particle.style.top = e.clientY + 'px';
-            
             const angle = (Math.PI * 2 * i) / 12;
             const velocity = 50 + Math.random() * 50;
-            const tx = Math.cos(angle) * velocity;
-            const ty = Math.sin(angle) * velocity;
-            
-            particle.style.setProperty('--tx', `${tx}px`);
-            particle.style.setProperty('--ty', `${ty}px`);
-            
+            particle.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
+            particle.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
             particleBurst.appendChild(particle);
-            
             setTimeout(() => { particle.remove(); }, 1000);
         }
     });
@@ -72,10 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.spotlight-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
         });
     });
 
@@ -87,29 +76,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const trail = document.getElementById('cursorTrail');
     
     if (dot && window.innerWidth > 768) {
-        let mouseX = 0, mouseY = 0;
-        let ringX = 0, ringY = 0;
-        let trailX = 0, trailY = 0;
-
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0, trailX = 0, trailY = 0;
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
             dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
         });
-
         document.querySelectorAll('[data-hover], a, button').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
-
         function animateCursor() {
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
+            ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
             ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
-
-            trailX += (mouseX - trailX) * 0.08;
-            trailY += (mouseY - trailY) * 0.08;
+            trailX += (mouseX - trailX) * 0.08; trailY += (mouseY - trailY) * 0.08;
             trail.style.left = trailX + 'px'; trail.style.top = trailY + 'px';
-
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
@@ -123,56 +103,43 @@ document.addEventListener("DOMContentLoaded", () => {
         const ctx = canvas.getContext('2d');
         let particles = [];
         let canvasMouseX = 0, canvasMouseY = 0;
-
         function resizeCanvas() {
             const hero = document.getElementById('hero');
-            canvas.width = hero.offsetWidth;
-            canvas.height = hero.offsetHeight;
+            canvas.width = hero.offsetWidth; canvas.height = hero.offsetHeight;
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-
         document.getElementById('hero').addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
-            canvasMouseX = e.clientX - rect.left;
-            canvasMouseY = e.clientY - rect.top;
+            canvasMouseX = e.clientX - rect.left; canvasMouseY = e.clientY - rect.top;
         });
-
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5; this.speedY = (Math.random() - 0.5) * 0.5;
             }
             update() {
                 this.x += this.speedX; this.y += this.speedY;
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
-                const dx = canvasMouseX - this.x;
-                const dy = canvasMouseY - this.y;
+                const dx = canvasMouseX - this.x, dy = canvasMouseY - this.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    this.x -= dx * 0.02; this.y -= dy * 0.02;
-                }
+                if (dist < 150) { this.x -= dx * 0.02; this.y -= dy * 0.02; }
             }
             draw() {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
                 ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
             }
         }
-
         for (let i = 0; i < 60; i++) particles.push(new Particle());
-
         function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach((p, index) => {
                 p.update(); p.draw();
                 for (let j = index + 1; j < particles.length; j++) {
                     const p2 = particles[j];
-                    const dx = p.x - p2.x; const dy = p.y - p2.y;
+                    const dx = p.x - p2.x, dy = p.y - p2.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 120) {
                         ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 120)})`;
@@ -197,8 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     class TextScramble {
         constructor(el) { this.el = el; this.chars = '!<>-_\\/[]{}—=+*^?#________'; this.update = this.update.bind(this); }
         setText(newText) {
-            const oldText = this.el.innerText;
-            const length = Math.max(oldText.length, newText.length);
+            const oldText = this.el.innerText, length = Math.max(oldText.length, newText.length);
             const promise = new Promise((resolve) => this.resolve = resolve);
             this.queue = [];
             for (let i = 0; i < length; i++) {
@@ -253,13 +219,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll('.magnetic').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                btn.style.transform = `translate(${(e.clientX - rect.left - rect.width / 2) * 0.2}px, ${(e.clientY - rect.top - rect.height / 2) * 0.2}px)`;
             });
             btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0, 0)'; });
         });
-
         document.querySelectorAll('.tilt-3d').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const r = card.getBoundingClientRect();
@@ -275,13 +238,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function initScrollAnimations() {
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    obs.unobserve(e.target);
-                }
+                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-        
         document.querySelectorAll('.reveal-cinematic').forEach(el => obs.observe(el));
     }
 
@@ -290,12 +249,38 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================
     const navbar = document.getElementById('nav');
     if (navbar) window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
-
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function(e) {
             const h = this.getAttribute('href'); if (h === '#' || h.length < 2) return;
             e.preventDefault(); const t = document.querySelector(h);
             if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+        });
+    });
+
+    // =========================================
+    // COPY EMAIL TO CLIPBOARD
+    // =========================================
+    document.querySelectorAll('.copy-email').forEach(card => {
+        card.addEventListener('click', async () => {
+            const email = card.getAttribute('data-email');
+            const icon = card.querySelector('.contact-arrow i');
+            const emailText = card.querySelector('.email-text');
+            const originalText = emailText.textContent;
+            
+            try {
+                await navigator.clipboard.writeText(email);
+                icon.className = 'fas fa-check';
+                emailText.textContent = 'Copied!';
+                card.style.background = 'rgba(255, 255, 255, 0.08)';
+                
+                setTimeout(() => {
+                    icon.className = 'fas fa-clipboard';
+                    emailText.textContent = originalText;
+                    card.style.background = '';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
         });
     });
 
