@@ -258,31 +258,68 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // =========================================
-    // COPY EMAIL TO CLIPBOARD
+    // COPY EMAIL TO CLIPBOARD (ĐÃ SỬA HOÀN TOÀN)
     // =========================================
     document.querySelectorAll('.copy-email').forEach(card => {
-        card.addEventListener('click', async () => {
+        card.addEventListener('click', async (e) => {
+            e.stopPropagation(); // Ngăn event bubble
+            
             const email = card.getAttribute('data-email');
             const icon = card.querySelector('.contact-arrow i');
             const emailText = card.querySelector('.email-text');
             const originalText = emailText.textContent;
+            const originalIcon = icon.className;
             
             try {
+                // Cách 1: navigator.clipboard (HTTPS required)
                 await navigator.clipboard.writeText(email);
-                icon.className = 'fas fa-check';
-                emailText.textContent = 'Copied!';
-                card.style.background = 'rgba(255, 255, 255, 0.08)';
-                
-                setTimeout(() => {
-                    icon.className = 'fas fa-clipboard';
-                    emailText.textContent = originalText;
-                    card.style.background = '';
-                }, 2000);
+                showCopySuccess(icon, emailText, originalIcon, originalText);
             } catch (err) {
-                console.error('Failed to copy: ', err);
+                // Cách 2: Fallback cho trình duyệt cũ
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                textArea.style.top = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    showCopySuccess(icon, emailText, originalIcon, originalText);
+                } catch (err2) {
+                    console.error('Failed to copy:', err2);
+                }
+                
+                document.body.removeChild(textArea);
             }
         });
     });
+    
+    function showCopySuccess(icon, emailText, originalIcon, originalText) {
+        icon.className = 'fas fa-check';
+        emailText.textContent = 'Copied!';
+        
+        setTimeout(() => {
+            icon.className = originalIcon;
+            emailText.textContent = originalText;
+        }, 2000);
+    }
+
+    // =========================================
+    // AD STICKY LOGIC
+    // =========================================
+    const adSticky = document.querySelector('.ad-sticky');
+    if (adSticky && window.innerWidth > 1024) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 800) {
+                adSticky.classList.add('visible');
+            } else {
+                adSticky.classList.remove('visible');
+            }
+        });
+    }
 
     console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
 });
