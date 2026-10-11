@@ -11,20 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = (scrollTop / docHeight) * 100;
         
-        if (hScrollbar) {
-            hScrollbar.style.width = scrollPercent + '%';
-        }
-        
-        if (scrollPercentLabel) {
-            scrollPercentLabel.textContent = Math.floor(scrollPercent) + '%';
-        }
+        if (hScrollbar) hScrollbar.style.width = scrollPercent + '%';
+        if (scrollPercentLabel) scrollPercentLabel.textContent = Math.floor(scrollPercent) + '%';
         
         if (hScrollbarLabel) {
-            if (scrollTop > 100) {
-                hScrollbarLabel.classList.add('visible');
-            } else {
-                hScrollbarLabel.classList.remove('visible');
-            }
+            if (scrollTop > 100) hScrollbarLabel.classList.add('visible');
+            else hScrollbarLabel.classList.remove('visible');
         }
     }
     
@@ -45,13 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ripple.style.height = '20px';
         rippleContainer.appendChild(ripple);
         
-        setTimeout(() => {
-            ripple.remove();
-        }, 800);
+        setTimeout(() => { ripple.remove(); }, 800);
     });
 
     // =========================================
-    // PARTICLE BURST EFFECT ON CLICK (2000x)
+    // PARTICLE BURST EFFECT ON CLICK
     // =========================================
     const particleBurst = document.getElementById('particleBurst');
     
@@ -72,9 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             particleBurst.appendChild(particle);
             
-            setTimeout(() => {
-                particle.remove();
-            }, 1000);
+            setTimeout(() => { particle.remove(); }, 1000);
         }
     });
 
@@ -104,10 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let trailX = 0, trailY = 0;
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            dot.style.left = mouseX + 'px';
-            dot.style.top = mouseY + 'px';
+            mouseX = e.clientX; mouseY = e.clientY;
+            dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
         });
 
         document.querySelectorAll('[data-hover], a, button').forEach(el => {
@@ -118,13 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
         function animateCursor() {
             ringX += (mouseX - ringX) * 0.15;
             ringY += (mouseY - ringY) * 0.15;
-            ring.style.left = ringX + 'px';
-            ring.style.top = ringY + 'px';
+            ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
 
             trailX += (mouseX - trailX) * 0.08;
             trailY += (mouseY - trailY) * 0.08;
-            trail.style.left = trailX + 'px';
-            trail.style.top = trailY + 'px';
+            trail.style.left = trailX + 'px'; trail.style.top = trailY + 'px';
 
             requestAnimationFrame(animateCursor);
         }
@@ -163,8 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.speedY = (Math.random() - 0.5) * 0.5;
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                this.x += this.speedX; this.y += this.speedY;
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
 
@@ -172,15 +155,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const dy = canvasMouseY - this.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 150) {
-                    this.x -= dx * 0.02;
-                    this.y -= dy * 0.02;
+                    this.x -= dx * 0.02; this.y -= dy * 0.02;
                 }
             }
             draw() {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
             }
         }
 
@@ -189,20 +169,15 @@ document.addEventListener("DOMContentLoaded", () => {
         function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach((p, index) => {
-                p.update();
-                p.draw();
+                p.update(); p.draw();
                 for (let j = index + 1; j < particles.length; j++) {
                     const p2 = particles[j];
-                    const dx = p.x - p2.x;
-                    const dy = p.y - p2.y;
+                    const dx = p.x - p2.x; const dy = p.y - p2.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 120) {
                         ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 120)})`;
                         ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
                     }
                 }
             });
@@ -238,8 +213,10 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let i = 0, n = this.queue.length; i < n; i++) {
                 let { from, to, start, end, char } = this.queue[i];
                 if (this.frame >= end) { complete++; output += to; }
-                else if (this.frame >= start) { if (!char || Math.random() < 0.28) { char = this.randomChar(); this.queue[i].char = char; } output += `<span style="color:var(--fg)">${char}</span>`; }
-                else output += from;
+                else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) { char = this.randomChar(); this.queue[i].char = char; }
+                    output += `<span style="color:var(--fg)">${char}</span>`;
+                } else output += from;
             }
             this.el.innerHTML = output;
             if (complete === this.queue.length) this.resolve();
@@ -255,8 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const interval = setInterval(() => {
                 width += Math.random() * 4;
                 if (width >= 100) {
-                    width = 100;
-                    clearInterval(interval);
+                    width = 100; clearInterval(interval);
                     setTimeout(() => {
                         loader.classList.add('hidden');
                         document.body.style.overflow = 'auto';
