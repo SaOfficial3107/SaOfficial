@@ -20,12 +20,11 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--fg)
 ::selection { background: var(--fg); color: var(--bg); }
 a, button { cursor: none; }
 
-/* Ẩn scrollbar dọc mặc định */
 ::-webkit-scrollbar { width: 0; background: transparent; }
 * { scrollbar-width: none; -ms-overflow-style: none; }
 
 /* =========================================
-   HORIZONTAL SCROLLBAR (NM NGANG TRÊN CÙNG)
+   HORIZONTAL SCROLLBAR
    ========================================= */
 .horizontal-scrollbar {
     position: fixed;
@@ -102,9 +101,9 @@ a, button { cursor: none; }
 }
 
 /* =========================================
-   1000x EFFECTS: RIPPLE, CURSOR, LOADER
+   2000x EFFECTS: RIPPLE, PARTICLE BURST, CURSOR
    ========================================= */
-.ripple-container {
+.ripple-container, .particle-burst-container {
     position: fixed;
     inset: 0;
     pointer-events: none;
@@ -122,10 +121,22 @@ a, button { cursor: none; }
 }
 
 @keyframes rippleAnim {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
+    to { transform: scale(4); opacity: 0; }
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--fg);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleBurst 1s ease-out forwards;
+}
+
+@keyframes particleBurst {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
 }
 
 .cursor-dot, .cursor-ring, .cursor-trail {
@@ -174,7 +185,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 @keyframes noiseAnim { 0% { transform: translate(0,0); } 100% { transform: translate(-5%,-5%); } }
 
 /* =========================================
-   NAV & HERO
+   NAV (ĐÃ SỬA - BỎ HIGHLIGHT GIVEAWAY)
    ========================================= */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 25px 50px; transition: all 0.5s var(--ease-out-expo); background: transparent; }
 .nav.scrolled { background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(20px); padding: 15px 50px; border-bottom: 1px solid var(--border); }
@@ -186,9 +197,8 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .nav-menu { display: flex; align-items: center; gap: 35px; }
 .nav-item { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--fg-muted); font-size: 0.85rem; font-weight: 500; transition: color 0.3s; position: relative; }
 .nav-item::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--fg); transition: width 0.4s var(--ease-out-expo); }
-.nav-item:hover, .nav-item.highlight-link { color: var(--fg); }
-.nav-item:hover::after, .nav-item.highlight-link::after { width: 100%; }
-.nav-item.highlight-link { color: var(--fg); font-weight: 600; }
+.nav-item:hover { color: var(--fg); }
+.nav-item:hover::after { width: 100%; }
 .nav-num { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--fg-dim); }
 .nav-cta { padding: 10px 22px; border: 1px solid var(--border); border-radius: 50px; color: var(--fg); transition: all 0.3s var(--ease-out-expo); }
 .nav-cta::after { display: none; }
@@ -276,7 +286,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .section-subtitle { font-size: 1.05rem; color: var(--fg-muted); max-width: 500px; line-height: 1.7; }
 
 /* =========================================
-   GLITCH TEXT EFFECT (1000x)
+   GLITCH TEXT EFFECT
    ========================================= */
 .glitch-text {
     position: relative;
@@ -323,7 +333,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 }
 
 /* =========================================
-   1000x EFFECT: SPOTLIGHT CARDS & SERVICES
+   SPOTLIGHT CARDS & SERVICES
    ========================================= */
 .spotlight-card {
     position: relative;
@@ -392,7 +402,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .service-row-link.coming-soon i { animation: pulse 2s infinite; }
 
 /* =========================================
-   GIVEAWAY SECTION (1000x PREMIUM)
+   GIVEAWAY SECTION
    ========================================= */
 .giveaway-section { padding: 100px 50px; }
 .giveaway-wrapper {
@@ -496,7 +506,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .footer-loc { color: var(--fg-muted); }
 
 /* =========================================
-   1000x CINEMATIC REVEAL ANIMATIONS
+   2000x CINEMATIC REVEAL ANIMATIONS
    ========================================= */
 .reveal-cinematic {
     opacity: 0;
