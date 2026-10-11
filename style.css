@@ -1,56 +1,3 @@
-/* =========================================
-   SCROLL PROGRESS BAR (NM TRÊN CÙNG)
-   ========================================= */
-.scroll-progress-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.05);
-    z-index: 10001;
-    overflow: hidden;
-}
-
-.scroll-progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 0.8) 0%, 
-        rgba(255, 255, 255, 1) 50%, 
-        rgba(255, 255, 255, 0.8) 100%);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-                0 0 20px rgba(255, 255, 255, 0.3);
-    transition: width 0.1s linear;
-    position: relative;
-}
-
-.scroll-progress-bar::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8));
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100px); }
-    100% { transform: translateX(100px); }
-}
-
-/* Custom Scrollbar (Ẩn scrollbar mặc định, dùng progress bar thay thế) */
-::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
-}
-
-* {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -73,23 +20,112 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--fg)
 ::selection { background: var(--fg); color: var(--bg); }
 a, button { cursor: none; }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--fg-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--fg); }
+/* Ẩn scrollbar dọc mặc định */
+::-webkit-scrollbar { width: 0; background: transparent; }
+* { scrollbar-width: none; -ms-overflow-style: none; }
 
 /* =========================================
-   100x EFFECTS: CANVAS, CURSOR, LOADER
+   HORIZONTAL SCROLLBAR (NM NGANG TRÊN CÙNG)
    ========================================= */
-#hero-canvas {
-    position: absolute;
+.horizontal-scrollbar {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 10002;
+    overflow: hidden;
+}
+
+.horizontal-scrollbar-thumb {
     height: 100%;
-    z-index: 0;
+    width: 0%;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.6) 0%, 
+        rgba(255, 255, 255, 1) 50%, 
+        rgba(255, 255, 255, 0.6) 100%);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.3);
+    transition: width 0.05s linear;
+    position: relative;
+    border-radius: 0 2px 2px 0;
+}
+
+.horizontal-scrollbar-thumb::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--fg);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--fg), 0 0 20px var(--fg);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+    50% { opacity: 0.7; transform: translateY(-50%) scale(1.3); }
+}
+
+.horizontal-scrollbar-label {
+    position: fixed;
+    top: 12px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--fg-muted);
+    z-index: 10003;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.horizontal-scrollbar-label.visible {
+    opacity: 1;
+}
+
+#scrollPercent {
+    color: var(--fg);
+    font-weight: 600;
+    min-width: 35px;
+}
+
+.scroll-label-text {
+    color: var(--fg-dim);
+}
+
+/* =========================================
+   1000x EFFECTS: RIPPLE, CURSOR, LOADER
+   ========================================= */
+.ripple-container {
+    position: fixed;
+    inset: 0;
     pointer-events: none;
-    opacity: 0.4;
+    z-index: 9998;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: rippleAnim 0.8s ease-out;
+    pointer-events: none;
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
 }
 
 .cursor-dot, .cursor-ring, .cursor-trail {
@@ -163,6 +199,14 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .nav-toggle span { width: 25px; height: 2px; background: var(--fg); transition: 0.3s; }
 
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 140px 50px 80px; overflow: hidden; }
+#hero-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+}
 .hero-container { position: relative; z-index: 2; max-width: 1600px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; }
 .hero-label { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; grid-column: 1 / -1; }
 .label-line { width: 60px; height: 1px; background: var(--fg-dim); }
@@ -195,6 +239,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .visual-ring { position: absolute; border-radius: 50%; border: 1px solid var(--border); }
 .ring-1 { width: 100%; height: 100%; animation: rotate 30s linear infinite; }
 .ring-2 { width: 80%; height: 80%; border-style: dashed; animation: rotate 20s linear infinite reverse; }
+.ring-3 { width: 60%; height: 60%; animation: rotate 15s linear infinite; }
 @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 .visual-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 25px; }
@@ -231,7 +276,54 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .section-subtitle { font-size: 1.05rem; color: var(--fg-muted); max-width: 500px; line-height: 1.7; }
 
 /* =========================================
-   100x EFFECT: SPOTLIGHT CARDS & SERVICES
+   GLITCH TEXT EFFECT (1000x)
+   ========================================= */
+.glitch-text {
+    position: relative;
+    display: inline-block;
+}
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.glitch-text:hover::before {
+    opacity: 0.8;
+    color: var(--fg);
+    animation: glitch-1 0.3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+.glitch-text:hover::after {
+    opacity: 0.8;
+    color: var(--fg-muted);
+    animation: glitch-2 0.3s infinite;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+@keyframes glitch-1 {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+@keyframes glitch-2 {
+    0% { transform: translate(0); }
+    20% { transform: translate(2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(-2px, 2px); }
+    100% { transform: translate(0); }
+}
+
+/* =========================================
+   1000x EFFECT: SPOTLIGHT CARDS & SERVICES
    ========================================= */
 .spotlight-card {
     position: relative;
@@ -300,7 +392,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .service-row-link.coming-soon i { animation: pulse 2s infinite; }
 
 /* =========================================
-   GIVEAWAY SECTION (100x PREMIUM)
+   GIVEAWAY SECTION (1000x PREMIUM)
    ========================================= */
 .giveaway-section { padding: 100px 50px; }
 .giveaway-wrapper {
@@ -404,7 +496,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .footer-loc { color: var(--fg-muted); }
 
 /* =========================================
-   100x CINEMATIC REVEAL ANIMATIONS
+   1000x CINEMATIC REVEAL ANIMATIONS
    ========================================= */
 .reveal-cinematic {
     opacity: 0;
@@ -447,4 +539,5 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
     .service-row-index { flex-direction: row; align-items: center; }
     .service-row-icon { width: 50px; height: 50px; }
     .service-row-title { font-size: 1.4rem; }
+    .horizontal-scrollbar-label { display: none; }
 }
