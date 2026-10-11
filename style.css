@@ -86,68 +86,40 @@ a, button { cursor: none; }
     transition: opacity 0.3s;
 }
 
-.horizontal-scrollbar-label.visible {
-    opacity: 1;
-}
+.horizontal-scrollbar-label.visible { opacity: 1; }
 
-#scrollPercent {
-    color: var(--fg);
-    font-weight: 600;
-    min-width: 35px;
-}
-
-.scroll-label-text {
-    color: var(--fg-dim);
-}
+#scrollPercent { color: var(--fg); font-weight: 600; min-width: 35px; }
+.scroll-label-text { color: var(--fg-dim); }
 
 /* =========================================
-   2000x EFFECTS: RIPPLE, PARTICLE BURST, CURSOR
+   RIPPLE, PARTICLE BURST, CURSOR
    ========================================= */
 .ripple-container, .particle-burst-container {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9998;
-    overflow: hidden;
+    position: fixed; inset: 0; pointer-events: none; z-index: 9998; overflow: hidden;
 }
 
 .ripple {
-    position: absolute;
-    border-radius: 50%;
+    position: absolute; border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
-    transform: scale(0);
-    animation: rippleAnim 0.8s ease-out;
+    transform: scale(0); animation: rippleAnim 0.8s ease-out;
     pointer-events: none;
 }
-
-@keyframes rippleAnim {
-    to { transform: scale(4); opacity: 0; }
-}
+@keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
 
 .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--fg);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: particleBurst 1s ease-out forwards;
+    position: absolute; width: 4px; height: 4px;
+    background: var(--fg); border-radius: 50%;
+    pointer-events: none; animation: particleBurst 1s ease-out forwards;
 }
-
 @keyframes particleBurst {
     0% { transform: translate(0, 0) scale(1); opacity: 1; }
     100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
 }
 
 .cursor-dot, .cursor-ring, .cursor-trail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
+    position: fixed; top: 0; left: 0; border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%); mix-blend-mode: difference;
 }
 .cursor-dot { width: 8px; height: 8px; background: var(--fg); }
 .cursor-ring { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.5); transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), border-color 0.3s; }
@@ -185,7 +157,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 @keyframes noiseAnim { 0% { transform: translate(0,0); } 100% { transform: translate(-5%,-5%); } }
 
 /* =========================================
-   NAV (ĐÃ SỬA - BỎ HIGHLIGHT GIVEAWAY)
+   NAV
    ========================================= */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 25px 50px; transition: all 0.5s var(--ease-out-expo); background: transparent; }
 .nav.scrolled { background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(20px); padding: 15px 50px; border-bottom: 1px solid var(--border); }
@@ -208,15 +180,11 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .nav-toggle { display: none; flex-direction: column; gap: 6px; background: none; border: none; padding: 10px; }
 .nav-toggle span { width: 25px; height: 2px; background: var(--fg); transition: 0.3s; }
 
+/* =========================================
+   HERO
+   ========================================= */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 140px 50px 80px; overflow: hidden; }
-#hero-canvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.4;
-}
+#hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.4; }
 .hero-container { position: relative; z-index: 2; max-width: 1600px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; }
 .hero-label { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; grid-column: 1 / -1; }
 .label-line { width: 60px; height: 1px; background: var(--fg-dim); }
@@ -286,92 +254,25 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .section-subtitle { font-size: 1.05rem; color: var(--fg-muted); max-width: 500px; line-height: 1.7; }
 
 /* =========================================
-   GLITCH TEXT EFFECT
-   ========================================= */
-.glitch-text {
-    position: relative;
-    display: inline-block;
-}
-.glitch-text::before,
-.glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-.glitch-text:hover::before {
-    opacity: 0.8;
-    color: var(--fg);
-    animation: glitch-1 0.3s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-}
-.glitch-text:hover::after {
-    opacity: 0.8;
-    color: var(--fg-muted);
-    animation: glitch-2 0.3s infinite;
-    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-}
-@keyframes glitch-1 {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-}
-@keyframes glitch-2 {
-    0% { transform: translate(0); }
-    20% { transform: translate(2px, -2px); }
-    40% { transform: translate(2px, 2px); }
-    60% { transform: translate(-2px, -2px); }
-    80% { transform: translate(-2px, 2px); }
-    100% { transform: translate(0); }
-}
-
-/* =========================================
    SPOTLIGHT CARDS & SERVICES
    ========================================= */
 .spotlight-card {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: border-color 0.3s;
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border); transition: border-color 0.3s;
 }
 .spotlight-card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: radial-gradient(
-        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(255, 255, 255, 0.4),
-        transparent 40%
-    );
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit; padding: 1px;
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.4), transparent 40%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.5s;
-    pointer-events: none;
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity 0.5s; pointer-events: none;
 }
 .spotlight-card::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     border-radius: inherit;
-    background: radial-gradient(
-        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(255, 255, 255, 0.06),
-        transparent 40%
-    );
-    opacity: 0;
-    transition: opacity 0.5s;
-    pointer-events: none;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+    opacity: 0; transition: opacity 0.5s; pointer-events: none;
 }
 .spotlight-card:hover::before, .spotlight-card:hover::after { opacity: 1; }
 .spotlight-card:hover { border-color: rgba(255, 255, 255, 0.15); }
@@ -387,7 +288,6 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .service-row:hover .service-row-icon { background: var(--fg); color: var(--bg); border-color: var(--fg); transform: scale(1.1); box-shadow: 0 10px 30px var(--accent-glow); }
 .service-row-content { display: flex; flex-direction: column; gap: 12px; }
 .service-row-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; color: var(--fg); transition: color 0.3s; }
-.service-row:hover .service-row-title { color: var(--fg); }
 .service-row-desc { font-size: 0.95rem; color: var(--fg-muted); line-height: 1.6; max-width: 600px; }
 .service-row-tags { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; margin-top: 5px; }
 .service-row-tags li { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--fg-dim); letter-spacing: 0.1em; position: relative; padding-left: 12px; }
@@ -408,13 +308,8 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .giveaway-wrapper {
     position: relative;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(8, 8, 8, 0.9) 100%);
-    border-radius: 30px;
-    padding: 60px;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 60px;
-    align-items: center;
-    overflow: hidden;
+    border-radius: 30px; padding: 60px;
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; overflow: hidden;
 }
 .giveaway-glow {
     position: absolute; top: -50%; right: -20%; width: 500px; height: 500px;
@@ -506,7 +401,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .footer-loc { color: var(--fg-muted); }
 
 /* =========================================
-   2000x CINEMATIC REVEAL ANIMATIONS
+   CINEMATIC REVEAL ANIMATIONS
    ========================================= */
 .reveal-cinematic {
     opacity: 0;
