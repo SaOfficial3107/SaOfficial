@@ -211,7 +211,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .section-subtitle { font-size: 1.05rem; color: var(--fg-muted); max-width: 500px; line-height: 1.7; }
 
 /* =========================================
-   SPOTLIGHT CARDS & SERVICES
+   SPOTLIGHT CARDS & SERVICES (ĐÃ SỬA POINTER-EVENTS)
    ========================================= */
 .spotlight-card { position: relative; overflow: hidden; border: 1px solid var(--border); transition: border-color 0.3s; }
 .spotlight-card::before {
@@ -334,11 +334,53 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .contact-card:hover .contact-arrow { color: var(--fg); transform: translate(5px, -5px); }
 
 /* =========================================
-   COPY EMAIL EFFECT
+   COPY EMAIL EFFECT (ĐÃ SỬA)
    ========================================= */
 .copy-email { cursor: pointer !important; user-select: none; }
 .copy-email:active { transform: scale(0.98); }
 .copy-email:hover .contact-arrow i { transform: scale(1.2) rotate(-10deg); }
+
+/* =========================================
+   GOOGLE ADSENSE STYLES
+   ========================================= */
+.ad-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-align: center;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad-sticky {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 250px;
+    z-index: 999;
+    background: rgba(3, 3, 3, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+    display: none; /* Ẩn mặc định, hiện khi scroll */
+}
+
+.ad-sticky.visible {
+    display: block;
+    animation: slideInRight 0.5s var(--ease-out-expo);
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
 
 .footer { padding: 40px 50px; border-top: 1px solid var(--border); }
 .footer-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
@@ -372,6 +414,7 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
     .giveaway-desc { margin: 0 auto 30px; }
     .giveaway-features { align-items: center; }
     .giveaway-visual { display: none; }
+    .ad-sticky { display: none !important; }
 }
 @media (max-width: 768px) {
     body { cursor: auto; } a, button { cursor: pointer; }
@@ -387,4 +430,5 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
     .service-row-icon { width: 50px; height: 50px; }
     .service-row-title { font-size: 1.4rem; }
     .horizontal-scrollbar-label { display: none; }
+    .ad-container { margin: 20px; padding: 10px; }
 }
