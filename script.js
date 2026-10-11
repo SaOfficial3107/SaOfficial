@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // HORIZONTAL SCROLLBAR LOGIC
     // =========================================
     const hScrollbar = document.getElementById('hScrollbar');
-    const scrollPercent = document.getElementById('scrollPercent');
+    const scrollPercentLabel = document.getElementById('scrollPercent');
     const hScrollbarLabel = document.querySelector('.horizontal-scrollbar-label');
     
     function updateHorizontalScrollbar() {
@@ -15,11 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
             hScrollbar.style.width = scrollPercent + '%';
         }
         
-        if (scrollPercent) {
-            scrollPercent.textContent = Math.floor(scrollPercent) + '%';
+        if (scrollPercentLabel) {
+            scrollPercentLabel.textContent = Math.floor(scrollPercent) + '%';
         }
         
-        // Show label after scrolling
         if (hScrollbarLabel) {
             if (scrollTop > 100) {
                 hScrollbarLabel.classList.add('visible');
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHorizontalScrollbar();
 
     // =========================================
-    // RIPPLE EFFECT ON CLICK (1000x)
+    // RIPPLE EFFECT ON CLICK
     // =========================================
     const rippleContainer = document.getElementById('rippleContainer');
     
@@ -49,6 +48,34 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             ripple.remove();
         }, 800);
+    });
+
+    // =========================================
+    // PARTICLE BURST EFFECT ON CLICK (2000x)
+    // =========================================
+    const particleBurst = document.getElementById('particleBurst');
+    
+    document.addEventListener('click', (e) => {
+        for (let i = 0; i < 12; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            
+            const angle = (Math.PI * 2 * i) / 12;
+            const velocity = 50 + Math.random() * 50;
+            const tx = Math.cos(angle) * velocity;
+            const ty = Math.sin(angle) * velocity;
+            
+            particle.style.setProperty('--tx', `${tx}px`);
+            particle.style.setProperty('--ty', `${ty}px`);
+            
+            particleBurst.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
     });
 
     // =========================================
