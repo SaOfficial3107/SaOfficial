@@ -27,67 +27,31 @@ a, button { cursor: none; }
    HORIZONTAL SCROLLBAR
    ========================================= */
 .horizontal-scrollbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.05);
-    z-index: 10002;
-    overflow: hidden;
+    position: fixed; top: 0; left: 0; width: 100%; height: 4px;
+    background: rgba(255, 255, 255, 0.05); z-index: 10002; overflow: hidden;
 }
-
 .horizontal-scrollbar-thumb {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 0.6) 0%, 
-        rgba(255, 255, 255, 1) 50%, 
-        rgba(255, 255, 255, 0.6) 100%);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
-                0 0 30px rgba(255, 255, 255, 0.3);
-    transition: width 0.05s linear;
-    position: relative;
-    border-radius: 0 2px 2px 0;
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.6) 100%);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
+    transition: width 0.05s linear; position: relative; border-radius: 0 2px 2px 0;
 }
-
 .horizontal-scrollbar-thumb::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background: var(--fg);
-    border-radius: 50%;
+    content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    width: 8px; height: 8px; background: var(--fg); border-radius: 50%;
     box-shadow: 0 0 10px var(--fg), 0 0 20px var(--fg);
     animation: pulse-dot 2s ease-in-out infinite;
 }
-
 @keyframes pulse-dot {
     0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
     50% { opacity: 0.7; transform: translateY(-50%) scale(1.3); }
 }
-
 .horizontal-scrollbar-label {
-    position: fixed;
-    top: 12px;
-    right: 30px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--fg-muted);
-    z-index: 10003;
-    opacity: 0;
-    transition: opacity 0.3s;
+    position: fixed; top: 12px; right: 30px; display: flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em;
+    color: var(--fg-muted); z-index: 10003; opacity: 0; transition: opacity 0.3s;
 }
-
 .horizontal-scrollbar-label.visible { opacity: 1; }
-
 #scrollPercent { color: var(--fg); font-weight: 600; min-width: 35px; }
 .scroll-label-text { color: var(--fg-dim); }
 
@@ -97,18 +61,13 @@ a, button { cursor: none; }
 .ripple-container, .particle-burst-container {
     position: fixed; inset: 0; pointer-events: none; z-index: 9998; overflow: hidden;
 }
-
 .ripple {
-    position: absolute; border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(0); animation: rippleAnim 0.8s ease-out;
-    pointer-events: none;
+    position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.3);
+    transform: scale(0); animation: rippleAnim 0.8s ease-out; pointer-events: none;
 }
 @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
-
 .particle {
-    position: absolute; width: 4px; height: 4px;
-    background: var(--fg); border-radius: 50%;
+    position: absolute; width: 4px; height: 4px; background: var(--fg); border-radius: 50%;
     pointer-events: none; animation: particleBurst 1s ease-out forwards;
 }
 @keyframes particleBurst {
@@ -118,13 +77,11 @@ a, button { cursor: none; }
 
 .cursor-dot, .cursor-ring, .cursor-trail {
     position: fixed; top: 0; left: 0; border-radius: 50%;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%); mix-blend-mode: difference;
+    pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: difference;
 }
 .cursor-dot { width: 8px; height: 8px; background: var(--fg); }
 .cursor-ring { width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.5); transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), border-color 0.3s; }
 .cursor-trail { width: 30px; height: 30px; background: rgba(255, 255, 255, 0.1); filter: blur(4px); transition: transform 0.1s; }
-
 body.hovering .cursor-ring { width: 60px; height: 60px; border-color: var(--fg); background: rgba(255, 255, 255, 0.05); }
 body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); }
 
@@ -256,21 +213,16 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 /* =========================================
    SPOTLIGHT CARDS & SERVICES
    ========================================= */
-.spotlight-card {
-    position: relative; overflow: hidden;
-    border: 1px solid var(--border); transition: border-color 0.3s;
-}
+.spotlight-card { position: relative; overflow: hidden; border: 1px solid var(--border); transition: border-color 0.3s; }
 .spotlight-card::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: inherit; padding: 1px;
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; padding: 1px;
     background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.4), transparent 40%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
     opacity: 0; transition: opacity 0.5s; pointer-events: none;
 }
 .spotlight-card::after {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: inherit;
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit;
     background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
     opacity: 0; transition: opacity 0.5s; pointer-events: none;
 }
@@ -306,22 +258,11 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
    ========================================= */
 .giveaway-section { padding: 100px 50px; }
 .giveaway-wrapper {
-    position: relative;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(8, 8, 8, 0.9) 100%);
-    border-radius: 30px; padding: 60px;
-    display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; overflow: hidden;
+    position: relative; background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(8, 8, 8, 0.9) 100%);
+    border-radius: 30px; padding: 60px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; overflow: hidden;
 }
-.giveaway-glow {
-    position: absolute; top: -50%; right: -20%; width: 500px; height: 500px;
-    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-    opacity: 0.15; filter: blur(80px); pointer-events: none;
-}
-.giveaway-badge {
-    display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 50px; color: var(--fg); font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 25px;
-}
+.giveaway-glow { position: absolute; top: -50%; right: -20%; width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); opacity: 0.15; filter: blur(80px); pointer-events: none; }
+.giveaway-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50px; color: var(--fg); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 25px; }
 .giveaway-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; margin-bottom: 20px; }
 .giveaway-desc { font-size: 1.1rem; color: var(--fg-muted); line-height: 1.7; margin-bottom: 30px; max-width: 500px; }
 .giveaway-features { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
@@ -392,6 +333,13 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
 .contact-arrow { align-self: flex-end; font-size: 1.5rem; color: var(--fg-dim); transition: all 0.3s; }
 .contact-card:hover .contact-arrow { color: var(--fg); transform: translate(5px, -5px); }
 
+/* =========================================
+   COPY EMAIL EFFECT
+   ========================================= */
+.copy-email { cursor: pointer !important; user-select: none; }
+.copy-email:active { transform: scale(0.98); }
+.copy-email:hover .contact-arrow i { transform: scale(1.2) rotate(-10deg); }
+
 .footer { padding: 40px 50px; border-top: 1px solid var(--border); }
 .footer-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
 .footer-brand { display: flex; flex-direction: column; gap: 5px; }
@@ -404,16 +352,10 @@ body.hovering .cursor-trail { width: 50px; height: 50px; background: rgba(255, 2
    CINEMATIC REVEAL ANIMATIONS
    ========================================= */
 .reveal-cinematic {
-    opacity: 0;
-    transform: translateY(60px) scale(0.95);
-    filter: blur(10px);
+    opacity: 0; transform: translateY(60px) scale(0.95); filter: blur(10px);
     transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo), filter 1.2s var(--ease-out-expo);
 }
-.reveal-cinematic.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-}
+.reveal-cinematic.visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 
 @media (max-width: 1024px) {
     .hero-container { grid-template-columns: 1fr; gap: 60px; text-align: center; }
