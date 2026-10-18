@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5138372298502184" crossorigin="anonymous"></script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23030303' rx='22'/><text x='50' y='66' font-family='system-ui' font-weight='900' font-size='46' fill='%23ffffff' text-anchor='middle' letter-spacing='-1'>SA</text><circle cx='74' cy='34' r='5' fill='%23ffffff'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23030303' rx='22'/><text x='50' y='66' font-family='system-ui' font-weight='900' font-size='46' fill='%23ffffff' text-anchor='middle'>SA</text><circle cx='74' cy='34' r='5' fill='%23ffffff'/></svg>">
 </head>
 <body>
     <!-- Horizontal Scrollbar -->
@@ -37,20 +37,17 @@
                 <div class="loader-percent" id="loaderPercent">0%</div>
             </div>
         </div>
-        <div class="loader-vignette"></div>
     </div>
 
     <!-- Cursor -->
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
-    <div class="cursor-trail" id="cursorTrail"></div>
-    <div class="ripple-container" id="rippleContainer"></div>
-    <div class="particle-burst-container" id="particleBurst"></div>
 
     <div class="noise"></div>
     <div class="ambient-glow"></div>
     <canvas id="hero-canvas"></canvas>
 
+    <!-- Nav -->
     <nav class="nav" id="nav">
         <div class="nav-container">
             <a href="#" class="brand">
@@ -59,41 +56,40 @@
                 <span class="brand-sub">OFFICIAL</span>
             </a>
             <div class="nav-menu">
-                <a href="#proficiency" class="nav-item" data-hover><span class="nav-num">01</span><span class="nav-label">Skills</span></a>
-                <a href="#services" class="nav-item" data-hover><span class="nav-num">02</span><span class="nav-label">What I Do</span></a>
-                <a href="#giveaway" class="nav-item" data-hover><span class="nav-num">03</span><span class="nav-label">Giveaway</span></a>
-                <a href="#donate" class="nav-item" data-hover><span class="nav-num">04</span><span class="nav-label">Support</span></a>
-                <a href="#about" class="nav-item" data-hover><span class="nav-num">05</span><span class="nav-label">About</span></a>
-                <a href="#contact" class="nav-item nav-cta" data-hover><span class="nav-label">Contact</span><span class="nav-arrow">→</span></a>
+                <a href="#proficiency" class="nav-item"><span class="nav-num">01</span><span class="nav-label">Skills</span></a>
+                <a href="#services" class="nav-item"><span class="nav-num">02</span><span class="nav-label">What I Do</span></a>
+                <a href="#giveaway" class="nav-item"><span class="nav-num">03</span><span class="nav-label">Giveaway</span></a>
+                <a href="#donate" class="nav-item"><span class="nav-num">04</span><span class="nav-label">Support</span></a>
+                <a href="#about" class="nav-item"><span class="nav-num">05</span><span class="nav-label">About</span></a>
+                <a href="#contact" class="nav-item nav-cta"><span class="nav-label">Contact</span><span class="nav-arrow">→</span></a>
             </div>
-            <button class="nav-toggle" id="navToggle"><span></span><span></span></button>
         </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-container">
-            <div class="hero-label reveal-cinematic">
+            <div class="hero-label reveal">
                 <span class="label-line"></span>
                 <span class="label-text">MULTI-DISCIPLINE CREATOR — 2026</span>
             </div>
-            <h1 class="hero-title reveal-cinematic" style="transition-delay: 0.1s;">
+            <h1 class="hero-title reveal">
                 <span class="title-line"><span class="title-word">C</span><span class="title-word">R</span><span class="title-word">E</span><span class="title-word">A</span><span class="title-word">T</span><span class="title-word">I</span><span class="title-word">N</span><span class="title-word">G</span></span>
                 <span class="title-line"><span class="title-word">C</span><span class="title-word">O</span><span class="title-word">N</span><span class="title-word">T</span><span class="title-word">E</span><span class="title-word">N</span><span class="title-word">T</span></span>
                 <span class="title-line"><span class="title-word">T</span><span class="title-word">H</span><span class="title-word">A</span><span class="title-word">T</span><span class="title-word title-accent">I</span><span class="title-word title-accent">N</span><span class="title-word title-accent">S</span><span class="title-word title-accent">P</span><span class="title-word title-accent">I</span><span class="title-word title-accent">R</span><span class="title-word title-accent">E</span><span class="title-word title-accent">S</span><span class="title-word title-accent">.</span></span>
             </h1>
-            <p class="hero-desc reveal-cinematic" style="transition-delay: 0.2s;">I'm <strong>Sa</strong> — a multi-discipline creator. I make <strong>TikTok content</strong>, build <strong>Roblox games</strong>, paint <strong>digital art on Blue Sky</strong>, and produce <strong>AI music</strong>. Native in <em>Vietnamese</em>, learning English.</p>
-            <div class="hero-cta reveal-cinematic" style="transition-delay: 0.3s;">
-                <a href="#proficiency" class="btn btn-primary magnetic" data-hover><span class="btn-text">My Skills</span><span class="btn-icon"><i class="fas fa-arrow-right"></i></span></a>
-                <a href="#contact" class="btn btn-secondary magnetic" data-hover><span class="btn-text">Get In Touch</span></a>
+            <p class="hero-desc reveal">I'm <strong>Sa</strong> — a multi-discipline creator. I make <strong>TikTok content</strong>, build <strong>Roblox games</strong>, paint <strong>digital art on Blue Sky</strong>, and produce <strong>AI music</strong>. Native in <em>Vietnamese</em>, learning English.</p>
+            <div class="hero-cta reveal">
+                <a href="#proficiency" class="btn btn-primary"><span class="btn-text">My Skills</span><span class="btn-icon"><i class="fas fa-arrow-right"></i></span></a>
+                <a href="#contact" class="btn btn-secondary"><span class="btn-text">Get In Touch</span></a>
             </div>
         </div>
-        <div class="hero-visual reveal-cinematic" style="transition-delay: 0.4s;">
+        <div class="hero-visual reveal">
             <div class="visual-ring ring-1"></div>
             <div class="visual-ring ring-2"></div>
             <div class="visual-ring ring-3"></div>
             <div class="visual-content">
-                <div class="visual-avatar"><img src="avatar.jpg" alt="Sa Official" onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=0a0a0a'"></div>
+                <div class="visual-avatar"><img src="avatar.jpg" alt="Sa Official"></div>
                 <div class="visual-badge"><span class="badge-dot"></span><span class="badge-text">MULTI-CREATOR</span></div>
             </div>
         </div>
@@ -103,260 +99,147 @@
         </div>
     </section>
 
+    <!-- Marquee -->
     <div class="marquee">
         <div class="marquee-track"><span>TIKTOK CREATOR</span><span class="marquee-star">★</span><span>ROBLOX DEVELOPER</span><span class="marquee-star">★</span><span>BLUE SKY ARTIST</span><span class="marquee-star">★</span><span>AI MUSIC PRODUCER</span><span class="marquee-star">★</span><span>COMMUNITY BUILDER</span><span class="marquee-star">★</span></div>
         <div class="marquee-track" aria-hidden="true"><span>TIKTOK CREATOR</span><span class="marquee-star">★</span><span>ROBLOX DEVELOPER</span><span class="marquee-star">★</span><span>BLUE SKY ARTIST</span><span class="marquee-star">★</span><span>AI MUSIC PRODUCER</span><span class="marquee-star">★</span><span>COMMUNITY BUILDER</span><span class="marquee-star">★</span></div>
     </div>
 
     <!-- PROFICIENCY -->
-    <section class="section proficiency-top-section" id="proficiency">
+    <section class="section" id="proficiency">
         <div class="section-container">
-            <div class="section-header reveal-cinematic">
+            <div class="section-header reveal">
                 <div class="section-meta"><span class="meta-num">01</span><span class="meta-line"></span></div>
                 <div class="section-title-wrap">
                     <h2 class="section-title">My Skills</h2>
                     <p class="section-subtitle">Languages I speak & tools I work with</p>
                 </div>
             </div>
-            
-            <div class="proficiency-grid reveal-cinematic">
-                <div class="proficiency-card spotlight-card" data-hover>
-                    <div class="proficiency-icon"><i class="fas fa-globe-asia"></i></div>
-                    <div class="proficiency-info">
-                        <h3 class="proficiency-name">Vietnamese</h3>
-                        <span class="proficiency-level native">Native Speaker</span>
+            <div class="proficiency-grid">
+                <div class="prof-card reveal">
+                    <div class="prof-icon"><i class="fas fa-globe-asia"></i></div>
+                    <div class="prof-info">
+                        <h3 class="prof-name">Vietnamese</h3>
+                        <span class="prof-level native">Native Speaker</span>
                     </div>
-                    <div class="proficiency-desc">Mother tongue — fluent in both written and spoken communication.</div>
+                    <p class="prof-desc">Mother tongue — fluent in both written and spoken communication.</p>
                 </div>
-
-                <div class="proficiency-card spotlight-card" data-hover>
-                    <div class="proficiency-icon"><i class="fas fa-globe-americas"></i></div>
-                    <div class="proficiency-info">
-                        <h3 class="proficiency-name">English</h3>
-                        <span class="proficiency-level learning">Learning</span>
+                <div class="prof-card reveal">
+                    <div class="prof-icon"><i class="fas fa-globe-americas"></i></div>
+                    <div class="prof-info">
+                        <h3 class="prof-name">English</h3>
+                        <span class="prof-level learning">Learning</span>
                     </div>
-                    <div class="proficiency-desc">Currently improving — can read, write, and hold basic conversations.</div>
+                    <p class="prof-desc">Currently improving — can read, write, and hold basic conversations.</p>
                 </div>
-
-                <div class="proficiency-card spotlight-card" data-hover>
-                    <div class="proficiency-icon"><i class="fas fa-code"></i></div>
-                    <div class="proficiency-info">
-                        <h3 class="proficiency-name">Roblox Development</h3>
-                        <span class="proficiency-level beginner">Beginner</span>
+                <div class="prof-card reveal">
+                    <div class="prof-icon"><i class="fas fa-code"></i></div>
+                    <div class="prof-info">
+                        <h3 class="prof-name">Roblox Development</h3>
+                        <span class="prof-level beginner">Beginner</span>
                     </div>
-                    <div class="proficiency-desc">Learning Lua scripting, UI design, and game mechanics.</div>
+                    <p class="prof-desc">Learning Lua scripting, UI design, and game mechanics.</p>
                 </div>
-
-                <div class="proficiency-card spotlight-card" data-hover>
-                    <div class="proficiency-icon"><i class="fas fa-video"></i></div>
-                    <div class="proficiency-info">
-                        <h3 class="proficiency-name">Content Creation</h3>
-                        <span class="proficiency-level intermediate">Intermediate</span>
+                <div class="prof-card reveal">
+                    <div class="prof-icon"><i class="fas fa-video"></i></div>
+                    <div class="prof-info">
+                        <h3 class="prof-name">Content Creation</h3>
+                        <span class="prof-level intermediate">Intermediate</span>
                     </div>
-                    <div class="proficiency-desc">Video editing, storytelling, and community engagement across platforms.</div>
+                    <p class="prof-desc">Video editing, storytelling, and community engagement across platforms.</p>
                 </div>
-
-                <div class="proficiency-card spotlight-card" data-hover>
-                    <div class="proficiency-icon"><i class="fas fa-palette"></i></div>
-                    <div class="proficiency-info">
-                        <h3 class="proficiency-name">Digital Art</h3>
-                        <span class="proficiency-level learning">Learning</span>
+                <div class="prof-card reveal">
+                    <div class="prof-icon"><i class="fas fa-palette"></i></div>
+                    <div class="prof-info">
+                        <h3 class="prof-name">Digital Art</h3>
+                        <span class="prof-level learning">Learning</span>
                     </div>
-                    <div class="proficiency-desc">Exploring character design and visual storytelling on Blue Sky.</div>
+                    <p class="prof-desc">Exploring character design and visual storytelling on Blue Sky.</p>
                 </div>
-
-                <div class="proficiency-card spotlight-card" data-hover>
-                    <div class="proficiency-icon"><i class="fas fa-music"></i></div>
-                    <div class="proficiency-info">
-                        <h3 class="proficiency-name">AI Music Production</h3>
-                        <span class="proficiency-level beginner">Beginner</span>
+                <div class="prof-card reveal">
+                    <div class="prof-icon"><i class="fas fa-music"></i></div>
+                    <div class="prof-info">
+                        <h3 class="prof-name">AI Music Production</h3>
+                        <span class="prof-level beginner">Beginner</span>
                     </div>
-                    <div class="proficiency-desc">Curating AI-generated lo-fi and cinematic soundscapes for YouTube.</div>
+                    <p class="prof-desc">Curating AI-generated lo-fi and cinematic soundscapes for YouTube.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AD UNIT 1 -->
-    <div class="ad-container reveal-cinematic">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-5138372298502184"
-             data-ad-slot="6095481468"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+    <!-- Ad Banner -->
+    <div class="ad-banner reveal">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5138372298502184" data-ad-slot="6095481468" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <!-- WHAT I DO - GRID CARDS -->
+    <!-- WHAT I DO -->
     <section class="section" id="services">
         <div class="section-container">
-            <div class="section-header reveal-cinematic">
+            <div class="section-header reveal">
                 <div class="section-meta"><span class="meta-num">02</span><span class="meta-line"></span></div>
                 <div class="section-title-wrap">
                     <h2 class="section-title">What I Do</h2>
-                    <p class="section-subtitle">Explore my work across platforms — click to visit</p>
+                    <p class="section-subtitle">Explore my work across platforms</p>
                 </div>
             </div>
-
             <div class="services-grid">
-                <!-- 01 TikTok -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">01</span>
-                        <div class="service-icon"><i class="fab fa-tiktok"></i></div>
-                    </div>
-                    <h3 class="service-card-title">TikTok Creator</h3>
-                    <p class="service-card-desc">Short-form Roblox content, storytelling, and creative edits.</p>
-                    <ul class="service-tags">
-                        <li>Short-form videos</li>
-                        <li>Creative editing</li>
-                        <li>Community</li>
-                    </ul>
-                    <a href="https://www.tiktok.com/@sano3107" target="_blank" class="service-card-link view-counter" data-service="tiktok" data-hover>
-                        <span>Visit Profile</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span> views</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">01</span><div class="sc-icon"><i class="fab fa-tiktok"></i></div></div>
+                    <h3 class="sc-title">TikTok Creator</h3>
+                    <p class="sc-desc">Short-form Roblox content, storytelling, and creative edits.</p>
+                    <ul class="sc-tags"><li>Short-form videos</li><li>Creative editing</li><li>Community</li></ul>
+                    <a href="https://www.tiktok.com/@sano3107" target="_blank" class="sc-link"><span>Visit Profile</span><i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- 02 Roblox Dev (ĐÃ SỬA TÊN) -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">02</span>
-                        <div class="service-icon"><i class="fas fa-code"></i></div>
-                    </div>
-                    <h3 class="service-card-title">Roblox Dev</h3>
-                    <p class="service-card-desc">Building games with Lua scripting and UI/UX design.</p>
-                    <ul class="service-tags">
-                        <li>Lua scripting</li>
-                        <li>Game design</li>
-                        <li>World building</li>
-                    </ul>
-                    <a href="https://www.roblox.com/users/11074036486/profile" target="_blank" class="service-card-link view-counter" data-service="roblox-dev" data-hover>
-                        <span>View Profile</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span> views</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">02</span><div class="sc-icon"><i class="fas fa-code"></i></div></div>
+                    <h3 class="sc-title">Roblox Dev</h3>
+                    <p class="sc-desc">Building games with Lua scripting and UI/UX design.</p>
+                    <ul class="sc-tags"><li>Lua scripting</li><li>Game design</li><li>World building</li></ul>
+                    <a href="https://www.roblox.com/users/11074036486/profile" target="_blank" class="sc-link"><span>View Profile</span><i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- 03 Profile Dev (ĐÃ SỬA TÊN + MÔ TẢ) -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">03</span>
-                        <div class="service-icon"><i class="fas fa-user-astronaut"></i></div>
-                    </div>
-                    <h3 class="service-card-title">Profile Dev</h3>
-                    <p class="service-card-desc">Tài khoản Roblox dùng để hoạt động dev và phát triển game.</p>
-                    <ul class="service-tags">
-                        <li>Creations</li>
-                        <li>Highlights</li>
-                        <li>Updates</li>
-                    </ul>
-                    <a href="https://www.roblox.com/users/10063186313/profile" target="_blank" class="service-card-link view-counter" data-service="roblox-main" data-hover>
-                        <span>View Profile</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span> views</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">03</span><div class="sc-icon"><i class="fas fa-user-astronaut"></i></div></div>
+                    <h3 class="sc-title">Profile Dev</h3>
+                    <p class="sc-desc">Tài khoản Roblox dùng để hoạt động dev và phát triển game.</p>
+                    <ul class="sc-tags"><li>Creations</li><li>Highlights</li><li>Updates</li></ul>
+                    <a href="https://www.roblox.com/users/10063186313/profile" target="_blank" class="sc-link"><span>View Profile</span><i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- 04 Animated YouTube -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">04</span>
-                        <div class="service-icon"><i class="fab fa-youtube"></i></div>
-                    </div>
-                    <h3 class="service-card-title">Animated YouTube</h3>
-                    <p class="service-card-desc">Animated storytelling and creative video content.</p>
-                    <ul class="service-tags">
-                        <li>Animation</li>
-                        <li>Storytelling</li>
-                        <li>Coming Soon</li>
-                    </ul>
-                    <span class="service-card-link coming-soon">
-                        <span>Coming Soon</span>
-                        <i class="fas fa-clock"></i>
-                    </span>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">04</span><div class="sc-icon"><i class="fab fa-youtube"></i></div></div>
+                    <h3 class="sc-title">Animated YouTube</h3>
+                    <p class="sc-desc">Animated storytelling and creative video content.</p>
+                    <ul class="sc-tags"><li>Animation</li><li>Storytelling</li><li>Coming Soon</li></ul>
+                    <span class="sc-link coming-soon"><span>Coming Soon</span><i class="fas fa-clock"></i></span>
                 </div>
-
-                <!-- 05 Blue Sky -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">05</span>
-                        <div class="service-icon"><i class="fas fa-palette"></i></div>
-                    </div>
-                    <h3 class="service-card-title">Blue Sky Artist</h3>
-                    <p class="service-card-desc">Digital art — character design and visual storytelling.</p>
-                    <ul class="service-tags">
-                        <li>Digital painting</li>
-                        <li>Character design</li>
-                        <li>Visual story</li>
-                    </ul>
-                    <a href="https://bsky.app/profile/sano3107.bsky.social" target="_blank" class="service-card-link view-counter" data-service="bluesky" data-hover>
-                        <span>View Art</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span> views</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">05</span><div class="sc-icon"><i class="fas fa-palette"></i></div></div>
+                    <h3 class="sc-title">Blue Sky Artist</h3>
+                    <p class="sc-desc">Digital art — character design and visual storytelling.</p>
+                    <ul class="sc-tags"><li>Digital painting</li><li>Character design</li><li>Visual story</li></ul>
+                    <a href="https://bsky.app/profile/sano3107.bsky.social" target="_blank" class="sc-link"><span>View Art</span><i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- 06 AI Music -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">06</span>
-                        <div class="service-icon"><i class="fas fa-music"></i></div>
-                    </div>
-                    <h3 class="service-card-title">AI Music Producer</h3>
-                    <p class="service-card-desc">YouTube channel for AI-generated lo-fi and cinematic sounds.</p>
-                    <ul class="service-tags">
-                        <li>AI curation</li>
-                        <li>Channel mgmt</li>
-                        <li>Audio brand</li>
-                    </ul>
-                    <a href="https://youtube.com/@saofficial18?si=Fa1Fmt6RDe7tSxYT" target="_blank" class="service-card-link view-counter" data-service="youtube-music" data-hover>
-                        <span>Listen Now</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span> views</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">06</span><div class="sc-icon"><i class="fas fa-music"></i></div></div>
+                    <h3 class="sc-title">AI Music Producer</h3>
+                    <p class="sc-desc">YouTube channel for AI-generated lo-fi and cinematic sounds.</p>
+                    <ul class="sc-tags"><li>AI curation</li><li>Channel mgmt</li><li>Audio brand</li></ul>
+                    <a href="https://youtube.com/@saofficial18?si=Fa1Fmt6RDe7tSxYT" target="_blank" class="sc-link"><span>Listen Now</span><i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- 07 Discord -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">07</span>
-                        <div class="service-icon"><i class="fab fa-discord"></i></div>
-                    </div>
-                    <h3 class="service-card-title">Community Manager</h3>
-                    <p class="service-card-desc">Engaged Discord community of creators and gamers.</p>
-                    <ul class="service-tags">
-                        <li>Discord mgmt</li>
-                        <li>Events</li>
-                        <li>Engagement</li>
-                    </ul>
-                    <a href="https://discord.com/invite/7pS8wwSuWu" target="_blank" class="service-card-link view-counter" data-service="discord" data-hover>
-                        <span>Join Server</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span> views</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">07</span><div class="sc-icon"><i class="fab fa-discord"></i></div></div>
+                    <h3 class="sc-title">Community Manager</h3>
+                    <p class="sc-desc">Engaged Discord community of creators and gamers.</p>
+                    <ul class="sc-tags"><li>Discord mgmt</li><li>Events</li><li>Engagement</li></ul>
+                    <a href="https://discord.com/invite/7pS8wwSuWu" target="_blank" class="sc-link"><span>Join Server</span><i class="fas fa-arrow-right"></i></a>
                 </div>
-
-                <!-- 08 Facebook -->
-                <div class="service-card spotlight-card reveal-cinematic" data-hover>
-                    <div class="service-card-header">
-                        <span class="service-num">08</span>
-                        <div class="service-icon"><i class="fab fa-facebook"></i></div>
-                    </div>
-                    <h3 class="service-card-title">Vietnamese Community</h3>
-                    <p class="service-card-desc">Facebook group for Vietnamese Roblox fans.</p>
-                    <ul class="service-tags">
-                        <li>Vietnamese</li>
-                        <li>Discussions</li>
-                        <li>Updates</li>
-                    </ul>
-                    <a href="https://www.facebook.com/groups/996164489996375/" target="_blank" class="service-card-link view-counter" data-service="facebook" data-hover>
-                        <span>Join Group</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span> views</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                <div class="service-card reveal">
+                    <div class="sc-header"><span class="sc-num">08</span><div class="sc-icon"><i class="fab fa-facebook"></i></div></div>
+                    <h3 class="sc-title">Vietnamese Community</h3>
+                    <p class="sc-desc">Facebook group for Vietnamese Roblox fans.</p>
+                    <ul class="sc-tags"><li>Vietnamese</li><li>Discussions</li><li>Updates</li></ul>
+                    <a href="https://www.facebook.com/groups/996164489996375/" target="_blank" class="sc-link"><span>Join Group</span><i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -365,26 +248,20 @@
     <!-- Giveaway -->
     <section class="section giveaway-section" id="giveaway">
         <div class="section-container">
-            <div class="giveaway-wrapper spotlight-card reveal-cinematic" data-hover>
+            <div class="giveaway-card reveal">
                 <div class="giveaway-glow"></div>
                 <div class="giveaway-content">
                     <div class="giveaway-badge"><i class="fas fa-gift"></i> SPECIAL EVENT</div>
                     <h2 class="giveaway-title">Roblox Account <span class="title-accent">Giveaway</span></h2>
-                    <p class="giveaway-desc">Want to win an exclusive Roblox account? I'm giving back to the community! Fill out the form below with your details and stay tuned for the results. Good luck!</p>
+                    <p class="giveaway-desc">Want to win an exclusive Roblox account? Fill out the form below and stay tuned for the results!</p>
                     <div class="giveaway-features">
-                        <div class="giveaway-feature"><i class="fas fa-check-circle"></i> <span>100% Free to Enter</span></div>
-                        <div class="giveaway-feature"><i class="fas fa-check-circle"></i> <span>Exclusive In-Game Items</span></div>
-                        <div class="giveaway-feature"><i class="fas fa-check-circle"></i> <span>Transparent Selection</span></div>
+                        <div class="gf"><i class="fas fa-check-circle"></i><span>100% Free to Enter</span></div>
+                        <div class="gf"><i class="fas fa-check-circle"></i><span>Exclusive In-Game Items</span></div>
+                        <div class="gf"><i class="fas fa-check-circle"></i><span>Transparent Selection</span></div>
                     </div>
-                    <a href="https://forms.gle/osUSBhwyF4oT1X9y6" target="_blank" class="btn btn-primary btn-large magnetic view-counter" data-service="giveaway-form" data-hover>
-                        <span class="btn-text">Join the Giveaway</span>
-                        <span class="view-count"><i class="fas fa-eye"></i> <span class="count-num">0</span></span>
-                        <span class="btn-icon"><i class="fas fa-external-link-alt"></i></span>
-                    </a>
+                    <a href="https://forms.gle/osUSBhwyF4oT1X9y6" target="_blank" class="btn btn-primary btn-large"><span class="btn-text">Join the Giveaway</span><span class="btn-icon"><i class="fas fa-external-link-alt"></i></span></a>
                 </div>
-                <div class="giveaway-visual">
-                    <i class="fas fa-gift giveaway-icon-float"></i>
-                </div>
+                <div class="giveaway-visual"><i class="fas fa-gift giveaway-icon-float"></i></div>
             </div>
         </div>
     </section>
@@ -392,48 +269,43 @@
     <!-- Donate -->
     <section class="section donate-section" id="donate">
         <div class="section-container">
-            <div class="donate-wrapper">
-                <div class="section-header reveal-cinematic" style="text-align: center; display: block;">
-                    <div class="section-meta" style="align-items: center; margin-bottom: 30px;">
-                        <span class="meta-num">SUPPORT</span>
-                        <span class="meta-line" style="margin: 0 auto;"></span>
-                    </div>
-                    <h2 class="section-title" style="font-size: clamp(2.5rem, 6vw, 5rem);">Support My Journey</h2>
-                    <p class="section-subtitle" style="max-width: 600px; margin: 20px auto 0;">Your support helps me grow and create better content for the community.</p>
-                </div>
-                <div class="donate-grid">
-                    <a href="https://buymeacoffee.com/sano3107" target="_blank" class="donate-card spotlight-card reveal-cinematic view-counter" data-service="buymeacoffee" data-hover>
-                        <div class="donate-icon"><i class="fas fa-coffee"></i></div>
-                        <div class="donate-info"><span class="donate-label">Buy Me a Coffee</span><span class="donate-desc">Support with a small coffee</span></div>
-                        <div class="donate-arrow">→</div>
-                    </a>
-                    <a href="https://www.paypal.com/paypalme/AnhSa3107" target="_blank" class="donate-card spotlight-card reveal-cinematic" style="transition-delay: 0.1s;" data-hover>
-                        <div class="donate-icon"><i class="fab fa-paypal"></i></div>
-                        <div class="donate-info"><span class="donate-label">PayPal</span><span class="donate-desc">Direct donation via PayPal</span></div>
-                        <div class="donate-arrow">→</div>
-                    </a>
-                </div>
+            <div class="section-header reveal" style="text-align:center;display:block;">
+                <div class="section-meta" style="align-items:center;margin-bottom:30px;"><span class="meta-num">SUPPORT</span><span class="meta-line" style="margin:0 auto;"></span></div>
+                <h2 class="section-title" style="font-size:clamp(2.5rem,6vw,5rem);">Support My Journey</h2>
+                <p class="section-subtitle" style="max-width:600px;margin:20px auto 0;">Your support helps me grow and create better content.</p>
+            </div>
+            <div class="donate-grid">
+                <a href="https://buymeacoffee.com/sano3107" target="_blank" class="donate-card reveal">
+                    <div class="dc-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="dc-info"><span class="dc-label">Buy Me a Coffee</span><span class="dc-desc">Support with a small coffee</span></div>
+                    <div class="dc-arrow">→</div>
+                </a>
+                <a href="https://www.paypal.com/paypalme/AnhSa3107" target="_blank" class="donate-card reveal">
+                    <div class="dc-icon"><i class="fab fa-paypal"></i></div>
+                    <div class="dc-info"><span class="dc-label">PayPal</span><span class="dc-desc">Direct donation via PayPal</span></div>
+                    <div class="dc-arrow">→</div>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- About -->
-    <section class="section about-section" id="about">
+    <section class="section" id="about">
         <div class="section-container">
             <div class="about-grid">
                 <div class="about-content">
-                    <div class="section-meta reveal-cinematic"><span class="meta-num">05</span><span class="meta-line"></span></div>
-                    <h2 class="section-title reveal-cinematic">About Me</h2>
+                    <div class="section-meta reveal"><span class="meta-num">05</span><span class="meta-line"></span></div>
+                    <h2 class="section-title reveal">About Me</h2>
                     <div class="about-text">
-                        <p class="about-paragraph reveal-cinematic">I'm <strong>Sa</strong>, a multi-discipline creator. I blend TikTok content, Roblox game development, digital art on Blue Sky, and AI music production into one creative universe.</p>
-                        <p class="about-paragraph reveal-cinematic">I'm native in <strong>Vietnamese</strong> and currently learning <strong>English</strong> to connect with a wider audience across cultures and platforms.</p>
-                        <p class="about-paragraph highlight-text reveal-cinematic">Creating content that inspires. Building communities that grow.</p>
+                        <p class="about-paragraph reveal">I'm <strong>Sa</strong>, a multi-discipline creator. I blend TikTok content, Roblox game development, digital art on Blue Sky, and AI music production into one creative universe.</p>
+                        <p class="about-paragraph reveal">I'm native in <strong>Vietnamese</strong> and currently learning <strong>English</strong> to connect with a wider audience.</p>
+                        <p class="about-paragraph highlight-text reveal">Creating content that inspires. Building communities that grow.</p>
                     </div>
                 </div>
-                <div class="about-visual reveal-cinematic">
-                    <div class="visual-box tilt-3d" data-hover>
-                        <div class="box-image"><img src="avatar.jpg" alt="Sa Official" onerror="this.src='https://api.dicebear.com/7.0/avataaars/svg?size=400&backgroundColor=0a0a0a'"></div>
-                        <div class="box-info"><div class="info-label">Location</div><div class="info-value">USA 🇺</div></div>
+                <div class="about-visual reveal">
+                    <div class="visual-box">
+                        <div class="box-image"><img src="avatar.jpg" alt="Sa Official"></div>
+                        <div class="box-info"><div class="info-label">Location</div><div class="info-value">USA 🇺🇸</div></div>
                     </div>
                 </div>
             </div>
@@ -444,43 +316,33 @@
     <section class="section contact-section" id="contact">
         <div class="section-container">
             <div class="contact-wrapper">
-                <div class="contact-header">
-                    <div class="section-meta reveal-cinematic"><span class="meta-num">06</span><span class="meta-line"></span></div>
-                    <h2 class="contact-title reveal-cinematic">Let's create <span class="title-accent">something amazing</span> together.</h2>
-                    <p class="contact-subtitle reveal-cinematic">Reach out for collaborations, partnerships, or just to say hi.</p>
-                </div>
+                <div class="section-meta reveal" style="align-items:center;margin-bottom:30px;"><span class="meta-num">06</span><span class="meta-line"></span></div>
+                <h2 class="contact-title reveal">Let's create <span class="title-accent">something amazing</span> together.</h2>
+                <p class="contact-subtitle reveal">Reach out for collaborations, partnerships, or just to say hi.</p>
                 <div class="contact-grid">
-                    <a href="https://www.instagram.com/sanotriu?igsh=NTc4MTIwNjQ2YQ%253D%253D&utm_source=qr" target="_blank" class="contact-card spotlight-card reveal-cinematic view-counter" data-service="instagram" data-hover>
-                        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
-                        <div class="contact-info"><span class="contact-label">Instagram</span><span class="contact-value">@sanotriu</span></div>
-                        <div class="contact-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <a href="https://www.instagram.com/sanotriu" target="_blank" class="contact-card reveal">
+                        <div class="cc-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="cc-info"><span class="cc-label">Instagram</span><span class="cc-value">@sanotriu</span></div>
+                        <div class="cc-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
-                    <a href="https://discord.com/users/1111664799579910165" target="_blank" class="contact-card spotlight-card reveal-cinematic" style="transition-delay: 0.1s;" data-hover>
-                        <div class="contact-icon"><i class="fab fa-discord"></i></div>
-                        <div class="contact-info"><span class="contact-label">Discord</span><span class="contact-value">User Profile</span></div>
-                        <div class="contact-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <a href="https://discord.com/users/1111664799579910165" target="_blank" class="contact-card reveal">
+                        <div class="cc-icon"><i class="fab fa-discord"></i></div>
+                        <div class="cc-info"><span class="cc-label">Discord</span><span class="cc-value">User Profile</span></div>
+                        <div class="cc-arrow"><i class="fas fa-arrow-right"></i></div>
                     </a>
-                    <div class="contact-card spotlight-card reveal-cinematic copy-email" style="transition-delay: 0.2s;" data-hover data-email="satran3107@gmail.com">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-info">
-                            <span class="contact-label">Email</span>
-                            <span class="contact-value email-text">satran3107@gmail.com</span>
-                        </div>
-                        <div class="contact-arrow"><i class="fas fa-clipboard"></i></div>
+                    <div class="contact-card reveal copy-email" data-email="satran3107@gmail.com">
+                        <div class="cc-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="cc-info"><span class="cc-label">Email</span><span class="cc-value email-text">satran3107@gmail.com</span></div>
+                        <div class="cc-arrow"><i class="fas fa-clipboard"></i></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Full Width Ad -->
-    <div class="ad-full-width reveal-cinematic">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-5138372298502184"
-             data-ad-slot="6095481468"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+    <!-- Footer Ad -->
+    <div class="ad-banner reveal">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5138372298502184" data-ad-slot="6095481468" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
@@ -492,14 +354,9 @@
     </footer>
 
     <!-- Sticky Ad -->
-    <div class="ad-sticky-bottom-right" id="stickyAd">
-        <div class="close-ad" id="closeAdBtn" title="Close">✕</div>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-5138372298502184"
-             data-ad-slot="6095481468"
-             data-ad-format="rectangle"
-             data-full-width-responsive="true"></ins>
+    <div class="ad-sticky" id="stickyAd">
+        <div class="close-ad" id="closeAdBtn">✕</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5138372298502184" data-ad-slot="6095481468" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
