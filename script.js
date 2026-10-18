@@ -1,64 +1,96 @@
 document.addEventListener("DOMContentLoaded", () => {
     // =========================================
-    // HORIZONTAL SCROLLBAR LOGIC
+    // SAFETY FALLBACK: Loader luôn ẩn sau 4 giây dù có lỗi
+    // =========================================
+    const loader = document.getElementById('loader');
+    const progress = document.getElementById('loaderProgress');
+    const percent = document.getElementById('loaderPercent');
+    const scrambleText = document.getElementById('scrambleText');
+    
+    let loaderHidden = false;
+    
+    function hideLoader() {
+        if (loaderHidden) return;
+        loaderHidden = true;
+        if (loader) {
+            loader.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        // Khởi động animations sau khi loader ẩn
+        setTimeout(() => {
+            try { initScrollAnimations(); } catch(e) { console.log('Scroll anim error:', e); }
+        }, 300);
+    }
+    
+    // Fallback: forced hide sau 4 giây
+    setTimeout(hideLoader, 4000);
+
+    // =========================================
+    // HORIZONTAL SCROLLBAR
     // =========================================
     const hScrollbar = document.getElementById('hScrollbar');
     const scrollPercentLabel = document.getElementById('scrollPercent');
     const hScrollbarLabel = document.querySelector('.horizontal-scrollbar-label');
     
     function updateHorizontalScrollbar() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        
-        if (hScrollbar) hScrollbar.style.width = scrollPercent + '%';
-        if (scrollPercentLabel) scrollPercentLabel.textContent = Math.floor(scrollPercent) + '%';
-        
-        if (hScrollbarLabel) {
-            if (scrollTop > 100) hScrollbarLabel.classList.add('visible');
-            else hScrollbarLabel.classList.remove('visible');
-        }
+        try {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            
+            if (hScrollbar) hScrollbar.style.width = scrollPercent + '%';
+            if (scrollPercentLabel) scrollPercentLabel.textContent = Math.floor(scrollPercent) + '%';
+            
+            if (hScrollbarLabel) {
+                if (scrollTop > 100) hScrollbarLabel.classList.add('visible');
+                else hScrollbarLabel.classList.remove('visible');
+            }
+        } catch(e) {}
     }
     
     window.addEventListener('scroll', updateHorizontalScrollbar, { passive: true });
     updateHorizontalScrollbar();
 
     // =========================================
-    // RIPPLE EFFECT ON CLICK
+    // RIPPLE EFFECT
     // =========================================
     const rippleContainer = document.getElementById('rippleContainer');
-    document.addEventListener('click', (e) => {
-        const ripple = document.createElement('div');
-        ripple.className = 'ripple';
-        ripple.style.left = e.clientX + 'px';
-        ripple.style.top = e.clientY + 'px';
-        ripple.style.width = '20px';
-        ripple.style.height = '20px';
-        rippleContainer.appendChild(ripple);
-        setTimeout(() => { ripple.remove(); }, 800);
-    });
+    if (rippleContainer) {
+        document.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = e.clientX + 'px';
+            ripple.style.top = e.clientY + 'px';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            rippleContainer.appendChild(ripple);
+            setTimeout(() => { ripple.remove(); }, 800);
+        });
+    }
 
     // =========================================
-    // PARTICLE BURST EFFECT ON CLICK
+    // PARTICLE BURST
     // =========================================
     const particleBurst = document.getElementById('particleBurst');
-    document.addEventListener('click', (e) => {
-        for (let i = 0; i < 12; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = e.clientX + 'px';
-            particle.style.top = e.clientY + 'px';
-            const angle = (Math.PI * 2 * i) / 12;
-            const velocity = 50 + Math.random() * 50;
-            particle.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
-            particle.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
-            particleBurst.appendChild(particle);
-            setTimeout(() => { particle.remove(); }, 1000);
-        }
-    });
+    if (particleBurst) {
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = e.clientX + 'px';
+                particle.style.top = e.clientY + 'px';
+                const angle = (Math.PI * 2 * i) / 12;
+                const velocity = 50 + Math.random() * 50;
+                particle.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
+                particle.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
+                particleBurst.appendChild(particle);
+                setTimeout(() => { particle.remove(); }, 1000);
+            }
+        });
+    }
 
     // =========================================
-    // MOUSE TRACKING FOR SPOTLIGHT CARDS
+    // SPOTLIGHT CARDS
     // =========================================
     document.querySelectorAll('.spotlight-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -69,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // =========================================
-    // ADVANCED CURSOR WITH TRAIL
+    // CURSOR
     // =========================================
     const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
@@ -96,71 +128,71 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================
-    // INTERACTIVE HERO CANVAS PARTICLES
+    // HERO CANVAS PARTICLES
     // =========================================
     const canvas = document.getElementById('hero-canvas');
     if (canvas && window.innerWidth > 768) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let canvasMouseX = 0, canvasMouseY = 0;
-        function resizeCanvas() {
-            const hero = document.getElementById('hero');
-            canvas.width = hero.offsetWidth; canvas.height = hero.offsetHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        document.getElementById('hero').addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            canvasMouseX = e.clientX - rect.left; canvasMouseY = e.clientY - rect.top;
-        });
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5; this.speedY = (Math.random() - 0.5) * 0.5;
+        try {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let canvasMouseX = 0, canvasMouseY = 0;
+            function resizeCanvas() {
+                const hero = document.getElementById('hero');
+                if (hero) { canvas.width = hero.offsetWidth; canvas.height = hero.offsetHeight; }
             }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                const dx = canvasMouseX - this.x, dy = canvasMouseY - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) { this.x -= dx * 0.02; this.y -= dy * 0.02; }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            const heroEl = document.getElementById('hero');
+            if (heroEl) {
+                heroEl.addEventListener('mousemove', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    canvasMouseX = e.clientX - rect.left; canvasMouseY = e.clientY - rect.top;
+                });
             }
-            draw() {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-        for (let i = 0; i < 60; i++) particles.push(new Particle());
-        function animateCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.update(); p.draw();
-                for (let j = index + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dx = p.x - p2.x, dy = p.y - p2.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 120)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
-                    }
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.5; this.speedY = (Math.random() - 0.5) * 0.5;
                 }
-            });
-            requestAnimationFrame(animateCanvas);
-        }
-        animateCanvas();
+                update() {
+                    this.x += this.speedX; this.y += this.speedY;
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                    const dx = canvasMouseX - this.x, dy = canvasMouseY - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) { this.x -= dx * 0.02; this.y -= dy * 0.02; }
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                }
+            }
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+            function animateCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.update(); p.draw();
+                    for (let j = index + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p.x - p2.x, dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 120)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                        }
+                    }
+                });
+                requestAnimationFrame(animateCanvas);
+            }
+            animateCanvas();
+        } catch(e) { console.log('Canvas error:', e); }
     }
 
     // =========================================
-    // CINEMATIC LOADER
+    // LOADER SCRAMBLE + PROGRESS
     // =========================================
-    const loader = document.getElementById('loader');
-    const progress = document.getElementById('loaderProgress');
-    const percent = document.getElementById('loaderPercent');
-    const scrambleText = document.getElementById('scrambleText');
-    
     class TextScramble {
         constructor(el) { this.el = el; this.chars = '!<>-_\\/[]{}—=+*^?#________'; this.update = this.update.bind(this); }
         setText(newText) {
@@ -191,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
         randomChar() { return this.chars[Math.floor(Math.random() * this.chars.length)]; }
     }
 
-    if (loader) {
+    if (loader && scrambleText) {
         const scrambler = new TextScramble(scrambleText);
         scrambler.setText('SA').then(() => {
             let width = 0;
@@ -199,21 +231,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 width += Math.random() * 4;
                 if (width >= 100) {
                     width = 100; clearInterval(interval);
-                    setTimeout(() => {
-                        loader.classList.add('hidden');
-                        document.body.style.overflow = 'auto';
-                        initScrollAnimations();
-                    }, 500);
+                    setTimeout(hideLoader, 500);
                 }
-                progress.style.width = width + '%';
-                percent.textContent = Math.floor(width) + '%';
+                if (progress) progress.style.width = width + '%';
+                if (percent) percent.textContent = Math.floor(width) + '%';
             }, 30);
-        });
+        }).catch(() => { hideLoader(); });
         document.body.style.overflow = 'hidden';
+    } else {
+        hideLoader();
     }
 
     // =========================================
-    // MAGNETIC BUTTONS & 3D TILT
+    // MAGNETIC & TILT
     // =========================================
     if (window.innerWidth > 768) {
         document.querySelectorAll('.magnetic').forEach(btn => {
@@ -233,22 +263,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================
-    // CINEMATIC SCROLL ANIMATIONS
+    // SCROLL ANIMATIONS
     // =========================================
     function initScrollAnimations() {
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-        document.querySelectorAll('.reveal-cinematic').forEach(el => obs.observe(el));
+        try {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+            document.querySelectorAll('.reveal-cinematic').forEach(el => obs.observe(el));
+        } catch(e) { console.log('Observer error:', e); }
     }
 
     // =========================================
-    // NAVBAR SCROLL & SMOOTH SCROLL
+    // NAVBAR & SMOOTH SCROLL
     // =========================================
     const navbar = document.getElementById('nav');
     if (navbar) window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+    
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function(e) {
             const h = this.getAttribute('href'); if (h === '#' || h.length < 2) return;
@@ -258,140 +291,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // =========================================
-    // COPY EMAIL TO CLIPBOARD (ĐÃ SỬA HOÀN TOÀN)
-    // =========================================
-    document.querySelectorAll('.copy-email').forEach(card => {
-        card.addEventListener('click', async (e) => {
-            e.stopPropagation(); // Ngăn event bubble
-            
-            const email = card.getAttribute('data-email');
-            const icon = card.querySelector('.contact-arrow i');
-            const emailText = card.querySelector('.email-text');
-            const originalText = emailText.textContent;
-            const originalIcon = icon.className;
-            
-            try {
-                // Cách 1: navigator.clipboard (HTTPS required)
-                await navigator.clipboard.writeText(email);
-                showCopySuccess(icon, emailText, originalIcon, originalText);
-            } catch (err) {
-                // Cách 2: Fallback cho trình duyệt cũ
-                const textArea = document.createElement('textarea');
-                textArea.value = email;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-9999px';
-                textArea.style.top = '-9999px';
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                
-                try {
-                    document.execCommand('copy');
-                    showCopySuccess(icon, emailText, originalIcon, originalText);
-                } catch (err2) {
-                    console.error('Failed to copy:', err2);
-                }
-                
-                document.body.removeChild(textArea);
-            }
-        });
-    });
-    
-    function showCopySuccess(icon, emailText, originalIcon, originalText) {
-        icon.className = 'fas fa-check';
-        emailText.textContent = 'Copied!';
-        
-        setTimeout(() => {
-            icon.className = originalIcon;
-            emailText.textContent = originalText;
-        }, 2000);
-    }
-
-    // =========================================
-    // AD STICKY LOGIC
-    // =========================================
-    const adSticky = document.querySelector('.ad-sticky');
-    if (adSticky && window.innerWidth > 1024) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 800) {
-                adSticky.classList.add('visible');
-            } else {
-                adSticky.classList.remove('visible');
-            }
-        });
-    }
-
-    console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
-});
-    // =========================================
-    // AD STICKY LOGIC (Hiện khi scroll, có nút đóng)
-    // =========================================
-    const stickyAd = document.getElementById('stickyAd');
-    const closeAdBtn = document.getElementById('closeAdBtn');
-    
-    if (stickyAd && closeAdBtn) {
-        // Hiện quảng cáo khi người dùng cuộn xuống 600px
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 600) {
-                stickyAd.classList.add('visible');
-            }
-        }, { passive: true });
-
-        // Cho phép đóng quảng cáo
-        closeAdBtn.addEventListener('click', () => {
-            stickyAd.style.display = 'none';
-        });
-    }
-    // =========================================
-    // VIEW COUNTER LOGIC (Dùng CounterAPI miễn phí)
+    // VIEW COUNTER (Safe with try-catch)
     // =========================================
     document.querySelectorAll('.view-counter').forEach(link => {
         const service = link.getAttribute('data-service');
         const countEl = link.querySelector('.count-num');
-        
         if (!service || !countEl) return;
 
-        // Fetch current count từ API
+        // Fetch count
         fetch(`https://api.counterapi.dev/v1/saofficial/${service}/`)
             .then(res => res.json())
-            .then(data => {
-                if (data.count !== undefined) {
-                    countEl.textContent = data.count;
-                }
-            })
-            .catch(() => {
-                countEl.textContent = '—';
-            });
+            .then(data => { if (data.count !== undefined) countEl.textContent = data.count; })
+            .catch(() => { countEl.textContent = '0'; });
 
-        // Increment count khi click
+        // Increment on click
         link.addEventListener('click', () => {
             fetch(`https://api.counterapi.dev/v1/saofficial/${service}/up`)
                 .then(res => res.json())
-                .then(data => {
-                    if (data.count !== undefined) {
-                        countEl.textContent = data.count;
-                    }
-                })
+                .then(data => { if (data.count !== undefined) countEl.textContent = data.count; })
                 .catch(() => {});
         });
     });
 
     // =========================================
-    // AD STICKY LOGIC
+    // AD STICKY
     // =========================================
     const stickyAd = document.getElementById('stickyAd');
     const closeAdBtn = document.getElementById('closeAdBtn');
-    
     if (stickyAd && closeAdBtn) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 600) {
-                stickyAd.classList.add('visible');
-            }
+            if (window.scrollY > 600) stickyAd.classList.add('visible');
         }, { passive: true });
-
-        closeAdBtn.addEventListener('click', () => {
-            stickyAd.style.display = 'none';
-        });
+        closeAdBtn.addEventListener('click', () => { stickyAd.style.display = 'none'; });
     }
 
     // =========================================
@@ -403,19 +334,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = card.getAttribute('data-email');
             const icon = card.querySelector('.contact-arrow i');
             const emailText = card.querySelector('.email-text');
+            if (!email || !icon || !emailText) return;
             const originalText = emailText.textContent;
             const originalIcon = icon.className;
-            
             try {
                 await navigator.clipboard.writeText(email);
                 icon.className = 'fas fa-check';
                 emailText.textContent = 'Copied!';
-                setTimeout(() => {
-                    icon.className = originalIcon;
-                    emailText.textContent = originalText;
-                }, 2000);
-            } catch (err) {
-                console.error('Copy failed:', err);
-            }
+                setTimeout(() => { icon.className = originalIcon; emailText.textContent = originalText; }, 2000);
+            } catch (err) { console.log('Copy failed:', err); }
         });
     });
+
+    console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
+});
