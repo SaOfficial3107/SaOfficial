@@ -1,12 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     // =========================================
-    // SAFETY FALLBACK: Loader luôn ẩn sau 4 giây dù có lỗi
+    // SAFETY: Loader LUÔN ẩn sau 3.5 giây
     // =========================================
     const loader = document.getElementById('loader');
-    const progress = document.getElementById('loaderProgress');
-    const percent = document.getElementById('loaderPercent');
-    const scrambleText = document.getElementById('scrambleText');
-    
     let loaderHidden = false;
     
     function hideLoader() {
@@ -16,14 +12,66 @@ document.addEventListener("DOMContentLoaded", () => {
             loader.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-        // Khởi động animations sau khi loader ẩn
-        setTimeout(() => {
-            try { initScrollAnimations(); } catch(e) { console.log('Scroll anim error:', e); }
-        }, 300);
+        // Khởi động reveal animations sau khi loader ẩn
+        setTimeout(initRevealAnimations, 200);
     }
     
-    // Fallback: forced hide sau 4 giây
-    setTimeout(hideLoader, 4000);
+    // Fallback: forced hide sau 3.5 giây
+    const safetyTimer = setTimeout(hideLoader, 3500);
+
+    // =========================================
+    // LOADER SCRAMBLE + PROGRESS
+    // =========================================
+    try {
+        const progress = document.getElementById('loaderProgress');
+        const percent = document.getElementById('loaderPercent');
+        const scrambleText = document.getElementById('scrambleText');
+        
+        if (scrambleText) {
+            const chars = '!<>-_\\/[]{}—=+*^?#________';
+            const targetText = 'SA';
+            let frame = 0;
+            
+            function scramble() {
+                let output = '';
+                for (let i = 0; i < targetText.length; i++) {
+                    if (frame > 20 + i * 10) {
+                        output += targetText[i];
+                    } else {
+                        output += chars[Math.floor(Math.random() * chars.length)];
+                    }
+                }
+                scrambleText.textContent = output;
+                
+                if (output === targetText) {
+                    // Start progress bar
+                    let width = 0;
+                    const interval = setInterval(() => {
+                        width += Math.random() * 5;
+                        if (width >= 100) {
+                            width = 100;
+                            clearInterval(interval);
+                            clearTimeout(safetyTimer);
+                            setTimeout(hideLoader, 400);
+                        }
+                        if (progress) progress.style.width = width + '%';
+                        if (percent) percent.textContent = Math.floor(width) + '%';
+                    }, 40);
+                } else {
+                    frame++;
+                    requestAnimationFrame(scramble);
+                }
+            }
+            scramble();
+        } else {
+            hideLoader();
+        }
+    } catch(e) {
+        console.log('Loader error:', e);
+        hideLoader();
+    }
+    
+    document.body.style.overflow = 'hidden';
 
     // =========================================
     // HORIZONTAL SCROLLBAR
@@ -32,100 +80,60 @@ document.addEventListener("DOMContentLoaded", () => {
     const scrollPercentLabel = document.getElementById('scrollPercent');
     const hScrollbarLabel = document.querySelector('.horizontal-scrollbar-label');
     
-    function updateHorizontalScrollbar() {
+    window.addEventListener('scroll', () => {
         try {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            
-            if (hScrollbar) hScrollbar.style.width = scrollPercent + '%';
-            if (scrollPercentLabel) scrollPercentLabel.textContent = Math.floor(scrollPercent) + '%';
-            
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            if (hScrollbar) hScrollbar.style.width = pct + '%';
+            if (scrollPercentLabel) scrollPercentLabel.textContent = Math.floor(pct) + '%';
             if (hScrollbarLabel) {
-                if (scrollTop > 100) hScrollbarLabel.classList.add('visible');
-                else hScrollbarLabel.classList.remove('visible');
+                hScrollbarLabel.classList.toggle('visible', scrollTop > 100);
             }
         } catch(e) {}
-    }
-    
-    window.addEventListener('scroll', updateHorizontalScrollbar, { passive: true });
-    updateHorizontalScrollbar();
-
-    // =========================================
-    // RIPPLE EFFECT
-    // =========================================
-    const rippleContainer = document.getElementById('rippleContainer');
-    if (rippleContainer) {
-        document.addEventListener('click', (e) => {
-            const ripple = document.createElement('div');
-            ripple.className = 'ripple';
-            ripple.style.left = e.clientX + 'px';
-            ripple.style.top = e.clientY + 'px';
-            ripple.style.width = '20px';
-            ripple.style.height = '20px';
-            rippleContainer.appendChild(ripple);
-            setTimeout(() => { ripple.remove(); }, 800);
-        });
-    }
-
-    // =========================================
-    // PARTICLE BURST
-    // =========================================
-    const particleBurst = document.getElementById('particleBurst');
-    if (particleBurst) {
-        document.addEventListener('click', (e) => {
-            for (let i = 0; i < 12; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = e.clientX + 'px';
-                particle.style.top = e.clientY + 'px';
-                const angle = (Math.PI * 2 * i) / 12;
-                const velocity = 50 + Math.random() * 50;
-                particle.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
-                particle.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
-                particleBurst.appendChild(particle);
-                setTimeout(() => { particle.remove(); }, 1000);
-            }
-        });
-    }
-
-    // =========================================
-    // SPOTLIGHT CARDS
-    // =========================================
-    document.querySelectorAll('.spotlight-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-        });
-    });
+    }, { passive: true });
 
     // =========================================
     // CURSOR
     // =========================================
     const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
-    const trail = document.getElementById('cursorTrail');
     
-    if (dot && window.innerWidth > 768) {
-        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0, trailX = 0, trailY = 0;
+    if (dot && ring && window.innerWidth > 768) {
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+        
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX; mouseY = e.clientY;
-            dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = mouseX + 'px';
+            dot.style.top = mouseY + 'px';
         });
-        document.querySelectorAll('[data-hover], a, button').forEach(el => {
+        
+        document.querySelectorAll('a, button, [data-hover], .copy-email').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
+        
         function animateCursor() {
-            ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
-            ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
-            trailX += (mouseX - trailX) * 0.08; trailY += (mouseY - trailY) * 0.08;
-            trail.style.left = trailX + 'px'; trail.style.top = trailY + 'px';
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.left = ringX + 'px';
+            ring.style.top = ringY + 'px';
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
     }
+
+    // =========================================
+    // SPOTLIGHT EFFECT (CHO TẤT CẢ CARDS)
+    // =========================================
+    document.querySelectorAll('.prof-card, .service-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+        });
+    });
 
     // =========================================
     // HERO CANVAS PARTICLES
@@ -135,181 +143,106 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const ctx = canvas.getContext('2d');
             let particles = [];
-            let canvasMouseX = 0, canvasMouseY = 0;
-            function resizeCanvas() {
+            let cmx = 0, cmy = 0;
+            
+            function resize() {
                 const hero = document.getElementById('hero');
                 if (hero) { canvas.width = hero.offsetWidth; canvas.height = hero.offsetHeight; }
             }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+            resize();
+            window.addEventListener('resize', resize);
+            
             const heroEl = document.getElementById('hero');
             if (heroEl) {
                 heroEl.addEventListener('mousemove', (e) => {
                     const rect = canvas.getBoundingClientRect();
-                    canvasMouseX = e.clientX - rect.left; canvasMouseY = e.clientY - rect.top;
+                    cmx = e.clientX - rect.left;
+                    cmy = e.clientY - rect.top;
                 });
             }
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.5; this.speedY = (Math.random() - 0.5) * 0.5;
-                }
-                update() {
-                    this.x += this.speedX; this.y += this.speedY;
-                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                    const dx = canvasMouseX - this.x, dy = canvasMouseY - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 150) { this.x -= dx * 0.02; this.y -= dy * 0.02; }
-                }
-                draw() {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-                }
+            
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5 + 0.5,
+                    sx: (Math.random() - 0.5) * 0.3,
+                    sy: (Math.random() - 0.5) * 0.3
+                });
             }
-            for (let i = 0; i < 60; i++) particles.push(new Particle());
-            function animateCanvas() {
+            
+            function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach((p, index) => {
-                    p.update(); p.draw();
-                    for (let j = index + 1; j < particles.length; j++) {
+                particles.forEach((p, i) => {
+                    p.x += p.sx; p.y += p.sy;
+                    if (p.x < 0 || p.x > canvas.width) p.sx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.sy *= -1;
+                    
+                    const dx = cmx - p.x, dy = cmy - p.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 120) { p.x -= dx * 0.01; p.y -= dy * 0.01; }
+                    
+                    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+                    
+                    for (let j = i+1; j < particles.length; j++) {
                         const p2 = particles[j];
-                        const dx = p.x - p2.x, dy = p.y - p2.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 120) {
-                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 120)})`;
+                        const d = Math.sqrt((p.x-p2.x)**2 + (p.y-p2.y)**2);
+                        if (d < 100) {
+                            ctx.strokeStyle = `rgba(255,255,255,${0.08 * (1 - d/100)})`;
                             ctx.lineWidth = 0.5;
                             ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
                         }
                     }
                 });
-                requestAnimationFrame(animateCanvas);
+                requestAnimationFrame(animate);
             }
-            animateCanvas();
+            animate();
         } catch(e) { console.log('Canvas error:', e); }
     }
 
     // =========================================
-    // LOADER SCRAMBLE + PROGRESS
+    // REVEAL ANIMATIONS (IntersectionObserver)
     // =========================================
-    class TextScramble {
-        constructor(el) { this.el = el; this.chars = '!<>-_\\/[]{}—=+*^?#________'; this.update = this.update.bind(this); }
-        setText(newText) {
-            const oldText = this.el.innerText, length = Math.max(oldText.length, newText.length);
-            const promise = new Promise((resolve) => this.resolve = resolve);
-            this.queue = [];
-            for (let i = 0; i < length; i++) {
-                const from = oldText[i] || '', to = newText[i] || '';
-                const start = Math.floor(Math.random() * 40), end = start + Math.floor(Math.random() * 40);
-                this.queue.push({ from, to, start, end });
-            }
-            cancelAnimationFrame(this.frameRequest); this.frame = 0; this.update(); return promise;
-        }
-        update() {
-            let output = '', complete = 0;
-            for (let i = 0, n = this.queue.length; i < n; i++) {
-                let { from, to, start, end, char } = this.queue[i];
-                if (this.frame >= end) { complete++; output += to; }
-                else if (this.frame >= start) {
-                    if (!char || Math.random() < 0.28) { char = this.randomChar(); this.queue[i].char = char; }
-                    output += `<span style="color:var(--fg)">${char}</span>`;
-                } else output += from;
-            }
-            this.el.innerHTML = output;
-            if (complete === this.queue.length) this.resolve();
-            else { this.frameRequest = requestAnimationFrame(this.update); this.frame++; }
-        }
-        randomChar() { return this.chars[Math.floor(Math.random() * this.chars.length)]; }
-    }
-
-    if (loader && scrambleText) {
-        const scrambler = new TextScramble(scrambleText);
-        scrambler.setText('SA').then(() => {
-            let width = 0;
-            const interval = setInterval(() => {
-                width += Math.random() * 4;
-                if (width >= 100) {
-                    width = 100; clearInterval(interval);
-                    setTimeout(hideLoader, 500);
-                }
-                if (progress) progress.style.width = width + '%';
-                if (percent) percent.textContent = Math.floor(width) + '%';
-            }, 30);
-        }).catch(() => { hideLoader(); });
-        document.body.style.overflow = 'hidden';
-    } else {
-        hideLoader();
-    }
-
-    // =========================================
-    // MAGNETIC & TILT
-    // =========================================
-    if (window.innerWidth > 768) {
-        document.querySelectorAll('.magnetic').forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                btn.style.transform = `translate(${(e.clientX - rect.left - rect.width / 2) * 0.2}px, ${(e.clientY - rect.top - rect.height / 2) * 0.2}px)`;
-            });
-            btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0, 0)'; });
-        });
-        document.querySelectorAll('.tilt-3d').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const r = card.getBoundingClientRect();
-                card.style.transform = `perspective(1000px) rotateX(${((e.clientY-r.top-r.height/2)/(r.height/2))*-8}deg) rotateY(${((e.clientX-r.left-r.width/2)/(r.width/2))*8}deg) scale3d(1.03,1.03,1.03)`;
-            });
-            card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)'; });
-        });
-    }
-
-    // =========================================
-    // SCROLL ANIMATIONS
-    // =========================================
-    function initScrollAnimations() {
+    function initRevealAnimations() {
         try {
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
                 });
-            }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-            document.querySelectorAll('.reveal-cinematic').forEach(el => obs.observe(el));
-        } catch(e) { console.log('Observer error:', e); }
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        } catch(e) {
+            console.log('Observer error:', e);
+            // Fallback: hiện tất cả
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
     }
 
     // =========================================
-    // NAVBAR & SMOOTH SCROLL
+    // NAVBAR SCROLL
     // =========================================
     const navbar = document.getElementById('nav');
-    if (navbar) window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
-    
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+    }
+
+    // =========================================
+    // SMOOTH SCROLL
+    // =========================================
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function(e) {
-            const h = this.getAttribute('href'); if (h === '#' || h.length < 2) return;
-            e.preventDefault(); const t = document.querySelector(h);
+            const h = this.getAttribute('href');
+            if (h === '#' || h.length < 2) return;
+            e.preventDefault();
+            const t = document.querySelector(h);
             if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-        });
-    });
-
-    // =========================================
-    // VIEW COUNTER (Safe with try-catch)
-    // =========================================
-    document.querySelectorAll('.view-counter').forEach(link => {
-        const service = link.getAttribute('data-service');
-        const countEl = link.querySelector('.count-num');
-        if (!service || !countEl) return;
-
-        // Fetch count
-        fetch(`https://api.counterapi.dev/v1/saofficial/${service}/`)
-            .then(res => res.json())
-            .then(data => { if (data.count !== undefined) countEl.textContent = data.count; })
-            .catch(() => { countEl.textContent = '0'; });
-
-        // Increment on click
-        link.addEventListener('click', () => {
-            fetch(`https://api.counterapi.dev/v1/saofficial/${service}/up`)
-                .then(res => res.json())
-                .then(data => { if (data.count !== undefined) countEl.textContent = data.count; })
-                .catch(() => {});
         });
     });
 
@@ -318,9 +251,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================
     const stickyAd = document.getElementById('stickyAd');
     const closeAdBtn = document.getElementById('closeAdBtn');
-    if (stickyAd && closeAdBtn) {
+    if (stickyAd && closeAdBtn && window.innerWidth > 1024) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 600) stickyAd.classList.add('visible');
+            if (window.scrollY > 800) stickyAd.classList.add('visible');
         }, { passive: true });
         closeAdBtn.addEventListener('click', () => { stickyAd.style.display = 'none'; });
     }
@@ -332,19 +265,24 @@ document.addEventListener("DOMContentLoaded", () => {
         card.addEventListener('click', async (e) => {
             e.stopPropagation();
             const email = card.getAttribute('data-email');
-            const icon = card.querySelector('.contact-arrow i');
+            const icon = card.querySelector('.cc-arrow i');
             const emailText = card.querySelector('.email-text');
             if (!email || !icon || !emailText) return;
-            const originalText = emailText.textContent;
-            const originalIcon = icon.className;
+            
+            const origText = emailText.textContent;
+            const origIcon = icon.className;
+            
             try {
                 await navigator.clipboard.writeText(email);
                 icon.className = 'fas fa-check';
                 emailText.textContent = 'Copied!';
-                setTimeout(() => { icon.className = originalIcon; emailText.textContent = originalText; }, 2000);
-            } catch (err) { console.log('Copy failed:', err); }
+                setTimeout(() => {
+                    icon.className = origIcon;
+                    emailText.textContent = origText;
+                }, 2000);
+            } catch(err) { console.log('Copy failed'); }
         });
     });
 
-    console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 24px; padding: 15px 25px; font-family: serif; border: 1px solid #333;');
+    console.log('%c SA OFFICIAL ', 'background: #000; color: #fff; font-size: 20px; padding: 10px 20px; font-family: serif;');
 });
