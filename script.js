@@ -342,3 +342,80 @@ document.addEventListener("DOMContentLoaded", () => {
             stickyAd.style.display = 'none';
         });
     }
+    // =========================================
+    // VIEW COUNTER LOGIC (Dùng CounterAPI miễn phí)
+    // =========================================
+    document.querySelectorAll('.view-counter').forEach(link => {
+        const service = link.getAttribute('data-service');
+        const countEl = link.querySelector('.count-num');
+        
+        if (!service || !countEl) return;
+
+        // Fetch current count từ API
+        fetch(`https://api.counterapi.dev/v1/saofficial/${service}/`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.count !== undefined) {
+                    countEl.textContent = data.count;
+                }
+            })
+            .catch(() => {
+                countEl.textContent = '—';
+            });
+
+        // Increment count khi click
+        link.addEventListener('click', () => {
+            fetch(`https://api.counterapi.dev/v1/saofficial/${service}/up`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.count !== undefined) {
+                        countEl.textContent = data.count;
+                    }
+                })
+                .catch(() => {});
+        });
+    });
+
+    // =========================================
+    // AD STICKY LOGIC
+    // =========================================
+    const stickyAd = document.getElementById('stickyAd');
+    const closeAdBtn = document.getElementById('closeAdBtn');
+    
+    if (stickyAd && closeAdBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                stickyAd.classList.add('visible');
+            }
+        }, { passive: true });
+
+        closeAdBtn.addEventListener('click', () => {
+            stickyAd.style.display = 'none';
+        });
+    }
+
+    // =========================================
+    // COPY EMAIL
+    // =========================================
+    document.querySelectorAll('.copy-email').forEach(card => {
+        card.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const email = card.getAttribute('data-email');
+            const icon = card.querySelector('.contact-arrow i');
+            const emailText = card.querySelector('.email-text');
+            const originalText = emailText.textContent;
+            const originalIcon = icon.className;
+            
+            try {
+                await navigator.clipboard.writeText(email);
+                icon.className = 'fas fa-check';
+                emailText.textContent = 'Copied!';
+                setTimeout(() => {
+                    icon.className = originalIcon;
+                    emailText.textContent = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+        });
+    });
