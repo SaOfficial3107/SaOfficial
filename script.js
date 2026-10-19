@@ -12,11 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
             loader.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-        // Khởi động reveal animations sau khi loader ẩn
         setTimeout(initRevealAnimations, 200);
     }
     
-    // Fallback: forced hide sau 3.5 giây
     const safetyTimer = setTimeout(hideLoader, 3500);
 
     // =========================================
@@ -44,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 scrambleText.textContent = output;
                 
                 if (output === targetText) {
-                    // Start progress bar
                     let width = 0;
                     const interval = setInterval(() => {
                         width += Math.random() * 5;
@@ -109,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dot.style.top = mouseY + 'px';
         });
         
-        document.querySelectorAll('a, button, [data-hover], .copy-email').forEach(el => {
+        document.querySelectorAll('a, button, .copy-email').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
@@ -125,13 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================
-    // SPOTLIGHT EFFECT (CHO TẤT CẢ CARDS)
+    // SPOTLIGHT EFFECT
     // =========================================
-    document.querySelectorAll('.prof-card, .service-card').forEach(card => {
+    document.querySelectorAll('.spotlight-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
         });
     });
 
@@ -202,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================
-    // REVEAL ANIMATIONS (IntersectionObserver)
+    // REVEAL ANIMATIONS
     // =========================================
     function initRevealAnimations() {
         try {
@@ -217,14 +214,12 @@ document.addEventListener("DOMContentLoaded", () => {
             
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         } catch(e) {
-            console.log('Observer error:', e);
-            // Fallback: hiện tất cả
             document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
         }
     }
 
     // =========================================
-    // NAVBAR SCROLL
+    // NAVBAR SCROLL & SMOOTH SCROLL
     // =========================================
     const navbar = document.getElementById('nav');
     if (navbar) {
@@ -233,9 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { passive: true });
     }
 
-    // =========================================
-    // SMOOTH SCROLL
-    // =========================================
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function(e) {
             const h = this.getAttribute('href');
