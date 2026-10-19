@@ -8,7 +8,7 @@
     --fg-muted: #888888;
     --fg-dim: #555555;
     --border: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(255, 255, 255, 0.2);
+    --border-hover: rgba(255, 255, 255, 0.25);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -131,7 +131,18 @@ body.hovering .cursor-ring { width: 55px; height: 55px; border-color: var(--fg);
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
 /* Sections */
-.section { position: relative; padding: 140px 50px; border-top: 1px solid var(--border); z-index: 2; }
+.section { 
+    position: relative; 
+    padding: 140px 50px; 
+    border-top: 1px solid var(--border); 
+    z-index: 2; 
+    /* THÊM HIỆU ỨNG NỀN NHẸ CHO TỪNG SECTION */
+    background: linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%);
+}
+.section:nth-child(even) {
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+}
+
 .section-container { max-width: 1600px; margin: 0 auto; }
 .section-header { display: grid; grid-template-columns: 120px 1fr; gap: 60px; margin-bottom: 80px; align-items: start; }
 .section-meta { display: flex; flex-direction: column; gap: 15px; }
@@ -145,7 +156,9 @@ body.hovering .cursor-ring { width: 55px; height: 55px; border-color: var(--fg);
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* Spotlight Effect */
+/* =========================================
+   SPOTLIGHT EFFECT (ĐÃ TĂNG CƯỜNG ĐỘ SÁNG)
+   ========================================= */
 .spotlight-card {
     position: relative;
     background: var(--bg-card);
@@ -154,13 +167,15 @@ body.hovering .cursor-ring { width: 55px; height: 55px; border-color: var(--fg);
     overflow: hidden;
     transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
+
+/* Viền sáng theo chuột - TĂNG ĐỘ SÁNG */
 .spotlight-card::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.4), transparent 40%);
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.6), transparent 40%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -168,20 +183,27 @@ body.hovering .cursor-ring { width: 55px; height: 55px; border-color: var(--fg);
     transition: opacity 0.4s;
     pointer-events: none;
 }
+
+/* Glow nền theo chuột - TĂNG ĐỘ SÁNG */
 .spotlight-card::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+    background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 40%);
     opacity: 0;
     transition: opacity 0.4s;
     pointer-events: none;
 }
-.spotlight-card:hover::before, .spotlight-card:hover::after { opacity: 1; }
-.spotlight-card:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
 
-/* Proficiency Grid (3 CỘT CHO 9 CARDS) */
+.spotlight-card:hover::before, .spotlight-card:hover::after { opacity: 1; }
+.spotlight-card:hover { 
+    transform: translateY(-4px); 
+    border-color: rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255,255,255,0.05); 
+}
+
+/* Proficiency Grid */
 .proficiency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .prof-card { padding: 30px; display: flex; flex-direction: column; gap: 15px; }
 .prof-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.4s; }
