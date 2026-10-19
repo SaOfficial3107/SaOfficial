@@ -181,8 +181,8 @@ body.hovering .cursor-ring { width: 55px; height: 55px; border-color: var(--fg);
 .spotlight-card:hover::before, .spotlight-card:hover::after { opacity: 1; }
 .spotlight-card:hover { transform: translateY(-4px); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
 
-/* Proficiency Grid (4 cột) */
-.proficiency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+/* Proficiency Grid (3 CỘT CHO 9 CARDS) */
+.proficiency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .prof-card { padding: 30px; display: flex; flex-direction: column; gap: 15px; }
 .prof-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: all 0.4s; }
 .spotlight-card:hover .prof-icon { background: var(--fg); color: var(--bg); border-color: var(--fg); transform: scale(1.1); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
@@ -288,10 +288,8 @@ body.hovering .cursor-ring { width: 55px; height: 55px; border-color: var(--fg);
 .footer-loc { color: var(--fg-muted); }
 
 /* Responsive */
-@media (max-width: 1200px) {
-    .proficiency-grid { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 1024px) {
+    .proficiency-grid { grid-template-columns: repeat(2, 1fr); }
     .services-grid { grid-template-columns: 1fr; }
     .hero-container { grid-template-columns: 1fr; gap: 60px; text-align: center; }
     .hero-label { justify-content: center; }
